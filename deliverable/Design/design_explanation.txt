@@ -1,0 +1,13 @@
+For the design of our project, we utilized 4 design patterns: factory, singleton, state, observer/observable.
+
+The factory pattern is used to for vehicle generation. We have a vehicleFactory class and whenever its getVehicle() method is called, it will return a new Vehicle instance. The vehicleFactory is contained in the Simulation class, which keeps track of all of the parameters of the simulation.
+
+The singleton pattern is simply for the game map, which is the Map class. Since only one map will be generated for the entire game, singleton pattern is appropriate here.
+
+The state pattern is used for the different states of the stop lights. RNSGEW, RNSYEW, GNSPEW, YNSPEW classes denote the four possible states of the stoplight. The StopLight Class represent the context which uses these states. 
+
+The oberver/observable pattern is used for the observation of road conditions for vehicles. The Vehicle class implements the observer class, and the Position class, which represents each block on the Grid, implements the observable class.
+
+The strategy class could potentially be used for different vehicle moving strategies. We could have a Vehicle interface with different classes implementing it. Each of these classes implements the move() method differently, by calculating the velocity using different formulas.
+
+The composite design pattern could be used to impose a hierarchy on the map. The entire map could be divided into different sub-blocks. And the leaf of the composite structure is just individual tiles. This is useful in the case that we want to model different districts in the city with different traffic conditions. 
