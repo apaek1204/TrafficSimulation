@@ -1,3 +1,5 @@
+package absentee;
+
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -22,7 +24,7 @@ public class Map {
 				Rectangle rect = new Rectangle(x*scale,y*scale,scale,scale);
 				rect.setStroke(Color.GREY);
 				rect.setFill(Color.GREY);
-				root.add(rect);				
+				root.add(rect);
 			}
 		}
 		for(int y = 5; y < dimensions; y+=12) {
@@ -30,9 +32,9 @@ public class Map {
 				Rectangle rect = new Rectangle(x*scale,y*scale,scale,scale);
 				rect.setStroke(Color.GREY);
 				rect.setFill(Color.GREY);
-				root.add(rect);				
+				root.add(rect);
 			}
-		}		
+		}
 
 	}
 }

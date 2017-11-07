@@ -1,3 +1,10 @@
+package absentee;
+
+
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -13,6 +20,9 @@ import javafx.scene.*;
 public class Simulation extends Application{
 	Map level_map;
 	Scene scene;
+	VehicleFactory factory;
+	ArrayList<Car> carList = new ArrayList<Car>();
+	Timer timer  = new Timer();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -20,6 +30,7 @@ public class Simulation extends Application{
 
 	}
 	private void startSailing() {
+
 
 	}
 	@Override
@@ -29,10 +40,39 @@ public class Simulation extends Application{
 		level_map = new Map();
 		level_map.drawMap(root.getChildren(), 20);
 		scene = new Scene(root,750,750);
-		stage.setTitle("Car Simulation");
+		factory = new VehicleFactory();
+		Point start = new Point(100,0);
+		carList.add(factory.createBasicCar(5, 0, start, start, 3));
+		Image carImage = new Image("file:src/images/basicCar.png",20,20, true, true);
+		for(int i=0; i<carList.size(); i++){
+			carList.get(i).carImage = new ImageView(carImage);
+			carList.get(i).carImage.setX(carList.get(i).curPos.x);
+			carList.get(i).carImage.setY(carList.get(i).curPos.y);
+			root.getChildren().add(carList.get(i).carImage);
+		}
+
+		stage.setTitle("Tokyo Drift");
 		stage.setScene(scene);
 		stage.show();
 		this.startSailing();
+		//start timer
+				timer.schedule(
+					    new TimerTask() {
+
+					        @Override
+					        public void run() {
+					            runGame();
+					        }
+					    }, 0, 200);
+	}
+	public void runGame(){
+		for(int i=0; i<carList.size(); i++){
+			carList.get(i).move(level_map);
+			System.out.println(carList.get(i).curPos.x);
+			System.out.println(carList.get(i).direction);
+			carList.get(i).carImage.setX(carList.get(i).curPos.x);
+			carList.get(i).carImage.setY(carList.get(i).curPos.y);
+		}
 	}
 
 }

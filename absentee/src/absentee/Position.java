@@ -1,3 +1,5 @@
+package absentee;
+
 
 public class Position {
 	int directions[];
@@ -7,5 +9,5 @@ public class Position {
 	}
 	void exit() {
 		this.isOccupied = false;
-	}	
+	}
 }
