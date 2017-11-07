@@ -28,7 +28,7 @@ public class Simulation extends Application{
 		AnchorPane root = new AnchorPane();
 		level_map = new Map();
 		level_map.drawMap(root.getChildren(), 20);
-		scene = new Scene(root,500,500);
+		scene = new Scene(root,750,750);
 		stage.setTitle("Car Simulation");
 		stage.setScene(scene);
 		stage.show();
