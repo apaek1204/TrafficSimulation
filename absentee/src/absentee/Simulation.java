@@ -18,17 +18,20 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.*;
 public class Simulation extends Application{
+
 	Map level_map;
 	Scene scene;
 	VehicleFactory factory;
 	ArrayList<Car> carList = new ArrayList<Car>();
 	Timer timer  = new Timer();
 
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args);
 
 	}
+
 	private void startSailing() {
 
 
