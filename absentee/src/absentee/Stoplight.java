@@ -1,6 +1,8 @@
 package absentee;
 
-public class Stoplight {
+import java.util.Observable;
+
+public class Stoplight extends Observable{
 	//0 red, 1 green, 2 yellow
 	int[] lights;
 	public Stoplight(int lr, int ud) {

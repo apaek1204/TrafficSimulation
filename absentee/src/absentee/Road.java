@@ -27,7 +27,7 @@ public class Road {
 			lastCar.addObserver(car);
 		}
 		else{
-			// not sure what to do here
+			// need to make car observe stoplight
 		}
 		carsList.add(car);
 		lastCar = car;
@@ -72,7 +72,7 @@ public class Road {
 				carsList.remove(0);
 				if(carsList.isEmpty()){
 					lastCar = null;
-				} 
+				}
 			}
 		}
 	}
