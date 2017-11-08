@@ -1,14 +1,12 @@
 package absentee;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
-public class Street {
+public class Road {
 	//private Queue<Car> cars = new LinkedList<Car>();
 	private ArrayList<Car> carsList = new ArrayList<Car>();
 	Car lastCar=null;
 	private int streetLength;
-	public Street(int len){
+	public Road(int len){
 		streetLength = len;
 	}
 
