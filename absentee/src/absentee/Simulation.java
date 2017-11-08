@@ -24,7 +24,10 @@ public class Simulation extends Application{
 	VehicleFactory factory;
 	ArrayList<Car> carList = new ArrayList<Car>();
 	Timer timer  = new Timer();
-
+	ArrayList<Point> startPoints = new ArrayList<Point>();
+	int scale = 20;
+	int timeRun = 0;
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -32,6 +35,25 @@ public class Simulation extends Application{
 
 	}
 
+	public void setupStartPoints()
+	{
+		startPoints.add(new Point(100, 0));
+		/*
+		for(int i = 100; i <= 580; i+=240)
+		{
+			Point start = new Point(i,0);
+			startPoints.add(start);
+			start = new Point(i, 750);
+			startPoints.add(start);
+			start = new Point(0, i);
+			startPoints.add(start);
+			start = new Point(750, i);
+			startPoints.add(start);
+		}
+		*/
+	}
+	
+	
 	private void startSailing() {
 
 
@@ -44,8 +66,12 @@ public class Simulation extends Application{
 		level_map.drawMap(root.getChildren(), 20);
 		scene = new Scene(root,750,750);
 		factory = new VehicleFactory();
+		
+		setupStartPoints();
 		Point start = new Point(100,0);
 		carList.add(factory.createBasicCar(5, 0, start, start, 3,1));
+		
+		
 		Image carImage = new Image("file:src/images/basicCar.png",20,20, true, true);
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).carImage = new ImageView(carImage);
@@ -71,8 +97,9 @@ public class Simulation extends Application{
 	public void runGame(){
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).move(level_map);
-			System.out.println(carList.get(i).curPos.x);
-			System.out.println(carList.get(i).direction);
+			System.out.println("Car xPosition: " + carList.get(i).curPos.x);
+			System.out.println("Car yPosition: " + carList.get(i).curPos.y);
+			System.out.println("Car Direction: " + carList.get(i).direction);
 			carList.get(i).carImage.setX(carList.get(i).curPos.x);
 			carList.get(i).carImage.setY(carList.get(i).curPos.y);
 		}
