@@ -20,6 +20,7 @@ import javafx.scene.*;
 public class Simulation extends Application{
 
 	Map level_map;
+	AnchorPane root;
 	Scene scene;
 	VehicleFactory factory;
 	ArrayList<Car> carList = new ArrayList<Car>();
@@ -38,6 +39,7 @@ public class Simulation extends Application{
 	public void setupStartPoints()
 	{
 		startPoints.add(new Point(100, 0));
+		startPoints.add(new Point(340, 0));
 		/*
 		for(int i = 100; i <= 580; i+=240)
 		{
@@ -53,25 +55,8 @@ public class Simulation extends Application{
 		*/
 	}
 
-
-	private void startSailing() {
-
-
-	}
-	@Override
-	public void start(Stage stage) throws Exception {
-		// TODO Auto-generated method stub
-		AnchorPane root = new AnchorPane();
-		level_map = Map.getInstance();
-		level_map.drawMap(root.getChildren(), 20);
-		scene = new Scene(root,750,750);
-		factory = new VehicleFactory();
-
-		setupStartPoints();
-		Point start = new Point(100,0);
-		Point size = new Point(20,20);
-		carList.add(factory.createBasicCar(5, 0, start, start, 3,size));
-
+	public void setCarImages(Point size)
+	{
 
 		Image carImage = new Image("file:src/images/basicCar.png",size.x,size.y, true, true);
 		for(int i=0; i<carList.size(); i++){
@@ -80,6 +65,31 @@ public class Simulation extends Application{
 			carList.get(i).carImage.setY(carList.get(i).curPos.y);
 			root.getChildren().add(carList.get(i).carImage);
 		}
+
+	}
+
+	private void startSailing() {
+
+
+	}
+	@Override
+	public void start(Stage stage) throws Exception {
+		// TODO Auto-generated method stub
+		root = new AnchorPane();
+		level_map = Map.getInstance();
+		level_map.drawMap(root.getChildren(), 20);
+		scene = new Scene(root,750,750);
+		factory = new VehicleFactory();
+
+		setupStartPoints();
+		//Point start = new Point(100,0);
+		Point size = new Point(20,20);
+
+
+		carList.add(factory.createBasicCar(5, 0, startPoints.get(0), startPoints.get(0), 3,size));
+		carList.add(factory.createBasicCar(5, 0, startPoints.get(1), startPoints.get(1), 3,size));
+		setCarImages(size);
+
 
 		stage.setTitle("Tokyo Drift");
 		stage.setScene(scene);
@@ -91,11 +101,31 @@ public class Simulation extends Application{
 
 					        @Override
 					        public void run() {
-					            runGame();
+					        	windowClosed(stage);
+					        	runGame();
 					        }
 					    }, 0, 200);
 	}
+
+	public void windowClosed(Stage stageTmp)
+	{
+		if(stageTmp == null)
+		{
+			timer.cancel();
+		}
+	}
+
 	public void runGame(){
+		/*
+		Point size = new Point(20,20);
+		timeRun += 200;
+		if(timeRun - 10000 == 0)
+		{
+			timeRun = 0;
+			carList.add(factory.createBasicCar(5, 0, startPoints.get(0), startPoints.get(0), 3,size));
+		}
+*/
+
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).move(level_map);
 			System.out.println("Car xPosition: " + carList.get(i).curPos.x);
