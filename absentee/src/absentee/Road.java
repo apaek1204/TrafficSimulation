@@ -10,7 +10,7 @@ public class Road {
 		streetLength = len;
 	}
 
-	public void addCar(Car car){
+	public void Enter(Car car){
 		if(lastCar != null){
 			lastCar.addObserver(car);
 		}
@@ -34,7 +34,7 @@ public class Road {
 		}
 	}
 
-	public void removeCar(){
+	public void Exit(){
 		carsList.remove(0);
 		if(carsList.get(0) == null){
 			lastCar = null;
