@@ -62,6 +62,7 @@ public abstract class Car extends Observable implements Observer{
 				curVelocity = maxVelocity;
 			}
 		}
+		/*
 		//else if its a stoplight
 		else if(obs instanceof Stoplight){
 			Stoplight tempStop = (Stoplight) obs;
@@ -83,5 +84,6 @@ public abstract class Car extends Observable implements Observer{
 				}
 			}
 		}
+		*/
 	}
 }

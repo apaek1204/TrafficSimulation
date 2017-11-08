@@ -10,13 +10,11 @@ public class Road {
 	private Point endPoint;
 	private Point startPoint;
 	private Intersection intersection;
-	private Stoplight stopLight;
-	public Road(int len, Point end, Point start, Intersection i, Stoplight sl){
+	public Road(int len, Point end, Point start, Intersection i){
 		streetLength = len;
 		endPoint = end;
 		startPoint = start;
 		intersection = i;
-		stopLight = sl;
 	}
 	public Point getStart(){
 		return startPoint;
@@ -28,10 +26,7 @@ public class Road {
 		if(lastCar != null){
 			lastCar.addObserver(car);
 		}
-		else{
-			// need to make car observe stoplight
-			stopLight.addObserver(car);
-		}
+
 		carsList.add(car);
 		lastCar = car;
 
@@ -71,6 +66,7 @@ public class Road {
 	public void Exit(){
 		if(canExit()) {
 			Car nextCar = carsList.get(0);
+			nextCar.deleteObserver(carsList.get(1));
 			if(intersection.canEnter(nextCar)) {
 				carsList.remove(0);
 				if(carsList.isEmpty()){
