@@ -1,13 +1,17 @@
 package absentee;
 
+import java.awt.Point;
+
 public class Intersection {
 	Car currentCar;
 	Road[] roads;
 	Stoplight stoplight;
-	public Intersection(Road[] r, Stoplight s) {
+	Point pos;
+	public Intersection(Road[] r, Stoplight s, Point p) {
 		roads = r;
 		stoplight = s;
 		currentCar = null;
+		pos = p;
 	}
 	public Boolean canEnter(Car car) {
 		//0 left, 1 right, 2 up, 3 down 

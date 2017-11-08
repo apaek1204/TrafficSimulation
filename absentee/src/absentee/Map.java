@@ -7,7 +7,6 @@ import javafx.scene.shape.Rectangle;
 public class Map {
 
 	boolean[][] grid = new boolean[50][50];
-	Position [][] position = new Position[50][50];
 	final int dimensions = 50;
 
 	private static Map mapSingleton = new Map(); //Make map a singleton
@@ -31,7 +30,6 @@ public class Map {
 				rect.setFill(Color.GREEN);
 				root.add(rect);
 				grid[x][y] = false;
-				position[x][y] = new Position();
 			}
 		}
 		for(int x = 5; x < dimensions; x+=12) {
