@@ -20,7 +20,7 @@ public class Intersection {
 			return false;
 		}
 
-		if(stoplight.lights[nextDir] == 0) return false;
+		if(stoplight.lights[nextDir] == 0 || stoplight.lights[nextDir] == 2) return false;
 
 		return true;
 	}
@@ -32,7 +32,7 @@ public class Intersection {
 		Road nextRoad = roads[nextDir];
 		if(nextRoad.canEnter(currentCar.size)) {
 			nextRoad.Enter(currentCar);
+			currentCar = null;
 		}
-		currentCar = null;
 	}
 }

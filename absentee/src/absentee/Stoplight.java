@@ -10,4 +10,10 @@ public class Stoplight {
 		lights[2] = ud;
 		lights[3] = ud;
 	}
+	public void changeLight(int lr, int ud) {
+		lights[0] = lr;
+		lights[1] = lr;
+		lights[2] = ud;
+		lights[3] = ud;
+	}
 }
