@@ -51,7 +51,9 @@ public abstract class Car extends Observable implements Observer{
 	}
 
 	public void update(Observable obs, Object arg1){
+		//if the observable is a car
 		if(obs instanceof Car){
+			//match car speed
 			Car tempcar = (Car) obs;
 			if(tempcar.curVelocity == 0){
 				curVelocity = 0;
@@ -60,9 +62,10 @@ public abstract class Car extends Observable implements Observer{
 				curVelocity = maxVelocity;
 			}
 		}
-
+		//else if its a stoplight
 		else if(obs instanceof Stoplight){
 			Stoplight tempStop = (Stoplight) obs;
+			//check if red or not, and change velocity as necessary
 			if(direction == 0 || direction == 1){
 				if(tempStop.lights[0] == 1){
 					curVelocity = maxVelocity;
