@@ -21,12 +21,12 @@ public class Road {
 		lastCar = car;
 
 	}
-	public boolean canEnter(Car car){
+	public boolean canEnter(double carSize){
 		int totalSize = 0;
 		for(int i=0; i<carsList.size(); i++){
 			totalSize += carsList.get(i).size;
 		}
-		if(streetLength - totalSize >= car.size){
+		if(streetLength - totalSize >= carSize){
 			return true;
 		}
 		else{
