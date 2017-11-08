@@ -27,7 +27,7 @@ public class Simulation extends Application{
 	ArrayList<Point> startPoints = new ArrayList<Point>();
 	int scale = 20;
 	int timeRun = 0;
-	
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -52,8 +52,8 @@ public class Simulation extends Application{
 		}
 		*/
 	}
-	
-	
+
+
 	private void startSailing() {
 
 
@@ -62,17 +62,18 @@ public class Simulation extends Application{
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
 		AnchorPane root = new AnchorPane();
-		level_map = new Map();
+		level_map = Map.getInstance();
 		level_map.drawMap(root.getChildren(), 20);
 		scene = new Scene(root,750,750);
 		factory = new VehicleFactory();
-		
+
 		setupStartPoints();
 		Point start = new Point(100,0);
-		carList.add(factory.createBasicCar(5, 0, start, start, 3,1));
-		
-		
-		Image carImage = new Image("file:src/images/basicCar.png",20,20, true, true);
+		Point size = new Point(20,20);
+		carList.add(factory.createBasicCar(5, 0, start, start, 3,size));
+
+
+		Image carImage = new Image("file:src/images/basicCar.png",size.x,size.y, true, true);
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).carImage = new ImageView(carImage);
 			carList.get(i).carImage.setX(carList.get(i).curPos.x);
