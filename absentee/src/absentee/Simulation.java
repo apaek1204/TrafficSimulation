@@ -84,6 +84,10 @@ public class Simulation extends Application{
 		stage.setTitle("Tokyo Drift");
 		stage.setScene(scene);
 		stage.show();
+		stage.setOnCloseRequest(event -> {
+			timer.cancel();
+			timer.purge();
+		});
 		this.startSailing();
 		//start timer
 				timer.schedule(
