@@ -13,9 +13,9 @@ public abstract class Car extends Observable implements Observer{
 	public double breakDistance;
 	public Point destination;
 	public ImageView carImage;
-	public double size;
+	public Point size;
 	public int direction = 0;	//0 = left, 1 = right, 2 = up, 3 = down
-	public Car(double maxVel, double breakDis, Point cur, Point des, int dir, double s){
+	public Car(double maxVel, double breakDis, Point cur, Point des, int dir, Point s){
 		maxVelocity = maxVel;
 		curPos = cur;
 		breakDistance = breakDis;
