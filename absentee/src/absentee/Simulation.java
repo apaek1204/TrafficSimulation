@@ -45,7 +45,7 @@ public class Simulation extends Application{
 		scene = new Scene(root,750,750);
 		factory = new VehicleFactory();
 		Point start = new Point(100,0);
-		carList.add(factory.createBasicCar(5, 0, start, start, 3));
+		carList.add(factory.createBasicCar(5, 0, start, start, 3,1));
 		Image carImage = new Image("file:src/images/basicCar.png",20,20, true, true);
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).carImage = new ImageView(carImage);
