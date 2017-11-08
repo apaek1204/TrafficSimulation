@@ -17,7 +17,7 @@ public class Intersection {
 		}
 
 		if(stoplight.lights[nextDir] == 0) return false;
-		
+
 		return true;
 	}
 	public void Enter(Car car) {
