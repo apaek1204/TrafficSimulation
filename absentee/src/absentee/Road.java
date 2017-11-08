@@ -9,10 +9,12 @@ public class Road {
 	private int streetLength;
 	private Point endPoint;
 	private Point startPoint;
-	public Road(int len, Point end, Point start){
+	private Intersection intersection;
+	public Road(int len, Point end, Point start, Intersection i){
 		streetLength = len;
 		endPoint = end;
 		startPoint = start;
+		intersection = i;
 	}
 	public Point getStart(){
 		return startPoint;
@@ -64,12 +66,17 @@ public class Road {
 	}
 
 	public void Exit(){
-		carsList.remove(0);
-		if(carsList.get(0) == null){
-			lastCar = null;
+		if(canExit()) {
+			Car nextCar = carsList.get(0);
+			if(intersection.canEnter(nextCar)) {
+				carsList.remove(0);
+				if(carsList.isEmpty()){
+					lastCar = null;
+				} 
+			}
 		}
 	}
-	public boolean canExit(){
+	private boolean canExit(){
 		//0 = left, 1 = right, 2 = up, 3 = down
 		switch(carsList.get(0).direction){
 			case 0: if(carsList.get(0).curPos.x <= endPoint.x){
