@@ -42,7 +42,7 @@ public abstract class Car extends Observable implements Observer{
 	public void setDirection(int dir){
 		direction = dir;
 	}
-	public int getNextDir(){
+	public int getNextDirection(){
 		Random rand = new Random();
 		int  n = rand.nextInt(4);
 		return n;
