@@ -8,12 +8,18 @@ public class Road {
 	Car lastCar=null;
 	private int streetLength;
 	private Point endPoint;
-	public Road(int len, Point end){
+	private Point startPoint;
+	public Road(int len, Point end, Point start){
 		streetLength = len;
 		endPoint = end;
-
+		startPoint = start;
 	}
-
+	public Point getStart(){
+		return startPoint;
+	}
+	public Point getEnd(){
+		return endPoint;
+	}
 	public void Enter(Car car){
 		if(lastCar != null){
 			lastCar.addObserver(car);
