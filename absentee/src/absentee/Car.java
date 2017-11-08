@@ -3,6 +3,7 @@ package absentee;
 import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 import javafx.scene.image.ImageView;
 
@@ -12,14 +13,15 @@ public abstract class Car extends Observable implements Observer{
 	public double breakDistance;
 	public Point destination;
 	public ImageView carImage;
-
+	public double size;
 	public int direction = 0;	//0 = left, 1 = right, 2 = up, 3 = down
-	public Car(double maxVel, double breakDis, Point cur, Point des, int dir){
+	public Car(double maxVel, double breakDis, Point cur, Point des, int dir, double s){
 		maxVelocity = maxVel;
 		curPos = cur;
 		breakDistance = breakDis;
 		destination = des;
 		direction = dir;
+		size = s;
 	}
 	public Point move(Map curMap){
 		notifyObservers();
@@ -39,6 +41,11 @@ public abstract class Car extends Observable implements Observer{
 	}
 	public void setDirection(int dir){
 		direction = dir;
+	}
+	public int getNextDir(){
+		Random rand = new Random();
+		int  n = rand.nextInt(4);
+		return n;
 	}
 
 	public void update(Observable car, Object arg1){
