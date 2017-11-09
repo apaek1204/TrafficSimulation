@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -27,6 +29,7 @@ public class Simulation extends Application{
 	ArrayList<Point> startPoints = new ArrayList<Point>();
 	int scale = 20;
 	int timeRun = 0;
+	AnchorPane root;
 
 
 	public static void main(String[] args) {
@@ -38,64 +41,68 @@ public class Simulation extends Application{
 	public void setupStartPoints()
 	{
 		startPoints.add(new Point(100, 0));
-		/*
-		for(int i = 100; i <= 580; i+=240)
-		{
-			Point start = new Point(i,0);
-			startPoints.add(start);
-			start = new Point(i, 750);
-			startPoints.add(start);
-			start = new Point(0, i);
-			startPoints.add(start);
-			start = new Point(750, i);
-			startPoints.add(start);
-		}
-		*/
 	}
 
-
-	private void startSailing() {
-
-
-	}
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
-		AnchorPane root = new AnchorPane();
+		root = new AnchorPane();
 		level_map = Map.getInstance();
 		level_map.drawMap(root.getChildren(), 20);
 		scene = new Scene(root,750,750);
 		factory = new VehicleFactory();
-
 		setupStartPoints();
-		Point start = new Point(100,0);
-		Point size = new Point(20,20);
-		carList.add(factory.createBasicCar(5, 0, start, start, 3,size));
+		
+		stage.setTitle("Tokyo Drift");
+		stage.setScene(scene);
+		stage.show();
+	
+		new AnimationTimer(){
+			@Override
+			public void handle(long now) {
+				//runGame(root.getChildren());			
+			}			
+		}.start();
+		
+		// Here is another timer that is an extension of Animation Timer and slows it down.  (See class AnimationTimerExtension.java)		
+		new AnimationTimerExtension(1000){
+			@Override
+			public void handle() {
+				runGame(root.getChildren());				
+			}
+				
+		}.start();
 
+		////start timer
+		//timer.schedule(
+	   // new TimerTask() {
 
+	    //    @Override
+	    //    public void run() {
+	    //        runGame(root.getChildren());
+	    //    }
+		//}, 0, 200);
+	}
+	
+	public void setCarImages(Point size, ObservableList<Node> rootNodeList){
 		Image carImage = new Image("file:src/images/basicCar.png",size.x,size.y, true, true);
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).carImage = new ImageView(carImage);
 			carList.get(i).carImage.setX(carList.get(i).curPos.x);
 			carList.get(i).carImage.setY(carList.get(i).curPos.y);
-			root.getChildren().add(carList.get(i).carImage);
+			rootNodeList.add(carList.get(i).carImage);
 		}
-
-		stage.setTitle("Tokyo Drift");
-		stage.setScene(scene);
-		stage.show();
-		this.startSailing();
-		//start timer
-				timer.schedule(
-					    new TimerTask() {
-
-					        @Override
-					        public void run() {
-					            runGame();
-					        }
-					    }, 0, 200);
 	}
-	public void runGame(){
+	
+	public void runGame(ObservableList<Node> rootNodeList){
+		//Moved this part into rungame
+		System.out.println("Adding a car");
+		Point size = new Point(20,20);
+		Point start = new Point(100,0);
+		carList.add(factory.createBasicCar(5, 0, start,start, 3,size));
+				
+		setCarImages(size, rootNodeList);
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).move(level_map);
 			System.out.println("Car xPosition: " + carList.get(i).curPos.x);
