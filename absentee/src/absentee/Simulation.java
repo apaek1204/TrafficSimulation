@@ -43,7 +43,7 @@ public class Simulation extends Application{
 		startPoints.add(new Point(100, 0));
 	}
 
-	
+
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
@@ -53,25 +53,35 @@ public class Simulation extends Application{
 		scene = new Scene(root,750,750);
 		factory = new VehicleFactory();
 		setupStartPoints();
-		
+
 		stage.setTitle("Tokyo Drift");
 		stage.setScene(scene);
 		stage.show();
-	
+
+		/* Old TImer for reference
 		new AnimationTimer(){
 			@Override
 			public void handle(long now) {
-				//runGame(root.getChildren());			
-			}			
+				//runGame(root.getChildren());
+			}
 		}.start();
-		
-		// Here is another timer that is an extension of Animation Timer and slows it down.  (See class AnimationTimerExtension.java)		
+		*/
+
+		// Here is another timer that is an extension of Animation Timer and slows it down.  (See class AnimationTimerExtension.java)
 		new AnimationTimerExtension(1000){
 			@Override
 			public void handle() {
-				runGame(root.getChildren());				
+				runGame(root.getChildren());
 			}
-				
+
+		}.start();
+
+		new AnimationTimerExtension(5000){
+			@Override
+			public void handle() {
+				makeCar(root.getChildren());
+			}
+
 		}.start();
 
 		////start timer
@@ -84,25 +94,38 @@ public class Simulation extends Application{
 	    //    }
 		//}, 0, 200);
 	}
-	
+
 	public void setCarImages(Point size, ObservableList<Node> rootNodeList){
 		Image carImage = new Image("file:src/images/basicCar.png",size.x,size.y, true, true);
+		int i = carList.size() - 1;
+
+		carList.get(i).carImage = new ImageView(carImage);
+		carList.get(i).carImage.setX(carList.get(i).curPos.x);
+		carList.get(i).carImage.setY(carList.get(i).curPos.y);
+		rootNodeList.add(carList.get(i).carImage);
+
+		/*
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).carImage = new ImageView(carImage);
 			carList.get(i).carImage.setX(carList.get(i).curPos.x);
 			carList.get(i).carImage.setY(carList.get(i).curPos.y);
 			rootNodeList.add(carList.get(i).carImage);
 		}
+		*/
 	}
-	
-	public void runGame(ObservableList<Node> rootNodeList){
-		//Moved this part into rungame
+
+	public void makeCar(ObservableList<Node> rootNodeList)
+	{
 		System.out.println("Adding a car");
 		Point size = new Point(20,20);
 		Point start = new Point(100,0);
 		carList.add(factory.createBasicCar(5, 0, start,start, 3,size));
-				
 		setCarImages(size, rootNodeList);
+	}
+
+	public void runGame(ObservableList<Node> rootNodeList){
+		//Moved this part into rungame
+
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).move(level_map);
 			System.out.println("Car xPosition: " + carList.get(i).curPos.x);
