@@ -38,7 +38,7 @@ public abstract class Car extends Observable implements Observer{
 					break;
 			default: break;
 		}
-
+		direction = getNextDirection();
 		return curPos;
 	}
 	public void setDirection(int dir){

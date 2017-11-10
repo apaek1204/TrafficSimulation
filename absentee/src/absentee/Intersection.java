@@ -27,12 +27,16 @@ public class Intersection {
 	public void Enter(Car car) {
 		currentCar = car;
 	}
+
 	public void Exit() {
+		
 		int nextDir = currentCar.getNextDirection();
 		Road nextRoad = roads[nextDir];
 		if(nextRoad.canEnter(currentCar.size)) {
+			currentCar.curVelocity = currentCar.maxVelocity;
 			nextRoad.Enter(currentCar);
 			currentCar = null;
 		}
+		currentCar.curVelocity = 0;
 	}
 }
