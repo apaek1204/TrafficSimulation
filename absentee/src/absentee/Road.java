@@ -26,9 +26,7 @@ public class Road {
 		if(lastCar != null){
 			lastCar.addObserver(car);
 		}
-		else{
-			// not sure what to do here
-		}
+
 		carsList.add(car);
 		lastCar = car;
 
@@ -68,11 +66,12 @@ public class Road {
 	public void Exit(){
 		if(canExit()) {
 			Car nextCar = carsList.get(0);
+			nextCar.deleteObserver(carsList.get(1));
 			if(intersection.canEnter(nextCar)) {
 				carsList.remove(0);
 				if(carsList.isEmpty()){
 					lastCar = null;
-				} 
+				}
 			}
 		}
 	}

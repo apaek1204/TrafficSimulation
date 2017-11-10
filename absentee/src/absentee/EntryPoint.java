@@ -16,9 +16,9 @@ public class EntryPoint {
 		this.Currcar = car;
 	}
 	public void Exit() {
-		//if(NextRoad.canEnter(this.Currcar)) {
-		//	NextRoad.Enter(this.Currcar);
-		//	this.Currcar = null;
-		//}
+		if(NextRoad.canEnter(this.Currcar.size)) {
+			NextRoad.Enter(this.Currcar);
+			this.Currcar = null;
+		}
 	}
 }

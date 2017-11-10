@@ -114,6 +114,7 @@ public class Simulation extends Application{
 		*/
 	}
 
+//<<<<<<< JanesFixesForDougsBranch
 	public void makeCar(ObservableList<Node> rootNodeList)
 	{
 		System.out.println("Adding a car");

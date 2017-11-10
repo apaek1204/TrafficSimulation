@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 
 public abstract class Car extends Observable implements Observer{
 	public double maxVelocity;
+	public double curVelocity;
 	public Point curPos;
 	public double breakDistance;
 	public Point destination;
@@ -17,6 +18,7 @@ public abstract class Car extends Observable implements Observer{
 	public int direction = 0;	//0 = left, 1 = right, 2 = up, 3 = down
 	public Car(double maxVel, double breakDis, Point cur, Point des, int dir, Point s){
 		maxVelocity = maxVel;
+		curVelocity = maxVel;
 		curPos = cur;
 		breakDistance = breakDis;
 		destination = des;
@@ -26,13 +28,13 @@ public abstract class Car extends Observable implements Observer{
 	public Point move(Map curMap){
 		notifyObservers();
 		switch(direction){
-			case 0: curPos.x -= maxVelocity;
+			case 0: curPos.x -= curVelocity;
 					break;
-			case 1: curPos.x += maxVelocity;
+			case 1: curPos.x += curVelocity;
 					break;
-			case 2: curPos.y -= maxVelocity;
+			case 2: curPos.y -= curVelocity;
 					break;
-			case 3: curPos.y += maxVelocity;
+			case 3: curPos.y += curVelocity;
 					break;
 			default: break;
 		}
@@ -48,7 +50,40 @@ public abstract class Car extends Observable implements Observer{
 		return n;
 	}
 
-	public void update(Observable car, Object arg1){
-		Car tempcar = (Car) car;
+	public void update(Observable obs, Object arg1){
+		//if the observable is a car
+		if(obs instanceof Car){
+			//match car speed
+			Car tempcar = (Car) obs;
+			if(tempcar.curVelocity == 0){
+				curVelocity = 0;
+			}
+			else{
+				curVelocity = maxVelocity;
+			}
+		}
+		/*
+		//else if its a stoplight
+		else if(obs instanceof Stoplight){
+			Stoplight tempStop = (Stoplight) obs;
+			//check if red or not, and change velocity as necessary
+			if(direction == 0 || direction == 1){
+				if(tempStop.lights[0] == 1){
+					curVelocity = maxVelocity;
+				}
+				else{
+					curVelocity = 0;
+				}
+			}
+			else{
+				if(tempStop.lights[3] == 1){
+					curVelocity = maxVelocity;
+				}
+				else{
+					curVelocity = 0;
+				}
+			}
+		}
+		*/
 	}
 }
