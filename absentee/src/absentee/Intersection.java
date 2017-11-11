@@ -1,17 +1,21 @@
 package absentee;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Intersection {
 	Car currentCar;
-	Road[] roads;
+	ArrayList<Road> roads;
 	Stoplight stoplight;
 	Point pos;
-	public Intersection(Road[] r, Stoplight s, Point p) {
-		roads = r;
+	public Intersection(Stoplight s, Point p) {
+		roads = new ArrayList<Road>();
 		stoplight = s;
 		currentCar = null;
 		pos = p;
+	}
+	public void addRoad(Road r) {
+		this.roads.add(r);
 	}
 	public Boolean canEnter(Car car) {
 		//0 left, 1 right, 2 up, 3 down 
@@ -31,7 +35,7 @@ public class Intersection {
 	public void Exit() {
 		
 		int nextDir = currentCar.getNextDirection();
-		Road nextRoad = roads[nextDir];
+		Road nextRoad = roads.get(nextDir);
 		if(nextRoad.canEnter(currentCar.size)) {
 			currentCar.curVelocity = currentCar.maxVelocity;
 			nextRoad.Enter(currentCar);

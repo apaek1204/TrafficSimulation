@@ -1,5 +1,8 @@
 package absentee;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -8,11 +11,39 @@ public class Map {
 
 	boolean[][] grid = new boolean[50][50];
 	final int dimensions = 50;
-
+	private ArrayList<Road> roadList = new ArrayList<Road>();
 	private static Map mapSingleton = new Map(); //Make map a singleton
+	private EntryPoint startPoint;
+	private Road startRoad;
+	private Road nextRoad;
+	private Intersection startInt;
+	private Map() { 
+		this.startPoint = new EntryPoint(new Point(100,0));
+		this.startRoad = new Road(100,new Point(100,0), new Point(100,100));
+		this.startPoint.addRoad(this.startRoad);
+		this.startInt = new Intersection(new Stoplight(0,0),new Point(100,100));
+		this.startRoad.addIntersection(this.startInt);
+		Road a = new Road(100,new Point(0,100), new Point(100,100));
+		Road b = new Road(100,new Point(100,100), new Point(200,100));
+		Road c = new Road(100,new Point(100,100), new Point(100,200));
+		this.startInt.addRoad(a);
+		this.startInt.addRoad(b);
+		this.startInt.addRoad(this.startRoad);
+		this.startInt.addRoad(c);
+		this.roadList.add(a);
+		this.roadList.add(b);
+		this.roadList.add(c);
+		this.roadList.add(this.startRoad);
+	}
 
-	private Map() { }
-
+	public ArrayList<Road> getRoads(){
+		return this.roadList;
+	}
+	
+	public EntryPoint getEntryPoint() {
+		return this.startPoint;
+	}
+	
 	public static Map getInstance(){
 		return mapSingleton;
 	}

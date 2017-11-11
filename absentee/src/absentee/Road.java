@@ -10,11 +10,14 @@ public class Road {
 	private Point endPoint;
 	private Point startPoint;
 	private Intersection intersection;
-	public Road(int len, Point end, Point start, Intersection i){
+	public Road(int len, Point end, Point start){
 		streetLength = len;
 		endPoint = end;
 		startPoint = start;
-		intersection = i;
+		intersection = null;
+	}
+	public void addIntersection(Intersection i) {
+		this.intersection = i;
 	}
 	public Point getStart(){
 		return startPoint;
