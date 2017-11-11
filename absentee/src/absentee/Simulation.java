@@ -68,7 +68,7 @@ public class Simulation extends Application{
 		*/
 
 		// Here is another timer that is an extension of Animation Timer and slows it down.  (See class AnimationTimerExtension.java)
-		new AnimationTimerExtension(1000){
+		new AnimationTimerExtension(1000){ //Handles overall running of the simulation
 			@Override
 			public void handle() {
 				runGame(root.getChildren());
@@ -76,7 +76,7 @@ public class Simulation extends Application{
 
 		}.start();
 
-		new AnimationTimerExtension(5000){
+		new AnimationTimerExtension(5000){//Handles creation of a new car at set intervals
 			@Override
 			public void handle() {
 				makeCar(root.getChildren());
@@ -84,7 +84,7 @@ public class Simulation extends Application{
 
 		}.start();
 
-		////start timer
+		////start timer /** Old Code **/
 		//timer.schedule(
 	   // new TimerTask() {
 
@@ -95,6 +95,7 @@ public class Simulation extends Application{
 		//}, 0, 200);
 	}
 
+	//Set the image of a new car when it is made
 	public void setCarImages(Point size, ObservableList<Node> rootNodeList){
 		Image carImage = new Image("file:src/images/basicCar.png",size.x,size.y, true, true);
 		int i = carList.size() - 1;
@@ -114,7 +115,7 @@ public class Simulation extends Application{
 		*/
 	}
 
-//<<<<<<< JanesFixesForDougsBranch
+	//Create a new car
 	public void makeCar(ObservableList<Node> rootNodeList)
 	{
 		System.out.println("Adding a car");
@@ -124,8 +125,8 @@ public class Simulation extends Application{
 		setCarImages(size, rootNodeList);
 	}
 
+	//Move each car that is made
 	public void runGame(ObservableList<Node> rootNodeList){
-		//Moved this part into rungame
 
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).move(level_map);
