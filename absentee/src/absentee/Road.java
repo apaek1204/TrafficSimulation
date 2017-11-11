@@ -71,6 +71,7 @@ public class Road {
 			Car nextCar = carsList.get(0);
 			nextCar.deleteObserver(carsList.get(1));
 			if(intersection.canEnter(nextCar)) {
+				intersection.Enter(nextCar);
 				carsList.remove(0);
 				if(carsList.isEmpty()){
 					lastCar = null;
@@ -80,24 +81,26 @@ public class Road {
 	}
 	private boolean canExit(){
 		//0 = left, 1 = right, 2 = up, 3 = down
-		switch(carsList.get(0).direction){
-			case 0: if(carsList.get(0).curPos.x <= endPoint.x){
-						return true;
-					};
-					break;
-			case 1: if(carsList.get(0).curPos.x >= endPoint.x+carsList.get(0).size.x){
-						return true;
-					};
-					break;
-			case 2: if(carsList.get(0).curPos.y <= endPoint.y){
-						return true;
-					};
-					break;
-			case 3: if(carsList.get(0).curPos.y >= endPoint.y+carsList.get(0).size.y){
-						return true;
-					};
-					break;
-			default: break;
+		if(carsList.size()>0){
+			switch(carsList.get(0).direction){
+				case 0: if(carsList.get(0).curPos.x <= endPoint.x){
+							return true;
+						};
+						break;
+				case 1: if(carsList.get(0).curPos.x >= endPoint.x+carsList.get(0).size.x){
+							return true;
+						};
+						break;
+				case 2: if(carsList.get(0).curPos.y <= endPoint.y){
+							return true;
+						};
+						break;
+				case 3: if(carsList.get(0).curPos.y >= endPoint.y+carsList.get(0).size.y){
+							return true;
+						};
+						break;
+				default: break;
+			}
 		}
 		return false;
 	}
