@@ -69,8 +69,8 @@ public class Road {
 	public void Exit(){
 		if(canExit()) {
 			Car nextCar = carsList.get(0);
-			nextCar.deleteObserver(carsList.get(1));
 			if(intersection.canEnter(nextCar)) {
+				nextCar.deleteObserver(carsList.get(1));
 				intersection.Enter(nextCar);
 				carsList.remove(0);
 				if(carsList.isEmpty()){
