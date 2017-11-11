@@ -68,13 +68,10 @@ public class Road {
 			Car nextCar = carsList.get(0);
 			nextCar.deleteObserver(carsList.get(1));
 			if(intersection.canEnter(nextCar)) {
-				nextCar.curVelocity = nextCar.maxVelocity;
 				carsList.remove(0);
 				if(carsList.isEmpty()){
 					lastCar = null;
 				}
-			} else {
-				nextCar.curVelocity = 0;
 			}
 		}
 	}

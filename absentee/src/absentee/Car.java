@@ -26,6 +26,7 @@ public abstract class Car extends Observable implements Observer{
 		size = s;
 	}
 	public Point move(Map curMap){
+		//every time move is called, add the current velocity to the car's position
 		notifyObservers();
 		switch(direction){
 			case 0: curPos.x -= curVelocity;
@@ -38,7 +39,7 @@ public abstract class Car extends Observable implements Observer{
 					break;
 			default: break;
 		}
-		direction = getNextDirection();
+		//direction = getNextDirection();
 		return curPos;
 	}
 	public void setDirection(int dir){
