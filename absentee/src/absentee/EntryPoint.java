@@ -18,6 +18,9 @@ public class EntryPoint {
 	public void addRoad(Road r) {
 		this.NextRoad = r;
 	}
+	public Point getPoint() {
+		return this.StartPoint;
+	}
 	public void Exit() {
 		if(NextRoad.canEnter(this.Currcar.size)) {
 			NextRoad.Enter(this.Currcar);
