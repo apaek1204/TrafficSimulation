@@ -25,10 +25,15 @@ public class Simulation extends Application{
 	Scene scene;
 	VehicleFactory factory;
 	ArrayList<Car> carList = new ArrayList<Car>();
+	Intersection oneIntersection;
+	ArrayList<Road> roadList = new ArrayList<Road>();
 	Timer timer  = new Timer();
 	ArrayList<Point> startPoints = new ArrayList<Point>();
+
+	EntryPoint startingPoint;
 	int scale = 20;
 	int timeRun = 0;
+	Point start;
 	AnchorPane root;
 
 
@@ -52,6 +57,12 @@ public class Simulation extends Application{
 		level_map.drawMap(root.getChildren(), 20);
 		scene = new Scene(root,750,750);
 		factory = new VehicleFactory();
+
+		roadList = level_map.getRoads();
+		this.startingPoint = level_map.getEntryPoint();
+		this.oneIntersection = level_map.getIntersection();
+		//start = startingPoint.getPoint();
+
 		setupStartPoints();
 
 		stage.setTitle("Tokyo Drift");
@@ -72,16 +83,16 @@ public class Simulation extends Application{
 			@Override
 			public void handle() {
 				runGame(root.getChildren());
+				exitRoads(root.getChildren());
+				exitEntryPoints(root.getChildren());
 			}
-
 		}.start();
 
-		new AnimationTimerExtension(5000){//Handles creation of a new car at set intervals
+		new AnimationTimerExtension(20000){//Handles creation of a new car at set intervals
 			@Override
 			public void handle() {
 				makeCar(root.getChildren());
 			}
-
 		}.start();
 
 		////start timer /** Old Code **/
@@ -93,6 +104,23 @@ public class Simulation extends Application{
 	    //        runGame(root.getChildren());
 	    //    }
 		//}, 0, 200);
+	}
+
+	public void exitEntryPoints(ObservableList<Node> rootNodeList)
+	{
+		this.startingPoint.Exit();
+	}
+
+	public void exitRoads(ObservableList<Node> rootNodeList)
+	{
+		this.oneIntersection.Exit();
+		for(int i = 0; i < roadList.size(); i++)
+		{
+			//System.out.println("We are here");
+			//if(roadList.get(i).getIntsection())
+				//System.out.println("Road " + i + " has an intersection.");
+			roadList.get(i).Exit();
+		}
 	}
 
 	//Set the image of a new car when it is made
@@ -120,19 +148,33 @@ public class Simulation extends Application{
 	{
 		System.out.println("Adding a car");
 		Point size = new Point(20,20);
-		Point start = new Point(100,0);
-		carList.add(factory.createBasicCar(5, 0, start,start, 3,size));
+
+		//System.out.println("Start: " + start);
+		start = new Point(100, 0);
+		Car tmpCar = factory.createBasicCar(5, 0, start,start, 3,size);
+		carList.add(tmpCar);
+		//this.startingPoint.Enter(tmpCar);
+		roadList.get(3).Enter(tmpCar);
 		setCarImages(size, rootNodeList);
 	}
 
 	//Move each car that is made
 	public void runGame(ObservableList<Node> rootNodeList){
 
+		for(int i = 0; i < roadList.size(); i++)
+		{
+			//System.out.println("Road: " + i);
+			if(roadList.get(i).getCarSize() > 0)
+			{
+				System.out.println("Road: " + i);
+				System.out.println("Size: " + roadList.get(i).getCarSize());
+			}
+		}
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).move(level_map);
-			System.out.println("Car xPosition: " + carList.get(i).curPos.x);
-			System.out.println("Car yPosition: " + carList.get(i).curPos.y);
-			System.out.println("Car Direction: " + carList.get(i).direction);
+			//System.out.println("Car xPosition: " + carList.get(i).curPos.x);
+			//System.out.println("Car yPosition: " + carList.get(i).curPos.y);
+			//System.out.println("Car Direction: " + carList.get(i).direction);
 			carList.get(i).carImage.setX(carList.get(i).curPos.x);
 			carList.get(i).carImage.setY(carList.get(i).curPos.y);
 		}

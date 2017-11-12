@@ -22,9 +22,12 @@ public class EntryPoint {
 		return this.StartPoint;
 	}
 	public void Exit() {
-		if(NextRoad.canEnter(this.Currcar.size)) {
-			NextRoad.Enter(this.Currcar);
-			this.Currcar = null;
+		if(Currcar != null)
+		{
+			if(NextRoad.canEnter(this.Currcar.size)) {
+				NextRoad.Enter(this.Currcar);
+				this.Currcar = null;
+			}
 		}
 	}
 }

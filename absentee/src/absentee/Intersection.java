@@ -18,13 +18,13 @@ public class Intersection {
 		this.roads.add(r);
 	}
 	public Boolean canEnter(Car car) {
-		//0 left, 1 right, 2 up, 3 down 
+		//0 left, 1 right, 2 up, 3 down
 		int nextDir = car.getNextDirection();
 		if(currentCar != null) {
 			return false;
 		}
 
-		if(stoplight.lights[nextDir] == 0 || stoplight.lights[nextDir] == 2) return false;
+		//if(stoplight.lights[nextDir] == 0 || stoplight.lights[nextDir] == 2) return false;
 
 		return true;
 	}
@@ -33,14 +33,21 @@ public class Intersection {
 	}
 
 	public void Exit() {
-		
-		int nextDir = currentCar.getNextDirection();
+		System.out.println("Intersect Car: " + this.currentCar);
+		if(currentCar == null)
+			return;
+		//int nextDir = currentCar.getNextDirection();
+		int nextDir = 3;
 		Road nextRoad = roads.get(nextDir);
-		if(nextRoad.canEnter(currentCar.size)) {
+		/*if(nextRoad.canEnter(currentCar.size)) {
 			currentCar.curVelocity = currentCar.maxVelocity;
 			nextRoad.Enter(currentCar);
 			currentCar = null;
+		}*/
+		if(currentCar != null){
+			nextRoad.Enter(currentCar);
+			currentCar = null;
 		}
-		currentCar.curVelocity = 0;
+		//currentCar.curVelocity = 0;
 	}
 }

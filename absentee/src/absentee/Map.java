@@ -17,15 +17,18 @@ public class Map {
 	private Road startRoad;
 	private Road nextRoad;
 	private Intersection startInt;
-	private Map() { 
+	private Map() {
 		this.startPoint = new EntryPoint(new Point(100,0));
 		this.startRoad = new Road(100,new Point(100,0), new Point(100,100));
 		this.startPoint.addRoad(this.startRoad);
-		this.startInt = new Intersection(new Stoplight(0,0),new Point(100,100));
+		this.startInt = new Intersection(new Stoplight(0,1),new Point(100,100));
 		this.startRoad.addIntersection(this.startInt);
 		Road a = new Road(100,new Point(0,100), new Point(100,100));
 		Road b = new Road(100,new Point(100,100), new Point(200,100));
 		Road c = new Road(100,new Point(100,100), new Point(100,200));
+		a.addIntersection(this.startInt);
+		b.addIntersection(this.startInt);
+		c.addIntersection(this.startInt);
 		this.startInt.addRoad(a);
 		this.startInt.addRoad(b);
 		this.startInt.addRoad(this.startRoad);
@@ -39,13 +42,18 @@ public class Map {
 	public ArrayList<Road> getRoads(){
 		return this.roadList;
 	}
-	
+
 	public EntryPoint getEntryPoint() {
 		return this.startPoint;
 	}
-	
+
 	public static Map getInstance(){
 		return mapSingleton;
+	}
+
+	public Intersection getIntersection()
+	{
+		return this.startInt;
 	}
 
 	protected static void demoMethod()
@@ -58,7 +66,7 @@ public class Map {
 				rect.setStroke(Color.GREY);
 				rect.setFill(Color.GREY);
 				root.add(rect);
-			}		
+			}
 	}
 	public void drawSegmentVert(int y1, int y2, int x2,ObservableList<Node> root,int scale) {
 		for(int y = y1; y < y2; y++) {
@@ -66,7 +74,7 @@ public class Map {
 			rect.setStroke(Color.GREY);
 			rect.setFill(Color.GREY);
 			root.add(rect);
-		}		
+		}
 }
 	public void drawMap(ObservableList<Node> root,int scale) {
 		for(int x = 0; x < dimensions; x++) {
@@ -83,7 +91,7 @@ public class Map {
 				Rectangle rect = new Rectangle(x*scale,y*scale,scale,scale);
 				rect.setStroke(Color.RED);
 				rect.setFill(Color.RED);
-				root.add(rect);					
+				root.add(rect);
 			}
 		}
 		drawSegmentHoriz(0,5,5,root,scale);
@@ -97,7 +105,7 @@ public class Map {
 		drawSegmentVert(0,5,17,root,scale);
 		drawSegmentVert(30,38,17,root,scale);
 		drawSegmentVert(0,5,29,root,scale);
-		drawSegmentVert(30,38,29,root,scale);		
+		drawSegmentVert(30,38,29,root,scale);
 		drawSegmentHoriz(6,17,5,root,scale);
 		drawSegmentHoriz(18,29,5,root,scale);
 		drawSegmentHoriz(6,17,17,root,scale);
@@ -109,6 +117,6 @@ public class Map {
 		drawSegmentVert(6,17,17,root,scale);
 		drawSegmentVert(18,29,17,root,scale);
 		drawSegmentVert(6,17,29,root,scale);
-		drawSegmentVert(18,29,29,root,scale);		
+		drawSegmentVert(18,29,29,root,scale);
 	}
 }
