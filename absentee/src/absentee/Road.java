@@ -89,7 +89,7 @@ public class Road {
 				System.out.println("Trying to pop car");
 				if(carsList.size() > 1)
 				{
-					nextCar.deleteObserver(carsList.get(carsList.size()-1));
+					nextCar.deleteObserver(carsList.get(1));
 				}
 				intersection.Enter(nextCar);
 				carsList.remove(0);
