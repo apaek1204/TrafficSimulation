@@ -10,7 +10,7 @@ public class Road {
 	private Point endPoint;
 	private Point startPoint;
 	private Intersection intersection;
-	public Road(int len, Point end, Point start){
+	public Road(int len, Point start,Point end){
 		streetLength = len;
 		endPoint = end;
 		startPoint = start;
@@ -38,8 +38,8 @@ public class Road {
 	public void Enter(Car car){
 		if(lastCar != null){
 			lastCar.addObserver(car);
+			System.out.println("added obs");
 		}
-
 		carsList.add(car);
 		lastCar = car;
 
@@ -107,21 +107,27 @@ public class Road {
 			switch(carsList.get(0).direction){
 				case 0: if(carsList.get(0).curPos.x <= endPoint.x){
 							//System.out.println("Case 0");
+					carsList.get(0).curVelocity = 0;
+
 							return true;
 						};
 						break;
 				case 1: if(carsList.get(0).curPos.x >= endPoint.x+carsList.get(0).size.x){
 							//System.out.println("Case 1");
+							carsList.get(0).curVelocity = 0;
+
 							return true;
 						};
 						break;
 				case 2: if(carsList.get(0).curPos.y <= endPoint.y){
 							//System.out.println("Case 2");
+							carsList.get(0).curVelocity = 0;
+
 							return true;
 						};
 						break;
-				case 3: if(carsList.get(0).curPos.y >= endPoint.y+carsList.get(0).size.y && carsList.get(0).curPos.y > 80){
-							System.out.println("Case 3");
+				case 3: if(carsList.get(0).curPos.y >= endPoint.y-carsList.get(0).size.y){
+							carsList.get(0).curVelocity = 0;
 							return true;
 						};
 						break;

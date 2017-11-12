@@ -88,7 +88,14 @@ public class Simulation extends Application{
 			}
 		}.start();
 
-		new AnimationTimerExtension(20000){//Handles creation of a new car at set intervals
+		new AnimationTimerExtension(3000){ //Handles overall running of the simulation
+			@Override
+			public void handle() {
+				changeLights(root.getChildren());
+			}
+		}.start();
+
+		new AnimationTimerExtension(5000){//Handles creation of a new car at set intervals
 			@Override
 			public void handle() {
 				makeCar(root.getChildren());
@@ -104,6 +111,12 @@ public class Simulation extends Application{
 	    //        runGame(root.getChildren());
 	    //    }
 		//}, 0, 200);
+	}
+
+	public void changeLights(ObservableList<Node> rootNodeList)
+	{
+		System.out.println("Change Light");
+		this.oneIntersection.stoplight.changeLight(0, 1);
 	}
 
 	public void exitEntryPoints(ObservableList<Node> rootNodeList)
@@ -147,7 +160,7 @@ public class Simulation extends Application{
 	public void makeCar(ObservableList<Node> rootNodeList)
 	{
 		System.out.println("Adding a car");
-		Point size = new Point(20,20);
+		Point size = new Point(20,14);
 
 		//System.out.println("Start: " + start);
 		start = new Point(100, 0);

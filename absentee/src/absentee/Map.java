@@ -21,7 +21,7 @@ public class Map {
 		this.startPoint = new EntryPoint(new Point(100,0));
 		this.startRoad = new Road(100,new Point(100,0), new Point(100,100));
 		this.startPoint.addRoad(this.startRoad);
-		this.startInt = new Intersection(new Stoplight(0,1),new Point(100,100));
+		this.startInt = new Intersection(new Stoplight(1,0),new Point(100,100));
 		this.startRoad.addIntersection(this.startInt);
 		Road a = new Road(100,new Point(0,100), new Point(100,100));
 		Road b = new Road(100,new Point(100,100), new Point(200,100));

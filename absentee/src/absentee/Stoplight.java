@@ -11,6 +11,15 @@ public class Stoplight{
 		lights[2] = ud;
 		lights[3] = ud;
 	}
+	public void swap()
+	{
+		int first = lights[0];
+		int second = lights[2];
+		lights[0] = second;
+		lights[1] = second;
+		lights[2] = first;
+		lights[3] = first;
+	}
 	public void changeLight(int lr, int ud) {
 		lights[0] = lr;
 		lights[1] = lr;

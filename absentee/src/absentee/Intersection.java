@@ -24,16 +24,17 @@ public class Intersection {
 			return false;
 		}
 
-		//if(stoplight.lights[nextDir] == 0 || stoplight.lights[nextDir] == 2) return false;
+		if(stoplight.lights[nextDir] == 0 || stoplight.lights[nextDir] == 2) return false;
 
 		return true;
 	}
 	public void Enter(Car car) {
 		currentCar = car;
+		car.curVelocity=car.maxVelocity;
 	}
 
 	public void Exit() {
-		System.out.println("Intersect Car: " + this.currentCar);
+		//System.out.println("Intersect Car: " + this.currentCar);
 		if(currentCar == null)
 			return;
 		//int nextDir = currentCar.getNextDirection();

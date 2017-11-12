@@ -27,6 +27,7 @@ public abstract class Car extends Observable implements Observer{
 	}
 	public Point move(Map curMap){
 		//every time move is called, add the current velocity to the car's position
+		setChanged();
 		notifyObservers();
 		switch(direction){
 			case 0: curPos.x -= curVelocity;
@@ -50,18 +51,38 @@ public abstract class Car extends Observable implements Observer{
 		int  n = rand.nextInt(4);
 		return n;
 	}
-
+	@Override
 	public void update(Observable obs, Object arg1){
 		//if the observable is a car
 		if(obs instanceof Car){
 			//match car speed
 			Car tempcar = (Car) obs;
-			if(tempcar.curVelocity == 0){
-				curVelocity = 0;
+
+			switch(direction){
+				case 0: if(curPos.x <= tempcar.curPos.x + tempcar.size.x){
+							//System.out.println("Case 0");
+							curVelocity = 0;
+						};
+						break;
+				case 1: if(curPos.x + size.x >= tempcar.curPos.x){
+							//System.out.println("Case 1");
+							curVelocity = 0;
+						};
+						break;
+				case 2: if(curPos.y <= tempcar.curPos.y + tempcar.size.y){
+							//System.out.println("Case 2");
+							curVelocity = 0;
+						};
+						break;
+				case 3: if(curPos.y + size.y >= tempcar.curPos.y){
+							curVelocity = 0;
+						};
+						break;
+				default:
+						curVelocity = maxVelocity;
+						break;
 			}
-			else{
-				curVelocity = maxVelocity;
-			}
+
 		}
 		/*
 		//else if its a stoplight
