@@ -25,7 +25,7 @@ public class Simulation extends Application{
 	Scene scene;
 	VehicleFactory factory;
 	ArrayList<Car> carList = new ArrayList<Car>();
-	Intersection oneIntersection;
+	ArrayList<Intersection> oneIntersection = new ArrayList<Intersection>();
 	ArrayList<Road> roadList = new ArrayList<Road>();
 	Timer timer  = new Timer();
 	ArrayList<Point> startPoints = new ArrayList<Point>();
@@ -79,7 +79,7 @@ public class Simulation extends Application{
 		*/
 
 		// Here is another timer that is an extension of Animation Timer and slows it down.  (See class AnimationTimerExtension.java)
-		new AnimationTimerExtension(1000){ //Handles overall running of the simulation
+		new AnimationTimerExtension(500){ //Handles overall running of the simulation
 			@Override
 			public void handle() {
 				runGame(root.getChildren());
@@ -116,7 +116,16 @@ public class Simulation extends Application{
 	public void changeLights(ObservableList<Node> rootNodeList)
 	{
 		System.out.println("Change Light");
-		this.oneIntersection.stoplight.changeLight(0, 1);
+		for(int i = 0; i < oneIntersection.size();i++) {
+			this.oneIntersection.get(i).stoplight.swap();
+		}
+		if(this.oneIntersection.get(0).stoplight.lights[3] == 1) {
+			this.level_map.drawGreenInt(root.getChildren());
+		}
+		else {
+			this.level_map.drawRedInt(root.getChildren());
+		}
+		//this.oneIntersection.stoplight.changeLight(0, 1);
 	}
 
 	public void exitEntryPoints(ObservableList<Node> rootNodeList)
@@ -126,7 +135,10 @@ public class Simulation extends Application{
 
 	public void exitRoads(ObservableList<Node> rootNodeList)
 	{
-		this.oneIntersection.Exit();
+		for(int i = 0; i < oneIntersection.size();i++) {
+			this.oneIntersection.get(i).Exit();
+		}
+		//this.oneIntersection.Exit();
 		for(int i = 0; i < roadList.size(); i++)
 		{
 			//System.out.println("We are here");
