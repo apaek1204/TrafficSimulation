@@ -11,13 +11,13 @@ public class TestIntersection {
 	@Test
 	public void test() {
 		Stoplight s = new Stoplight(0, 0);
-		Road r = new Road(3, new Point(0, 0), new Point(0, 3), null);
+		Road r = new Road(3, new Point(0, 0), new Point(0, 3));
 		Road[] roads = new Road[4];
 		roads[0] = r;
 		roads[1] = r;
 		roads[2] = r;
 		roads[3] = r;
-		Intersection i = new Intersection(roads, s, new Point(0, 4));
+		Intersection i = new Intersection(s, new Point(0, 4));
 		Car c = new BasicCar(0, 0, new Point(0, 0), new Point(0, 0), 0, new Point(0, 0));
 		//cannot enter because red light
 		assertFalse(i.canEnter(c));
