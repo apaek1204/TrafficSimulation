@@ -95,7 +95,7 @@ public class Simulation extends Application{
 			}
 		}.start();
 
-		new AnimationTimerExtension(5000){//Handles creation of a new car at set intervals
+		new AnimationTimerExtension(2000){//Handles creation of a new car at set intervals
 			@Override
 			public void handle() {
 				makeCar(root.getChildren());
@@ -115,7 +115,7 @@ public class Simulation extends Application{
 
 	public void changeLights(ObservableList<Node> rootNodeList)
 	{
-		System.out.println("Change Light");
+		//System.out.println("Change Light");
 		for(int i = 0; i < oneIntersection.size();i++) {
 			this.oneIntersection.get(i).stoplight.swap();
 		}
@@ -150,7 +150,7 @@ public class Simulation extends Application{
 
 	//Set the image of a new car when it is made
 	public void setCarImages(Point size, ObservableList<Node> rootNodeList){
-		Image carImage = new Image("file:src/images/basicCar.png",size.x,size.y, true, true);
+		Image carImage = new Image("file:src/images/basicCarDown.png",size.x,size.y, true, true);
 		int i = carList.size() - 1;
 
 		carList.get(i).carImage = new ImageView(carImage);
@@ -171,12 +171,12 @@ public class Simulation extends Application{
 	//Create a new car
 	public void makeCar(ObservableList<Node> rootNodeList)
 	{
-		System.out.println("Adding a car");
-		Point size = new Point(20,14);
+		//System.out.println("Adding a car");
+		Point size = new Point(14,20);
 
 		//System.out.println("Start: " + start);
 		start = new Point(100, 0);
-		Car tmpCar = factory.createBasicCar(5, 0, start,start, 3,size);
+		Car tmpCar = factory.createBasicCar(10, 20, start,start, 3,size);
 		carList.add(tmpCar);
 		//this.startingPoint.Enter(tmpCar);
 		roadList.get(3).Enter(tmpCar);
@@ -191,12 +191,12 @@ public class Simulation extends Application{
 			//System.out.println("Road: " + i);
 			if(roadList.get(i).getCarSize() > 0)
 			{
-				System.out.println("Road: " + i);
-				System.out.println("Size: " + roadList.get(i).getCarSize());
+				//System.out.println("Road: " + i);
+				//System.out.println("Size: " + roadList.get(i).getCarSize());
 			}
 		}
 		for(int i=0; i<carList.size(); i++){
-			carList.get(i).move(level_map);
+			carList.get(i).move();
 			//System.out.println("Car xPosition: " + carList.get(i).curPos.x);
 			//System.out.println("Car yPosition: " + carList.get(i).curPos.y);
 			//System.out.println("Car Direction: " + carList.get(i).direction);

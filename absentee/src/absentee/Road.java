@@ -38,11 +38,10 @@ public class Road {
 	public void Enter(Car car){
 		if(lastCar != null){
 			lastCar.addObserver(car);
-			System.out.println("added obs");
 		}
 		carsList.add(car);
 		lastCar = car;
-
+		car.deleteObservers();
 	}
 	public boolean canEnter(Point carSize){
 		int totalSize = 0;
@@ -86,11 +85,7 @@ public class Road {
 					return;
 			//System.out.println(intersection.canEnter(nextCar));
 			if(intersection.canEnter(nextCar)) {
-				System.out.println("Trying to pop car");
-				if(carsList.size() > 1)
-				{
-					nextCar.deleteObserver(carsList.get(1));
-				}
+				//System.out.println("Trying to pop car");
 				intersection.Enter(nextCar);
 				carsList.remove(0);
 				if(carsList.isEmpty()){
@@ -102,8 +97,7 @@ public class Road {
 	private boolean canExit(){
 		//0 = left, 1 = right, 2 = up, 3 = down
 		if(carsList.size()>0){
-			//System.out.println("X: " + carsList.get(0).curPos.x);
-			//System.out.println("Y: " + carsList.get(0).curPos.y);
+			//see if car edge is at edge of the road
 			switch(carsList.get(0).direction){
 				case 0: if(carsList.get(0).curPos.x <= endPoint.x){
 							//System.out.println("Case 0");

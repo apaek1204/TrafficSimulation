@@ -25,10 +25,8 @@ public abstract class Car extends Observable implements Observer{
 		direction = dir;
 		size = s;
 	}
-	public Point move(Map curMap){
+	public Point move(){
 		//every time move is called, add the current velocity to the car's position
-		setChanged();
-		notifyObservers();
 		switch(direction){
 			case 0: curPos.x -= curVelocity;
 					break;
@@ -41,6 +39,9 @@ public abstract class Car extends Observable implements Observer{
 			default: break;
 		}
 		//direction = getNextDirection();
+		setChanged();
+		notifyObservers();
+
 		return curPos;
 	}
 	public void setDirection(int dir){
@@ -57,30 +58,41 @@ public abstract class Car extends Observable implements Observer{
 		if(obs instanceof Car){
 			//match car speed
 			Car tempcar = (Car) obs;
-
+			int stopDistance = 1;
+			int distanceToObstacle;
 			switch(direction){
-				case 0: if(curPos.x <= tempcar.curPos.x + tempcar.size.x){
-							//System.out.println("Case 0");
-							curVelocity = 0;
-						};
-						break;
-				case 1: if(curPos.x + size.x >= tempcar.curPos.x){
-							//System.out.println("Case 1");
-							curVelocity = 0;
-						};
-						break;
-				case 2: if(curPos.y <= tempcar.curPos.y + tempcar.size.y){
-							//System.out.println("Case 2");
-							curVelocity = 0;
-						};
-						break;
-				case 3: if(curPos.y + size.y >= tempcar.curPos.y){
-							curVelocity = 0;
-						};
-						break;
+
+				case 0:
+					distanceToObstacle = curPos.x - (tempcar.curPos.x + tempcar.size.x);
+					curVelocity = (maxVelocity / (breakDistance - stopDistance)) * (distanceToObstacle - stopDistance);
+					curVelocity = Math.max(0.0, curVelocity);
+					curVelocity = Math.min(maxVelocity, curVelocity);
+					System.out.println("vel is = " + curVelocity);
+					break;
+				case 1:
+					distanceToObstacle = (curPos.x + size.x - (tempcar.curPos.x))*-1;
+					curVelocity = (maxVelocity / (breakDistance - stopDistance)) * (distanceToObstacle - stopDistance);
+					curVelocity = Math.max(0.0, curVelocity);
+					curVelocity = Math.min(maxVelocity, curVelocity);
+					System.out.println("vel is = " + curVelocity);
+					break;
+				case 2:
+					distanceToObstacle = curPos.y - (tempcar.curPos.y + tempcar.size.y);
+					curVelocity = (maxVelocity / (breakDistance - stopDistance)) * (distanceToObstacle - stopDistance);
+					curVelocity = Math.max(0.0, curVelocity);
+					curVelocity = Math.min(maxVelocity, curVelocity);
+					System.out.println("vel is = " + curVelocity);
+					break;
+				case 3:
+					distanceToObstacle = (curPos.y +size.y - tempcar.curPos.y)* -1;
+					curVelocity = (maxVelocity / (breakDistance - stopDistance)) * (distanceToObstacle - stopDistance);
+					curVelocity = Math.max(0.0, curVelocity);
+					curVelocity = Math.min(maxVelocity, curVelocity);
+					System.out.println("vel is = " + curVelocity);
+					break;
 				default:
-						curVelocity = maxVelocity;
-						break;
+					curVelocity = maxVelocity;
+					break;
 			}
 
 		}
