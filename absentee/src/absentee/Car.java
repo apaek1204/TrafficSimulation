@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public abstract class Car extends Observable implements Observer{
@@ -28,6 +29,7 @@ public abstract class Car extends Observable implements Observer{
 	public Point move(){
 		//every time move is called, add the current velocity to the car's position
 		switch(direction){
+
 			case 0: curPos.x -= curVelocity;
 					break;
 			case 1: curPos.x += curVelocity;
@@ -46,6 +48,35 @@ public abstract class Car extends Observable implements Observer{
 	}
 	public void setDirection(int dir){
 		direction = dir;
+		Image carI;
+		//changes car image based on new direction
+		//hasnt been tested
+		switch(direction){
+			case 0: curPos.x -= curVelocity;
+				carI= new Image("file:src/images/basicCarLeft.png",size.x,size.y, true, true);
+				carImage = new ImageView(carI);
+				carImage.setX(curPos.x);
+				carImage.setY(curPos.y);
+				break;
+			case 1: curPos.x += curVelocity;
+				carI= new Image("file:src/images/basicCarLeft.png",size.x,size.y, true, true);
+				carImage = new ImageView(carI);
+				carImage.setX(curPos.x);
+				carImage.setY(curPos.y);
+				break;
+			case 2: curPos.y -= curVelocity;
+				carI= new Image("file:src/images/basicCarLeft.png",size.x,size.y, true, true);
+				carImage = new ImageView(carI);
+				carImage.setX(curPos.x);
+				carImage.setY(curPos.y);
+				break;
+			case 3: curPos.y += curVelocity;
+				carI= new Image("file:src/images/basicCarLeft.png",size.x,size.y, true, true);
+				carImage = new ImageView(carI);
+				carImage.setX(curPos.x);
+				carImage.setY(curPos.y);
+				break;
+		}
 	}
 	public int getNextDirection(){
 		Random rand = new Random();
