@@ -65,7 +65,7 @@ public class Simulation extends Application{
 
 		setupStartPoints();
 
-		stage.setTitle("Tokyo Drift");
+		stage.setTitle("Driving in Europe");
 		stage.setScene(scene);
 		stage.show();
 
