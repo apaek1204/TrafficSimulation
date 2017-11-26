@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -32,9 +33,15 @@ public class Simulation extends Application{
 
 	EntryPoint startingPoint;
 	int scale = 20;
-	int timeRun = 0;
 	Point start;
 	AnchorPane root;
+	int timeRun = 1000000;
+	int carMin = 2000;
+	int carMax = 15000;
+	int carTime = 5000; //Between 2000 and 15000
+	Slider slider = new Slider(carMin, carMax, 5000);
+	int animationTime = 100;
+	//JSlider slider = new JSlider(2000, 15000, carTime);
 
 
 	public static void main(String[] args) {
@@ -62,6 +69,22 @@ public class Simulation extends Application{
 		this.startingPoint = level_map.getEntryPoint();
 		this.oneIntersection = level_map.getIntersection();
 		//start = startingPoint.getPoint();
+
+		/*
+		slider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+                    System.out.println(new_val.doubleValue());
+                    opacityValue.setText(String.format("%.2f", new_val));
+            }
+        });
+        */
+		slider.setShowTickLabels(true);
+		slider.setShowTickMarks(true);
+		slider.setMajorTickUnit(1000f);
+        slider.setBlockIncrement(100f);
+		root.getChildren().add(slider);
+
 
 		setupStartPoints();
 
@@ -185,7 +208,8 @@ public class Simulation extends Application{
 
 	//Move each car that is made
 	public void runGame(ObservableList<Node> rootNodeList){
-
+		carTime = (int)slider.getValue();
+		System.out.println((int)slider.getValue());
 		for(int i = 0; i < roadList.size(); i++)
 		{
 			//System.out.println("Road: " + i);
