@@ -118,7 +118,7 @@ public class Simulation extends Application{
 			}
 		}.start();
 
-		new AnimationTimerExtension(5000){//Handles creation of a new car at set intervals
+		new AnimationTimerExtension(carTime){//Handles creation of a new car at set intervals
 			@Override
 			public void handle() {
 				if(carList.size()<1)
@@ -126,15 +126,15 @@ public class Simulation extends Application{
 			}
 		}.start();
 
-		////start timer /** Old Code **/
-		//timer.schedule(
-	   // new TimerTask() {
+		//start timer /** Old Code **/
+		timer.schedule(
+	    new TimerTask() {
 
-	    //    @Override
-	    //    public void run() {
-	    //        runGame(root.getChildren());
-	    //    }
-		//}, 0, 200);
+	        @Override
+	        public void run() {
+	            endGame();
+	        }
+		}, timeRun, timeRun);
 	}
 
 	public void changeLights(ObservableList<Node> rootNodeList)
@@ -196,7 +196,7 @@ public class Simulation extends Application{
 	public void makeCar(ObservableList<Node> rootNodeList)
 	{
 		//System.out.println("Adding a car");
-		Point size = new Point(14,20);
+		Point size = new Point(20,35);
 
 		//System.out.println("Start: " + start);
 		start = new Point(100, 0);
@@ -231,6 +231,11 @@ public class Simulation extends Application{
 			carList.get(i).carImage.setX(carList.get(i).curPos.x);
 			carList.get(i).carImage.setY(carList.get(i).curPos.y);
 		}
+	}
+
+	public void endGame()
+	{
+		System.exit(0);
 	}
 
 }
