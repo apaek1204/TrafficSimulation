@@ -118,9 +118,10 @@ public class Simulation extends Application{
 			}
 		}.start();
 
-		new AnimationTimerExtension(2000){//Handles creation of a new car at set intervals
+		new AnimationTimerExtension(5000){//Handles creation of a new car at set intervals
 			@Override
 			public void handle() {
+				if(carList.size()<1)
 				makeCar(root.getChildren());
 			}
 		}.start();
@@ -199,7 +200,9 @@ public class Simulation extends Application{
 
 		//System.out.println("Start: " + start);
 		start = new Point(100, 0);
-		Car tmpCar = factory.createBasicCar(10, 20, start,start, 3,size);
+		ArrayList<Point> des = new ArrayList<Point>();
+		des.add(new Point(200,200));
+		Car tmpCar = factory.createBasicCar(10, 20, start,des, 3,size);
 		carList.add(tmpCar);
 		//this.startingPoint.Enter(tmpCar);
 		roadList.get(3).Enter(tmpCar);
@@ -209,7 +212,8 @@ public class Simulation extends Application{
 	//Move each car that is made
 	public void runGame(ObservableList<Node> rootNodeList){
 		carTime = (int)slider.getValue();
-		System.out.println((int)slider.getValue());
+
+		//System.out.println((int)slider.getValue());
 		for(int i = 0; i < roadList.size(); i++)
 		{
 			//System.out.println("Road: " + i);
