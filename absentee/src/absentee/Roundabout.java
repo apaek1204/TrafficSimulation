@@ -32,7 +32,7 @@ public class Roundabout {
 		if(currentCar == null)
 			return;
 		int nextDir = currentCar.getNextDirection();
-		currentCar.setDirection(nextDir);
+		//currentCar.setDirection(nextDir);
 		Road nextRoad = roads.get(nextDir);
 		/*if(nextRoad.canEnter(1currentCar.size)) {
 			currentCar.curVelocity = currentCar.maxVelocity;

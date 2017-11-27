@@ -202,7 +202,8 @@ public class Simulation extends Application{
 		start = new Point(100, 0);
 		ArrayList<Point> des = new ArrayList<Point>();
 		des.add(new Point(200,200));
-		Car tmpCar = factory.createBasicCar(10, 20, start,des, 3,size);
+
+		Car tmpCar = factory.createBasicCar(10, 20, start,des, level_map.getRoads().get(3),size);
 		carList.add(tmpCar);
 		//this.startingPoint.Enter(tmpCar);
 		roadList.get(3).Enter(tmpCar);

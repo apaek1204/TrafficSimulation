@@ -20,16 +20,16 @@ public class Map {
 	private ArrayList<Intersection> intList = new ArrayList<Intersection>();
 	private Map() {
 		this.startPoint = new EntryPoint(new Point(100,0));
-		this.startRoad = new Road(100,new Point(100,0), new Point(100,100));
+		this.startRoad = new Road(100,new Point(100,0), new Point(100,100),3);
 		this.startPoint.addRoad(this.startRoad);
 		this.startInt = new Intersection(new Stoplight(0,0),new Point(100,100));
 		this.startRoad.addIntersection(this.startInt);
-		Road a = new Road(100,new Point(0,100), new Point(100,100));
-		Road b = new Road(100,new Point(100,100), new Point(200,100));
-		Road c = new Road(240,new Point(100,100), new Point(100,340));
-		Road d = new Road(100,new Point(0,340), new Point(100,340));
-		Road e = new Road(410,new Point(340,340), new Point(340,750));
-		Road f = new Road(100,new Point(340,340), new Point(440,340));
+		Road a = new Road(100,new Point(0,100), new Point(100,100), 1);
+		Road b = new Road(100,new Point(100,100), new Point(340,100),1);
+		Road c = new Road(240,new Point(100,100), new Point(100,340),3);
+		Road d = new Road(100,new Point(0,340), new Point(100,340),1);
+		Road e = new Road(410,new Point(340,340), new Point(340,750),1);
+		Road f = new Road(100,new Point(340,340), new Point(440,340),3);
 		Intersection temp = new Intersection(new Stoplight(0,0), new Point(340,340));
 		d.addIntersection(temp);
 		f.addIntersection(temp);
@@ -73,7 +73,7 @@ public class Map {
 	{
 		return this.intList;
 	}
-	
+
 	public void drawGreenInt(ObservableList<Node> root) {
 		for(int x= 5; x< 30; x+=12) {
 			for(int y = 5; y<30; y+=12) {
@@ -84,7 +84,7 @@ public class Map {
 			}
 		}
 	}
-	
+
 	public void drawRedInt(ObservableList<Node> root) {
 		for(int x= 5; x< 30; x+=12) {
 			for(int y = 5; y<30; y+=12) {

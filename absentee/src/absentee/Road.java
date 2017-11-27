@@ -10,11 +10,13 @@ public class Road {
 	private Point endPoint;
 	private Point startPoint;
 	private Intersection intersection;
-	public Road(int len, Point start,Point end){
+	public int direction;
+	public Road(int len, Point start,Point end, int dir){
 		streetLength = len;
 		endPoint = end;
 		startPoint = start;
 		this.intersection = null;
+		direction = dir;
 	}
 	public void addIntersection(Intersection i) {
 		this.intersection = i;
@@ -47,7 +49,7 @@ public class Road {
 		int totalSize = 0;
 		if(carsList.size() > 0)
 		{
-			if(carsList.get(0).direction == 0 || carsList.get(0).direction == 1){
+			if(direction == 0 || direction == 1){
 				for(int i=0; i<carsList.size(); i++){
 					totalSize += carsList.get(i).size.x;
 				}
@@ -58,7 +60,7 @@ public class Road {
 					totalSize += carsList.get(i).size.y;
 				}
 			}
-			if(carsList.get(0).direction == 0 || carsList.get(0).direction == 1){
+			if(direction == 0 || direction == 1){
 				if(streetLength - totalSize >= carSize.x){
 					return true;
 				}
@@ -98,7 +100,7 @@ public class Road {
 		//0 = left, 1 = right, 2 = up, 3 = down
 		if(carsList.size()>0){
 			//see if car edge is at edge of the road
-			switch(carsList.get(0).direction){
+			switch(direction){
 				case 0: if(carsList.get(0).curPos.x <= endPoint.x-20){
 							//System.out.println("Case 0");
 							carsList.get(0).curVelocity = 0;

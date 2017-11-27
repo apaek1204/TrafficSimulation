@@ -17,19 +17,20 @@ public abstract class Car extends Observable implements Observer{
 	public ArrayList<Point> destination;
 	public ImageView carImage;
 	public Point size;
+	public Road road;
 	private Image carL, carU, carD, carR;
 
 
-	public int direction = 0;	//0 = left, 1 = right, 2 = up, 3 = down
-	public Car(double maxVel, double breakDis, Point cur, ArrayList<Point> des, int dir, Point s){
+	//public int direction = 0;	//0 = left, 1 = right, 2 = up, 3 = down
+	public Car(double maxVel, double breakDis, Point cur, ArrayList<Point> des,Road r, Point s){
 		maxVelocity = maxVel;
 		curVelocity = maxVel;
 		curPos = cur;
 		breakDistance = breakDis;
 		destination = des;
-		direction = dir;
+		road = r;
 		size = s;
-		if(dir == 0 || dir == 1){
+		if(road.direction == 0 || road.direction == 1){
 			carL = new Image("file:src/images/basicCarLeft.png",size.x,size.y, true, true);
 			carR = new Image("file:src/images/basicCarRight.png",size.x,size.y, true, true);
 			carU = new Image("file:src/images/basicCarUp.png",size.y,size.x, true, true);
@@ -45,7 +46,7 @@ public abstract class Car extends Observable implements Observer{
 	public Point move(){
 		//every time move is called, add the current velocity to the car's position
 		//System.out.println(curPos);
-		switch(direction){
+		switch(road.direction){
 			//0 = left, 1 = right, 2 = up, 3 = down
 			//4 = turn left
 			case 0: curPos.x -= curVelocity;
@@ -68,47 +69,48 @@ public abstract class Car extends Observable implements Observer{
 
 		return curPos;
 	}
-	public void setDirection(int dir){
+
+	public void setRoad(Road r){
 		Image carI;
 		//changes car image based on new direction
 		//hasnt been tested
-		switch(dir){
+		switch(r.direction){
 			case 0:
-				switch(direction){
-				case 2:
-					carI= new Image("file:src/images/basicCarUpLeft.png",size.x*1.44,size.y*1.44, true, true);
-					carImage.setImage(carI);
-					curPos.x -= 5;
-					curPos.y -= 1;
-					carImage.setX(curPos.x);
-					carImage.setY(curPos.y);
-					curPos.x -= 5;
-					curPos.y -=1;
-					break;
-				case 3:
-					carI= new Image("file:src/images/basicCarDownLeft.png",size.x*1.44,size.y*1.44, true, true);
-					carImage.setImage(carI);
-					curPos.x -= 5;
-					curPos.y += 5;
-					carImage.setX(curPos.x);
-					carImage.setY(curPos.y);
-					curPos.x -= 5;
-					curPos.y += 5;
-					break;
-			}
-			direction = dir;
+				switch(road.direction){
+					case 2:
+						carI= new Image("file:src/images/basicCarUpLeft.png",size.x*1.44,size.y*1.44, true, true);
+						carImage.setImage(carI);
+						curPos.x -= 5;
+						curPos.y -= 1;
+						carImage.setX(curPos.x);
+						carImage.setY(curPos.y);
+						curPos.x -= 5;
+						curPos.y -=1;
+						break;
+					case 3:
+						carI= new Image("file:src/images/basicCarDownLeft.png",size.x*1.44,size.y*1.44, true, true);
+						carImage.setImage(carI);
+						curPos.x -= 5;
+						curPos.y += 5;
+						carImage.setX(curPos.x);
+						carImage.setY(curPos.y);
+						curPos.x -= 5;
+						curPos.y += 5;
+						break;
+				}
+				road = r;
 				break;
 			case 1:
-				switch(direction){
+				switch(road.direction){
 					case 2:
 						carI= new Image("file:src/images/basicCarUpRight.png",size.x*1.44,size.y*1.44, true, true);
 						carImage.setImage(carI);
 						curPos.x += 5;
-						curPos.y -= 1;
+						curPos.y -= 10;
 						carImage.setX(curPos.x);
 						carImage.setY(curPos.y);
 						curPos.x += 5;
-						curPos.y -=1;
+						curPos.y -=10;
 						break;
 					case 3:
 						carI= new Image("file:src/images/basicCarDownRight.png",size.x*1.44,size.y*1.44, true, true);
@@ -122,7 +124,7 @@ public abstract class Car extends Observable implements Observer{
 						size = new Point(size.y, size.x);
 						break;
 				}
-				direction = dir;
+				road = r;
 				break;
 			case 2:
 				carI= new Image("file:src/images/basicCarLeft.png",size.x,size.y, true, true);
@@ -175,8 +177,7 @@ public abstract class Car extends Observable implements Observer{
 			Car tempcar = (Car) obs;
 			int stopDistance = 1;
 			int distanceToObstacle;
-			switch(direction){
-
+			switch(road.direction){
 				case 0:
 					distanceToObstacle = curPos.x - (tempcar.curPos.x + tempcar.size.x);
 					curVelocity = (maxVelocity / (breakDistance - stopDistance)) * (distanceToObstacle - stopDistance);
