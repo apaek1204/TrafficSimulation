@@ -1,6 +1,7 @@
 package absentee;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
@@ -13,11 +14,14 @@ public abstract class Car extends Observable implements Observer{
 	public double curVelocity;
 	public Point curPos;
 	public double breakDistance;
-	public Point destination;
+	public ArrayList<Point> destination;
 	public ImageView carImage;
 	public Point size;
+	private Image carL, carU, carD, carR;
+
+
 	public int direction = 0;	//0 = left, 1 = right, 2 = up, 3 = down
-	public Car(double maxVel, double breakDis, Point cur, Point des, int dir, Point s){
+	public Car(double maxVel, double breakDis, Point cur, ArrayList<Point> des, int dir, Point s){
 		maxVelocity = maxVel;
 		curVelocity = maxVel;
 		curPos = cur;
@@ -25,18 +29,39 @@ public abstract class Car extends Observable implements Observer{
 		destination = des;
 		direction = dir;
 		size = s;
+		if(dir == 0 || dir == 1){
+			carL = new Image("file:src/images/basicCarLeft.png",size.x,size.y, true, true);
+			carR = new Image("file:src/images/basicCarRight.png",size.x,size.y, true, true);
+			carU = new Image("file:src/images/basicCarUp.png",size.y,size.x, true, true);
+			carD = new Image("file:src/images/basicCarDown.png",size.y,size.x, true, true);
+		}
+		else{
+			carL = new Image("file:src/images/basicCarLeft.png",size.y,size.x, true, true);
+			carR = new Image("file:src/images/basicCarRight.png",size.y,size.x, true, true);
+			carU = new Image("file:src/images/basicCarUp.png",size.x,size.y, true, true);
+			carD = new Image("file:src/images/basicCarDown.png",size.x,size.y, true, true);
+		}
 	}
 	public Point move(){
 		//every time move is called, add the current velocity to the car's position
 		switch(direction){
-
+			//0 = left, 1 = right, 2 = up, 3 = down
+			//4 = turn left
 			case 0: curPos.x -= curVelocity;
+					carImage.setImage(carL);
 					break;
 			case 1: curPos.x += curVelocity;
+					carImage.setImage(carR);
 					break;
 			case 2: curPos.y -= curVelocity;
+					carImage.setImage(carU);
 					break;
 			case 3: curPos.y += curVelocity;
+					carImage.setImage(carD);
+					break;
+			case 4: curPos.x += curVelocity;
+					curPos.y += curVelocity*2;
+					direction = 1;
 					break;
 			default: break;
 		}
@@ -47,11 +72,10 @@ public abstract class Car extends Observable implements Observer{
 		return curPos;
 	}
 	public void setDirection(int dir){
-		direction = dir;
 		Image carI;
 		//changes car image based on new direction
 		//hasnt been tested
-		switch(direction){
+		switch(dir){
 			case 0: curPos.x -= curVelocity;
 				carI= new Image("file:src/images/basicCarLeft.png",size.x,size.y, true, true);
 				carImage = new ImageView(carI);
@@ -59,10 +83,29 @@ public abstract class Car extends Observable implements Observer{
 				carImage.setY(curPos.y);
 				break;
 			case 1: curPos.x += curVelocity;
-				carI= new Image("file:src/images/basicCarLeft.png",size.x,size.y, true, true);
-				carImage = new ImageView(carI);
-				carImage.setX(curPos.x);
-				carImage.setY(curPos.y);
+				switch(direction){
+				case 2:
+					carI= new Image("file:src/images/basicCarUpRight.png",size.x*1.44,size.y*1.44, true, true);
+					carImage.setImage(carI);
+					curPos.x -= 5;
+					curPos.y -= 2.5;
+					carImage.setX(curPos.x);
+					carImage.setY(curPos.y);
+					curPos.x -= 5;
+					curPos.y -=2.5;
+					break;
+				case 3:
+					carI= new Image("file:src/images/basicCarDownRight.png",size.x*1.44,size.y*1.44, true, true);
+					carImage.setImage(carI);
+					curPos.x += 5;
+					curPos.y += 10;
+					carImage.setX(curPos.x);
+					carImage.setY(curPos.y);
+					curPos.x += 5;
+					curPos.y += 10;
+					break;
+				}
+				direction = dir;
 				break;
 			case 2: curPos.y -= curVelocity;
 				carI= new Image("file:src/images/basicCarLeft.png",size.x,size.y, true, true);
@@ -77,11 +120,35 @@ public abstract class Car extends Observable implements Observer{
 				carImage.setY(curPos.y);
 				break;
 		}
+
+
 	}
 	public int getNextDirection(){
-		Random rand = new Random();
-		int  n = rand.nextInt(4);
-		return n;
+		/*Random rand = new Random();
+		int  n = rand.nextInt(4);*/
+		double deltaX = destination.get(0).x - curPos.x;
+		double deltaY = destination.get(0).y - curPos.y;
+		if(Math.abs(deltaX) > Math.abs(deltaY)){
+			if(deltaX>0){
+				return 1;
+			}
+			else{
+				return 0;
+			}
+		}
+		else{
+			if(deltaY>0){
+				return 3;
+			}
+			else{
+				return 2;
+			}
+		}
+	}
+	public void popDestination(){
+		if(destination.get(0) != null){
+			destination.remove(0);
+		}
 	}
 	@Override
 	public void update(Observable obs, Object arg1){
