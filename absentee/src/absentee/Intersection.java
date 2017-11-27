@@ -37,8 +37,8 @@ public class Intersection {
 		//System.out.println("Intersect Car: " + this.currentCar);
 		if(currentCar == null)
 			return;
-		//int nextDir = currentCar.getNextDirection();
-		int nextDir = 3;
+		int nextDir = currentCar.getNextDirection();
+		currentCar.setDirection(nextDir);
 		Road nextRoad = roads.get(nextDir);
 		/*if(nextRoad.canEnter(currentCar.size)) {
 			currentCar.curVelocity = currentCar.maxVelocity;

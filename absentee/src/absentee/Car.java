@@ -120,26 +120,27 @@ public abstract class Car extends Observable implements Observer{
 
 	}
 	public int getNextDirection(){
-		/*Random rand = new Random();
-		int  n = rand.nextInt(4);*/
-		double deltaX = destination.get(0).x - curPos.x;
-		double deltaY = destination.get(0).y - curPos.y;
-		if(Math.abs(deltaX) > Math.abs(deltaY)){
-			if(deltaX>0){
-				return 1;
-			}
-			else{
-				return 0;
-			}
-		}
-		else{
-			if(deltaY>0){
-				return 3;
-			}
-			else{
-				return 2;
-			}
-		}
+		Random rand = new Random();
+		int  n = rand.nextInt(4);
+//		double deltaX = destination.get(0).x - curPos.x;
+//		double deltaY = destination.get(0).y - curPos.y;
+//		if(Math.abs(deltaX) > Math.abs(deltaY)){
+//			if(deltaX>0){
+//				return 1;
+//			}
+//			else{
+//				return 0;
+//			}
+//		}
+//		else{
+//			if(deltaY>0){
+//				return 3;
+//			}
+//			else{
+//				return 2;
+//			}
+//		}
+		return n;
 	}
 	public void popDestination(){
 		if(destination.get(0) != null){
