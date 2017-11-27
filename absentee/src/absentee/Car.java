@@ -59,10 +59,6 @@ public abstract class Car extends Observable implements Observer{
 			case 3: curPos.y += curVelocity;
 					carImage.setImage(carD);
 					break;
-			case 4: curPos.x += curVelocity;
-					curPos.y += curVelocity*2;
-					direction = 1;
-					break;
 			default: break;
 		}
 		//direction = getNextDirection();
@@ -84,26 +80,26 @@ public abstract class Car extends Observable implements Observer{
 				break;
 			case 1: curPos.x += curVelocity;
 				switch(direction){
-				case 2:
-					carI= new Image("file:src/images/basicCarUpRight.png",size.x*1.44,size.y*1.44, true, true);
-					carImage.setImage(carI);
-					curPos.x -= 5;
-					curPos.y -= 2.5;
-					carImage.setX(curPos.x);
-					carImage.setY(curPos.y);
-					curPos.x -= 5;
-					curPos.y -=2.5;
-					break;
-				case 3:
-					carI= new Image("file:src/images/basicCarDownRight.png",size.x*1.44,size.y*1.44, true, true);
-					carImage.setImage(carI);
-					curPos.x += 5;
-					curPos.y += 10;
-					carImage.setX(curPos.x);
-					carImage.setY(curPos.y);
-					curPos.x += 5;
-					curPos.y += 10;
-					break;
+					case 2:
+						carI= new Image("file:src/images/basicCarUpRight.png",size.x*1.44,size.y*1.44, true, true);
+						carImage.setImage(carI);
+						curPos.x -= 5;
+						curPos.y -= 2;
+						carImage.setX(curPos.x);
+						carImage.setY(curPos.y);
+						curPos.x -= 5;
+						curPos.y -=2;
+						break;
+					case 3:
+						carI= new Image("file:src/images/basicCarDownRight.png",size.x*1.44,size.y*1.44, true, true);
+						carImage.setImage(carI);
+						curPos.x += 5;
+						curPos.y += 10;
+						carImage.setX(curPos.x);
+						carImage.setY(curPos.y);
+						curPos.x += 5;
+						curPos.y += 10;
+						break;
 				}
 				direction = dir;
 				break;
