@@ -3,14 +3,12 @@ package absentee;
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class Intersection {
+public class Roundabout {
 	Car currentCar;
 	ArrayList<Road> roads;
-	Stoplight stoplight;
 	Point pos;
-	public Intersection(Stoplight s, Point p) {
+	public Roundabout(Point p) {
 		roads = new ArrayList<Road>();
-		stoplight = s;
 		currentCar = null;
 		pos = p;
 	}
@@ -19,21 +17,17 @@ public class Intersection {
 	}
 	public Boolean canEnter(Car car) {
 		//0 left, 1 right, 2 up, 3 down
-		int nextDir = car.getNextDirection();
 		if(currentCar != null) {
 			return false;
 		}
-
-		if(stoplight.lights[nextDir] == 0 || stoplight.lights[nextDir] == 2) return false;
-
 		return true;
 	}
 	public void Enter(Car car) {
 		currentCar = car;
 		car.curVelocity=car.maxVelocity;
 	}
-
 	public void Exit() {
+		//handle three way
 		//System.out.println("Intersect Car: " + this.currentCar);
 		if(currentCar == null)
 			return;
