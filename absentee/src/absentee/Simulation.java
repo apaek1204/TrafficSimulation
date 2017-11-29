@@ -8,6 +8,7 @@ import java.util.TimerTask;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -29,7 +30,11 @@ public class Simulation extends Application{
 	ArrayList<Intersection> oneIntersection = new ArrayList<Intersection>();
 	ArrayList<Road> roadList = new ArrayList<Road>();
 	Timer timer  = new Timer();
+	Timer carTimer = new Timer();
+	TimerTask carTask;
 	ArrayList<Point> startPoints = new ArrayList<Point>();
+
+	//ReschedulableTimer rTimer = new ReschedulableTimer();
 
 	EntryPoint startingPoint;
 	int scale = 20;
@@ -40,7 +45,9 @@ public class Simulation extends Application{
 	int carMax = 15000;
 	int carTime = 5000; //Between 2000 and 15000
 	Slider slider = new Slider(carMin, carMax, 5000);
+	int oldTime = carTime;
 	int animationTime = 100;
+	int changeOnce = 1;
 	//JSlider slider = new JSlider(2000, 15000, carTime);
 
 
@@ -79,7 +86,7 @@ public class Simulation extends Application{
             }
         });
         */
-		slider.setShowTickLabels(true);
+		//slider.setShowTickLabels(true);
 		slider.setShowTickMarks(true);
 		slider.setMajorTickUnit(1000f);
         slider.setBlockIncrement(100f);
@@ -118,13 +125,38 @@ public class Simulation extends Application{
 			}
 		}.start();
 
+		carTimer.schedule(carTask = new TimerTask() {
+		    public void run() {
+		         Platform.runLater(new Runnable() {
+		            public void run() {
+		                makeCar(root.getChildren());
+		            	//label.update();
+		                //javafxcomponent.doSomething();
+		            }
+		        });
+		    }
+		}, carTime, carTime);
+
+		/*
+		carTimer.schedule(
+			new TimerTask() {
+
+	        @Override
+	        public void run() {
+	            makeCar(root.getChildren());
+	        }
+		}, carTime, carTime);
+		*/
+
+		/*
 		new AnimationTimerExtension(carTime){//Handles creation of a new car at set intervals
 			@Override
 			public void handle() {
-				if(carList.size()<1)
+				//if(carList.size()<1)
 				makeCar(root.getChildren());
 			}
 		}.start();
+		*/
 
 		//start timer /** Old Code **/
 		timer.schedule(
@@ -213,6 +245,28 @@ public class Simulation extends Application{
 	//Move each car that is made
 	public void runGame(ObservableList<Node> rootNodeList){
 		carTime = (int)slider.getValue();
+		if(oldTime != carTime)
+		{
+			System.out.println("Changing Time");
+			if(changeOnce == 1)
+			{
+				carTask.cancel();
+				changeOnce = 0;
+			}
+			oldTime = carTime;
+			carTimer.schedule(carTask = new TimerTask() {
+			    public void run() {
+			         Platform.runLater(new Runnable() {
+			            public void run() {
+			                makeCar(root.getChildren());
+			            	//label.update();
+			                //javafxcomponent.doSomething();
+			            }
+			        });
+			    }
+			}, carTime, carTime);
+			changeOnce = 1;
+		}
 
 		//System.out.println((int)slider.getValue());
 		for(int i = 0; i < roadList.size(); i++)
