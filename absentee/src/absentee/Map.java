@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 public class Map {
 
 	boolean[][] grid = new boolean[50][50];
 	final int dimensions = 50;
 	private ArrayList<Road> roadList = new ArrayList<Road>();
+	private ArrayList<Road> startRoads = new ArrayList<Road>();
 	private static Map mapSingleton = new Map(); //Make map a singleton
 	private EntryPoint startPoint;
 	private Road startRoad;
@@ -47,6 +49,13 @@ public class Map {
 		Road s = new Road(170,new Point(580,580), new Point(750,580),1);
 		Road t = new Road(240,new Point(580,340), new Point(580,580),3);
 		Road u = new Road(170,new Point(580,580), new Point(580,750),3);
+		
+		this.startRoads.add(a);
+		this.startRoads.add(this.startRoad);
+		this.startRoads.add(g);
+		this.startRoads.add(n);
+		this.startRoads.add(r);
+		this.startRoads.add(p);
 		
 		Intersection temp = new Intersection(new Stoplight(0,0), new Point(100,340));
 		Intersection temp2 = new Intersection(new Stoplight(0,0), new Point(100,580));
@@ -157,6 +166,10 @@ public class Map {
 		return this.roadList;
 	}
 
+	public ArrayList<Road> getStartRoads(){
+		return this.startRoads;
+	}
+	
 	public EntryPoint getEntryPoint() {
 		return this.startPoint;
 	}
@@ -229,7 +242,7 @@ public class Map {
 				rect.setFill(Color.RED);
 				root.add(rect);
 			}
-		}
+		}	
 		drawSegmentHoriz(0,5,5,root,scale);
 		drawSegmentHoriz(30,38,5,root,scale);
 		drawSegmentHoriz(0,5,17,root,scale);
@@ -254,5 +267,13 @@ public class Map {
 		drawSegmentVert(18,29,17,root,scale);
 		drawSegmentVert(6,17,29,root,scale);
 		drawSegmentVert(18,29,29,root,scale);
+		Circle circ = new Circle(350,350,30,Color.GREY);
+		circ.setStroke(Color.GREY);
+		circ.setFill(Color.GREY);
+		root.add(circ);
+		circ = new Circle(350,350,10,Color.GREEN);
+		circ.setStroke(Color.GREEN);
+		circ.setFill(Color.GREEN);
+		root.add(circ);		
 	}
 }
