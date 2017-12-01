@@ -64,7 +64,11 @@ public abstract class Car extends Observable implements Observer{
 		}
 		setChanged();
 		notifyObservers();
-
+		if(destination.size() > 0){
+			if(curPos.x <= destination.get(0).x && curPos.x + size.x >= destination.get(0).x && curPos.y <= destination.get(0).y && curPos.y + size.y >= destination.get(0).y){
+			popDestination();
+			}
+		}
 		return curPos;
 	}
 	int counter = 0;

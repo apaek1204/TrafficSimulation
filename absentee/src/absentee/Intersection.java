@@ -37,7 +37,18 @@ public class Intersection {
 		//System.out.println("Intersect Car: " + this.currentCar);
 		if(currentCar == null)
 			return;
-		int nextDir = currentCar.getNextDirection();
+		ArrayList <Road> tempList = new ArrayList<Road>();
+		for(int i=0; i<roads.size(); i++){
+			System.out.println(i + ": " + roads.get(i).direction);
+			if(roads.get(i).direction == i){
+				tempList.add(roads.get(i));
+			}
+			else{
+				tempList.add(null);
+			}
+
+		}
+		int nextDir = currentCar.getNextDirection(tempList);
 		currentCar.setRoad(roads.get(nextDir));
 		Road nextRoad = roads.get(nextDir);
 		currentCar.directionList.remove(0);
