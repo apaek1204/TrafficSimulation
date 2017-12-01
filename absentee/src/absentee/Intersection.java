@@ -40,6 +40,7 @@ public class Intersection {
 		int nextDir = currentCar.getNextDirection();
 		currentCar.setRoad(roads.get(nextDir));
 		Road nextRoad = roads.get(nextDir);
+		currentCar.directionList.remove(0);
 		/*if(nextRoad.canEnter(1currentCar.size)) {
 			currentCar.curVelocity = currentCar.maxVelocity;
 			nextRoad.Enter(currentCar);
@@ -49,6 +50,7 @@ public class Intersection {
 			nextRoad.Enter(currentCar);
 			currentCar = null;
 		}
+
 		//currentCar.curVelocity = 0;
 	}
 }

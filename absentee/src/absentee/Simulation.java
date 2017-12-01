@@ -2,6 +2,8 @@ package absentee;
 
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,7 +40,7 @@ public class Simulation extends Application{
 
 	EntryPoint startingPoint;
 	int scale = 20;
-	Point start;
+	Double start;
 	AnchorPane root;
 	int timeRun = 1000000;
 	int carMin = 2000;
@@ -109,7 +111,7 @@ public class Simulation extends Application{
 		*/
 
 		// Here is another timer that is an extension of Animation Timer and slows it down.  (See class AnimationTimerExtension.java)
-		new AnimationTimerExtension(500){ //Handles overall running of the simulation
+		new AnimationTimerExtension(100){ //Handles overall running of the simulation
 			@Override
 			public void handle() {
 				runGame(root.getChildren());
@@ -231,7 +233,7 @@ public class Simulation extends Application{
 		Point size = new Point(20,35);
 
 		//System.out.println("Start: " + start);
-		start = new Point(100, 0);
+		start = new Point2D.Double(100, 0);
 		ArrayList<Point> des = new ArrayList<Point>();
 		des.add(new Point(200,200));
 

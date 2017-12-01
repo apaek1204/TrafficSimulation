@@ -1,5 +1,6 @@
 package absentee;
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class Road {
@@ -101,25 +102,31 @@ public class Road {
 		if(carsList.size()>0){
 			//see if car edge is at edge of the road
 			switch(direction){
-				case 0: if(carsList.get(0).curPos.x <= endPoint.x-20){
+				case 0: if(carsList.get(0).curPos.x <= endPoint.x+20){
 							//System.out.println("Case 0");
 							carsList.get(0).curVelocity = 0;
+							carsList.get(0).curPos.x = endPoint.x+20;
 							return true;
 						};
 						break;
 				case 1: if(carsList.get(0).curPos.x >= endPoint.x-carsList.get(0).size.x){
 							carsList.get(0).curVelocity = 0;
+							carsList.get(0).curPos.x = endPoint.x - carsList.get(0).size.x;
 							return true;
 						};
 						break;
-				case 2: if(carsList.get(0).curPos.y <= endPoint.y-20){
+				case 2: if(carsList.get(0).curPos.y <= endPoint.y+20){
 							//System.out.println("Case 2");
 							carsList.get(0).curVelocity = 0;
+							carsList.get(0).curPos.y = endPoint.y + 20;
 							return true;
 						};
 						break;
-				case 3: if(carsList.get(0).curPos.y >= endPoint.y-carsList.get(0).size.y){
+				case 3: if(carsList.get(0).curPos.y >= endPoint.y-carsList.get(0).size.y+5){
 							carsList.get(0).curVelocity = 0;
+							carsList.get(0).curPos.y = endPoint.y - carsList.get(0).size.y+5;
+
+
 							return true;
 						};
 						break;

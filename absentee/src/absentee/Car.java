@@ -1,28 +1,32 @@
 package absentee;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public abstract class Car extends Observable implements Observer{
 	public double maxVelocity;
 	public double curVelocity;
-	public Point curPos;
+	public Point2D.Double curPos;
 	public double breakDistance;
 	public ArrayList<Point> destination;
 	public ImageView carImage;
 	public Point size;
 	public Road road;
-	private Image carL, carU, carD, carR;
-
+	private int timerRate=5;
+	public ArrayList<Integer> directionList= new ArrayList<Integer>();
 
 	//public int direction = 0;	//0 = left, 1 = right, 2 = up, 3 = down
-	public Car(double maxVel, double breakDis, Point cur, ArrayList<Point> des,Road r, Point s){
+	public Car(double maxVel, double breakDis, Point2D.Double cur, ArrayList<Point> des,Road r, Point s){
 		maxVelocity = maxVel;
 		curVelocity = maxVel;
 		curPos = cur;
@@ -30,72 +34,88 @@ public abstract class Car extends Observable implements Observer{
 		destination = des;
 		road = r;
 		size = s;
-		if(road.direction == 0 || road.direction == 1){
-			carL = new Image("file:src/images/basicCarLeft.png",size.x,size.y, true, true);
-			carR = new Image("file:src/images/basicCarRight.png",size.x,size.y, true, true);
-			carU = new Image("file:src/images/basicCarUp.png",size.y,size.x, true, true);
-			carD = new Image("file:src/images/basicCarDown.png",size.y,size.x, true, true);
-		}
-		else{
-			carL = new Image("file:src/images/basicCarLeft.png",size.y,size.x, true, true);
-			carR = new Image("file:src/images/basicCarRight.png",size.y,size.x, true, true);
-			carU = new Image("file:src/images/basicCarUp.png",size.x,size.y, true, true);
-			carD = new Image("file:src/images/basicCarDown.png",size.x,size.y, true, true);
-		}
+		directionList.add(1);
+		directionList.add(1);
+		directionList.add(3);
+		directionList.add(0);
+		directionList.add(2);
+		directionList.add(1);
+		directionList.add(3);
+		directionList.add(0);
+		directionList.add(0);
+		directionList.add(3);
+		directionList.add(1);
+		directionList.add(2);
+		directionList.add(0);
 	}
-	public Point move(){
+	public Point2D.Double move(){
 		//every time move is called, add the current velocity to the car's position
-		//System.out.println(curPos);
 		switch(road.direction){
 			//0 = left, 1 = right, 2 = up, 3 = down
-			//4 = turn left
 			case 0: curPos.x -= curVelocity;
-					carImage.setImage(carL);
 					break;
 			case 1: curPos.x += curVelocity;
-					carImage.setImage(carR);
 					break;
 			case 2: curPos.y -= curVelocity;
-					carImage.setImage(carU);
 					break;
 			case 3: curPos.y += curVelocity;
-					carImage.setImage(carD);
 					break;
 			default: break;
 		}
-		//direction = getNextDirection();
 		setChanged();
 		notifyObservers();
 
 		return curPos;
 	}
+	int counter = 0;
 
 	public void setRoad(Road r){
-		Image carI;
 		//changes car image based on new direction
-		//hasnt been tested
+		Timer rotationTimer = new Timer();
 		switch(r.direction){
 			case 0:
 				switch(road.direction){
 					case 2:
-						carI= new Image("file:src/images/basicCarUpLeft.png",size.x*1.44,size.y*1.44, true, true);
-						carImage.setImage(carI);
-						curPos.x -= 5;
-						curPos.y -= 1;
-						carImage.setX(curPos.x);
-						carImage.setY(curPos.y);
-						curPos.x -= 5;
-						curPos.y -=1;
+						rotationTimer.schedule(
+							new TimerTask() {
+						        public void run() {
+							        Platform.runLater(new Runnable() {
+							            public void run() {
+								        	counter++;
+								        	curPos.x -= 10/timerRate;
+											curPos.y -= 18/timerRate;
+											carImage.setRotate(carImage.getRotate() - 90/timerRate);
+											carImage.setX(curPos.x);
+											carImage.setY(curPos.y);
+											if(counter >= 5){
+												rotationTimer.cancel();
+												counter=0;
+											}
+							            }
+							        });
+						        }
+							}, 0, 4*timerRate);
 						break;
 					case 3:
-						carI= new Image("file:src/images/basicCarDownLeft.png",size.x*1.44,size.y*1.44, true, true);
-						carImage.setImage(carI);
-						curPos.x -= 5;
-						curPos.y += 5;
-						carImage.setX(curPos.x);
-						carImage.setY(curPos.y);
-						curPos.x -= 5;
-						curPos.y += 5;
+						rotationTimer.schedule(
+							new TimerTask() {
+						        public void run() {
+						        	Platform.runLater(new Runnable() {
+							            public void run() {
+								        	counter++;
+								        	curPos.x -= 10/timerRate;
+											curPos.y += 18/timerRate;
+											carImage.setRotate(carImage.getRotate() + 90/timerRate);
+											carImage.setX(curPos.x);
+											carImage.setY(curPos.y);
+											if(counter >= 5){
+												rotationTimer.cancel();
+												counter=0;
+											}
+							            }
+							        });
+						        }
+							}, 0, 4*timerRate);
 						break;
 				}
 				road = r;
@@ -103,66 +123,191 @@ public abstract class Car extends Observable implements Observer{
 			case 1:
 				switch(road.direction){
 					case 2:
-						carI= new Image("file:src/images/basicCarUpRight.png",size.x*1.44,size.y*1.44, true, true);
-						carImage.setImage(carI);
-						curPos.x += 5;
-						curPos.y -= 10;
-						carImage.setX(curPos.x);
-						carImage.setY(curPos.y);
-						curPos.x += 5;
-						curPos.y -=10;
-						break;
+						rotationTimer.schedule(
+								new TimerTask() {
+							        public void run() {
+							        	Platform.runLater(new Runnable() {
+								            public void run() {
+									        	counter++;
+									        	curPos.x += 10/timerRate;
+												curPos.y -= 18/timerRate;
+												carImage.setRotate(carImage.getRotate() + 90/timerRate);
+												carImage.setX(curPos.x);
+												carImage.setY(curPos.y);
+												if(counter >= 5){
+													rotationTimer.cancel();
+													counter=0;
+												}
+								            }
+								        });
+							        }
+								}, 0, 4*timerRate);
+							break;
 					case 3:
-						carI= new Image("file:src/images/basicCarDownRight.png",size.x*1.44,size.y*1.44, true, true);
-						carImage.setImage(carI);
-						curPos.x += 5;
-						curPos.y += 10;
-						carImage.setX(curPos.x);
-						carImage.setY(curPos.y);
-						curPos.x += 5;
-						curPos.y += 10;
-						size = new Point(size.y, size.x);
+						rotationTimer.schedule(
+							new TimerTask() {
+						        public void run() {
+						        	Platform.runLater(new Runnable() {
+						        		public void run() {
+								        	counter++;
+								        	curPos.x += 10/timerRate;
+											curPos.y += 18/timerRate;
+											carImage.setRotate(carImage.getRotate() - 90/timerRate);
+											carImage.setX(curPos.x);
+											carImage.setY(curPos.y);
+											if(counter >= 5){
+												rotationTimer.cancel();
+												counter=0;
+											}
+							            }
+							        });
+						        }
+							}, 0, 4*timerRate);
 						break;
 				}
 				road = r;
 				break;
 			case 2:
-				carI= new Image("file:src/images/basicCarLeft.png",size.x,size.y, true, true);
-				carImage = new ImageView(carI);
-				carImage.setX(curPos.x);
-				carImage.setY(curPos.y);
+				switch(road.direction){
+					case 0:
+						rotationTimer.schedule(
+							new TimerTask() {
+						        @Override
+						        public void run() {
+						        	Platform.runLater(new Runnable() {
+						        		public void run() {
+								        	counter++;
+								        	curPos.x -= 10/timerRate;
+											curPos.y -= 18/timerRate;
+											carImage.setRotate(carImage.getRotate() + 90/timerRate);
+											carImage.setX(curPos.x);
+											carImage.setY(curPos.y);
+											if(counter >= 5){
+												rotationTimer.cancel();
+												counter=0;
+											}
+						        		}
+						        	});
+						        }
+							}, 0, 4*timerRate);
+						break;
+					case 1:
+						rotationTimer.schedule(
+								new TimerTask() {
+							        @Override
+							        public void run() {
+							        	Platform.runLater(new Runnable() {
+							        		public void run() {
+									        	counter++;
+									        	curPos.x += 10/timerRate;
+												curPos.y -= 18/timerRate;
+												carImage.setRotate(carImage.getRotate() - 90/timerRate);
+												carImage.setX(curPos.x);
+												carImage.setY(curPos.y);
+												if(counter >= 5){
+													rotationTimer.cancel();
+													counter=0;
+												}
+							        		}
+							        	});
+							        }
+								}, 0, 4*timerRate);
+							break;
+				}
+				road = r;
 				break;
 			case 3:
-				carI= new Image("file:src/images/basicCarLeft.png",size.x,size.y, true, true);
-				carImage = new ImageView(carI);
-				carImage.setX(curPos.x);
-				carImage.setY(curPos.y);
+				switch(road.direction){
+					case 0:
+						rotationTimer.schedule(
+								new TimerTask() {
+							        @Override
+							        public void run() {
+							        	Platform.runLater(new Runnable() {
+							        		public void run() {
+									        	counter++;
+									        	curPos.x -= 10/timerRate;
+												curPos.y += 18/timerRate;
+												carImage.setRotate(carImage.getRotate() - 90/timerRate);
+												carImage.setX(curPos.x);
+												carImage.setY(curPos.y);
+												if(counter >= 5){
+													rotationTimer.cancel();
+													counter=0;
+												}
+							        		}
+							        	});
+							        }
+								}, 0, 4*timerRate);
+							break;
+					case 1:
+						rotationTimer.schedule(
+							new TimerTask() {
+						        @Override
+						        public void run() {
+						        	Platform.runLater(new Runnable() {
+						        		public void run() {
+								        	counter++;
+								        	curPos.x += 10/timerRate;
+											curPos.y += 18/timerRate;
+											carImage.setRotate(carImage.getRotate() + 90/timerRate);
+											carImage.setX(curPos.x);
+											carImage.setY(curPos.y);
+											if(counter >= timerRate){
+												rotationTimer.cancel();
+												counter=0;
+											}
+						        		}
+						        	});
+						        }
+							}, 0, 4*timerRate);
+
+						break;
+				}
+				road = r;
 				break;
 		}
 
 
 	}
 	public int getNextDirection(){
-		return 1;
-		/*
-		double deltaX = destination.get(0).x - curPos.x;
-		double deltaY = destination.get(0).y - curPos.y;
-		if(Math.abs(deltaX) > Math.abs(deltaY)){
-			if(deltaX>0){
-				return 1;
+
+		return directionList.get(0);
+	}
+	public int getNextDirection(ArrayList<Road> nextRoads){
+		if(destination.size() > 0){
+			double deltaX = destination.get(0).x - curPos.x;
+			double deltaY = destination.get(0).y - curPos.y;
+			if(Math.abs(deltaX) >= Math.abs(deltaY) ){
+				if(deltaX>=0 && nextRoads.get(1) != null){
+					return 1;
+				}
+				else if(deltaX < 0 && nextRoads.get(0) != null ){
+					return 0;
+				}
+				else if(nextRoads.get(2) != null){
+					return 2;
+				}
+				else if(nextRoads.get(3) != null){
+					return 3;
+				}
 			}
-			else{
-				return 0;
+			else if (Math.abs(deltaY) > Math.abs(deltaX)){
+				if(deltaY>=0 && nextRoads.get(3) != null){
+					return 3;
+				}
+				else if(deltaY<0 && nextRoads.get(2) != null){
+					return 2;
+				}
+				else if(nextRoads.get(0) != null){
+					return 0;
+				}
+				else if(nextRoads.get(1) != null){
+					return 1;
+				}
 			}
 		}
-		else{
-			if(deltaY>0){
-				return 3;
-			}
-			else{
-				return 2;
-			}
-		}*/
+		return road.direction;
 	}
 	public void popDestination(){
 		if(destination.get(0) != null){
@@ -175,36 +320,32 @@ public abstract class Car extends Observable implements Observer{
 		if(obs instanceof Car){
 			//match car speed
 			Car tempcar = (Car) obs;
-			int stopDistance = 1;
-			int distanceToObstacle;
+			int stopDistance = 0;
+			double distanceToObstacle;
 			switch(road.direction){
 				case 0:
-					distanceToObstacle = curPos.x - (tempcar.curPos.x + tempcar.size.x);
+					distanceToObstacle = curPos.x - (tempcar.curPos.x + tempcar.size.y);
 					curVelocity = (maxVelocity / (breakDistance - stopDistance)) * (distanceToObstacle - stopDistance);
 					curVelocity = Math.max(0.0, curVelocity);
 					curVelocity = Math.min(maxVelocity, curVelocity);
-					System.out.println("vel is = " + curVelocity);
 					break;
 				case 1:
-					distanceToObstacle = (curPos.x + size.x - (tempcar.curPos.x))*-1;
+					distanceToObstacle = (curPos.x + size.y - (tempcar.curPos.x))*-1;
 					curVelocity = (maxVelocity / (breakDistance - stopDistance)) * (distanceToObstacle - stopDistance);
 					curVelocity = Math.max(0.0, curVelocity);
 					curVelocity = Math.min(maxVelocity, curVelocity);
-					System.out.println("vel is = " + curVelocity);
 					break;
 				case 2:
 					distanceToObstacle = curPos.y - (tempcar.curPos.y + tempcar.size.y);
 					curVelocity = (maxVelocity / (breakDistance - stopDistance)) * (distanceToObstacle - stopDistance);
 					curVelocity = Math.max(0.0, curVelocity);
 					curVelocity = Math.min(maxVelocity, curVelocity);
-					System.out.println("vel is = " + curVelocity);
 					break;
 				case 3:
 					distanceToObstacle = (curPos.y +size.y - tempcar.curPos.y)* -1;
 					curVelocity = (maxVelocity / (breakDistance - stopDistance)) * (distanceToObstacle - stopDistance);
 					curVelocity = Math.max(0.0, curVelocity);
 					curVelocity = Math.min(maxVelocity, curVelocity);
-					System.out.println("vel is = " + curVelocity);
 					break;
 				default:
 					curVelocity = maxVelocity;
