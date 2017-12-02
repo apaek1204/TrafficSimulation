@@ -12,6 +12,7 @@ public class Road {
 	private Point startPoint;
 	private Intersection intersection;
 	public int direction;
+	public boolean roadClosed = false;
 	public Road(int len, Point start,Point end, int dir){
 		streetLength = len;
 		endPoint = end;
@@ -134,5 +135,8 @@ public class Road {
 			}
 		}
 		return false;
+	}
+	public void closeRoad(){
+		roadClosed = true;
 	}
 }
