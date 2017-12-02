@@ -25,7 +25,7 @@ public abstract class Car extends Observable implements Observer{
 	private int timerRate=5;
 	public ArrayList<Integer> directionList= new ArrayList<Integer>();
 
-	//public int direction = 0;	//0 = left, 1 = right, 2 = up, 3 = down
+	//public int direction = 0;	//0 = left, 1 = right, 2 = up, 3 = down, 4 = leftdown, 5 = rightdown, 6 = leftup, 7 = rightup
 	public Car(double maxVel, double breakDis, Point2D.Double cur, ArrayList<Point> des,Road r, Point s){
 		maxVelocity = maxVel;
 		curVelocity = maxVel;

@@ -11,6 +11,7 @@ public class Road {
 	private Point endPoint;
 	private Point startPoint;
 	private Intersection intersection;
+	private Roundabout roundabout;
 	public int direction;
 	public boolean roadClosed = false;
 	public Road(int len, Point start,Point end, int dir){
@@ -18,10 +19,14 @@ public class Road {
 		endPoint = end;
 		startPoint = start;
 		this.intersection = null;
+		this.roundabout = null;
 		direction = dir;
 	}
 	public void addIntersection(Intersection i) {
 		this.intersection = i;
+	}
+	public void addRoundabout(Roundabout i) {
+		this.roundabout = i;
 	}
 	public Point getStart(){
 		return startPoint;
@@ -36,6 +41,12 @@ public class Road {
 	public boolean getIntsection()
 	{
 		if(this.intersection != null)
+			return true;
+		return false;
+	}
+	public boolean getRoundabout()
+	{
+		if(this.roundabout != null)
 			return true;
 		return false;
 	}
@@ -85,15 +96,27 @@ public class Road {
 	public void Exit(){
 		if(canExit()) {
 			Car nextCar = carsList.get(0);
-			if(nextCar == null || intersection == null)
+			if(nextCar == null)
 					return;
 			//System.out.println(intersection.canEnter(nextCar));
-			if(intersection.canEnter(nextCar)) {
-				//System.out.println("Trying to pop car");
-				intersection.Enter(nextCar);
-				carsList.remove(0);
-				if(carsList.isEmpty()){
-					lastCar = null;
+			if(intersection != null) {
+				if(intersection.canEnter(nextCar)) {
+					//System.out.println("Trying to pop car");
+					intersection.Enter(nextCar);
+					carsList.remove(0);
+					if(carsList.isEmpty()){
+						lastCar = null;
+					}
+				}
+			}
+			if(roundabout != null) {
+				if(roundabout.canEnter(nextCar)) {
+					//System.out.println("Trying to pop car");
+					roundabout.Enter(nextCar);
+					carsList.remove(0);
+					if(carsList.isEmpty()){
+						lastCar = null;
+					}
 				}
 			}
 		}
