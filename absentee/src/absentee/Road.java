@@ -122,7 +122,7 @@ public class Road {
 		}
 	}
 	private boolean canExit(){
-		//0 = left, 1 = right, 2 = up, 3 = down
+		//0 = left, 1 = right, 2 = up, 3 = down, 4 = leftdown, 5 = rightdown, 6 = leftup, 7 = rightup
 		if(carsList.size()>0){
 			//see if car edge is at edge of the road
 			switch(direction){
