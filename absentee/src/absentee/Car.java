@@ -357,28 +357,5 @@ public abstract class Car extends Observable implements Observer{
 			}
 
 		}
-		/*
-		//else if its a stoplight
-		else if(obs instanceof Stoplight){
-			Stoplight tempStop = (Stoplight) obs;
-			//check if red or not, and change velocity as necessary
-			if(direction == 0 || direction == 1){
-				if(tempStop.lights[0] == 1){
-					curVelocity = maxVelocity;
-				}
-				else{
-					curVelocity = 0;
-				}
-			}
-			else{
-				if(tempStop.lights[3] == 1){
-					curVelocity = maxVelocity;
-				}
-				else{
-					curVelocity = 0;
-				}
-			}
-		}
-		*/
 	}
 }
