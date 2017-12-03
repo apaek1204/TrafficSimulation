@@ -241,6 +241,10 @@ public class Simulation extends Application{
 		Car tmpCar = factory.createBasicCar(10, 20, start,des, level_map.getRoads().get(3),size);
 		carList.add(tmpCar);
 		//this.startingPoint.Enter(tmpCar);
+
+		//Destinations here?
+
+
 		roadList.get(3).Enter(tmpCar);
 		setCarImages(size, rootNodeList);
 	}
