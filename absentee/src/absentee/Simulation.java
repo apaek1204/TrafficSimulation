@@ -234,6 +234,7 @@ public class Simulation extends Application{
 
 		//System.out.println("Start: " + start);
 		start = new Point2D.Double(100, 0);
+		//No destination stuff here
 		ArrayList<Point> des = new ArrayList<Point>();
 		des.add(new Point(340,100));
 		des.add(new Point(340,340));
@@ -241,9 +242,6 @@ public class Simulation extends Application{
 		Car tmpCar = factory.createBasicCar(10, 20, start,des, level_map.getRoads().get(3),size);
 		carList.add(tmpCar);
 		//this.startingPoint.Enter(tmpCar);
-
-		//Destinations here?
-
 
 		roadList.get(3).Enter(tmpCar);
 		setCarImages(size, rootNodeList);
