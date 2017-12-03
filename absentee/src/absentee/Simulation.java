@@ -208,7 +208,7 @@ public class Simulation extends Application{
 
 	//Set the image of a new car when it is made
 	public void setCarImages(Point size, ObservableList<Node> rootNodeList){
-		Image carImage = new Image("file:src/images/basicCarDown.png",size.x,size.y, true, true);
+		Image carImage = new Image("file:src/images/basicCar.png",size.x,size.y, true, true);
 		int i = carList.size() - 1;
 
 		carList.get(i).carImage = new ImageView(carImage);
