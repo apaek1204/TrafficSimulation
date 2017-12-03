@@ -34,20 +34,12 @@ public abstract class Car extends Observable implements Observer{
 		destination = des;
 		road = r;
 		size = s;
-		directionList.add(1);
-		directionList.add(1);
 		directionList.add(3);
-		directionList.add(0);
-		directionList.add(2);
-		directionList.add(1);
-		directionList.add(3);
-		directionList.add(0);
-		directionList.add(0);
 		directionList.add(3);
 		directionList.add(1);
 		directionList.add(2);
-		directionList.add(0);
 	}
+	boolean enter = false;
 	public Point2D.Double move(){
 		//every time move is called, add the current velocity to the car's position
 		switch(road.direction){
@@ -60,6 +52,7 @@ public abstract class Car extends Observable implements Observer{
 					break;
 			case 3: curPos.y += curVelocity;
 					break;
+
 			default: break;
 		}
 		setChanged();
@@ -271,7 +264,352 @@ public abstract class Car extends Observable implements Observer{
 				road = r;
 				break;
 		}
+	}
+	public boolean enterRoundabout(int enterDir, int exitDir){
+		//enter = direction its entering from, exit = direction its exiting to
+		Timer rotationTimer1 = new Timer();
+		Timer rotationTimer2 = new Timer();
+		Timer rotationTimer3 = new Timer();
+		Timer rotationTimer4 = new Timer();
+		Timer rotationTimer5 = new Timer();
+		if(enterDir == 0 && exitDir == 0){
+			rotationTimer1.schedule(
+					new TimerTask() {
+				        @Override
+				        public void run() {
+				        	Platform.runLater(new Runnable() {
+				        		public void run() {
+						        	counter++;
+						        	curPos.x -= 0/timerRate;
+									curPos.y -= 9/timerRate;
+									carImage.setRotate(carImage.getRotate() + 90/timerRate);
+									carImage.setX(curPos.x);
+									carImage.setY(curPos.y);
+									if(counter >= timerRate){
+										rotationTimer1.cancel();
+										counter=0;
+										rotationTimer2.schedule(
+												new TimerTask() {
+											        @Override
+											        public void run() {
+											        	Platform.runLater(new Runnable() {
+											        		public void run() {
+													        	counter++;
+													        	curPos.x -= 17/timerRate;
+																curPos.y -= 18/timerRate;
+																carImage.setRotate(carImage.getRotate() - 90/timerRate);
+																carImage.setX(curPos.x);
+																carImage.setY(curPos.y);
+																if(counter >= timerRate){
+																	rotationTimer2.cancel();
+																	counter=0;
+																	rotationTimer3.schedule(
+																			new TimerTask() {
+																		        @Override
+																		        public void run() {
+																		        	Platform.runLater(new Runnable() {
+																		        		public void run() {
+																				        	counter++;
+																				        	curPos.x -= 20/timerRate;
+																							curPos.y += 18/timerRate;
+																							carImage.setRotate(carImage.getRotate() - 90/timerRate);
+																							carImage.setX(curPos.x);
+																							carImage.setY(curPos.y);
+																							if(counter >= timerRate){
+																								rotationTimer3.cancel();
+																								counter=0;
+																								rotationTimer4.schedule(
+																										new TimerTask() {
+																									        @Override
+																									        public void run() {
+																									        	Platform.runLater(new Runnable() {
+																									        		public void run() {
+																											        	counter++;
+																											        	curPos.x -= 10/timerRate;
+																														curPos.y += 9/timerRate;
+																														carImage.setRotate(carImage.getRotate() + 90/timerRate);
+																														carImage.setX(curPos.x);
+																														carImage.setY(curPos.y);
+																														if(counter >= timerRate){
+																															rotationTimer4.cancel();
+																															counter=0;
 
+																														}
+																									        		}
+																									        	});
+																									        }
+																										}, 0, 4*timerRate);
+																							}
+																		        		}
+																		        	});
+																		        }
+																			}, 0, 8*timerRate);
+																}
+											        		}
+											        	});
+											        }
+												}, 0, 8*timerRate);
+									}
+				        		}
+				        	});
+				        }
+					}, 0, 4*timerRate);
+		}
+		else if(enterDir == 0 && exitDir == 2){
+			rotationTimer1.schedule(
+					new TimerTask() {
+				        @Override
+				        public void run() {
+				        	Platform.runLater(new Runnable() {
+				        		public void run() {
+						        	counter++;
+						        	curPos.x -= 0/timerRate;
+									curPos.y -= 9/timerRate;
+									carImage.setRotate(carImage.getRotate() + 90/timerRate);
+									carImage.setX(curPos.x);
+									carImage.setY(curPos.y);
+									if(counter >= timerRate){
+										rotationTimer1.cancel();
+										counter=0;
+										rotationTimer2.schedule(
+												new TimerTask() {
+											        @Override
+											        public void run() {
+											        	Platform.runLater(new Runnable() {
+											        		public void run() {
+													        	counter++;
+													        	curPos.x -= 17/timerRate;
+																curPos.y -= 18/timerRate;
+																carImage.setRotate(carImage.getRotate() - 90/timerRate);
+																carImage.setX(curPos.x);
+																carImage.setY(curPos.y);
+																if(counter >= timerRate){
+																	rotationTimer2.cancel();
+																	counter=0;
+																	rotationTimer4.schedule(
+																			new TimerTask() {
+																		        @Override
+																		        public void run() {
+																		        	Platform.runLater(new Runnable() {
+																		        		public void run() {
+																				        	counter++;
+																				        	curPos.x -= 5/timerRate;
+																							curPos.y -= 9/timerRate;
+																							carImage.setRotate(carImage.getRotate() + 90/timerRate);
+																							carImage.setX(curPos.x);
+																							carImage.setY(curPos.y);
+																							if(counter >= timerRate){
+																								rotationTimer4.cancel();
+																								counter=0;
+
+																							}
+																		        		}
+																		        	});
+																		        }
+																			}, 0, 4*timerRate);
+																}
+											        		}
+											        	});
+											        }
+												}, 0, 8*timerRate);
+									}
+				        		}
+				        	});
+				        }
+					}, 0, 4*timerRate);
+		}
+		else if(enterDir == 2 && exitDir == 2){
+			rotationTimer1.schedule(
+					new TimerTask() {
+				        @Override
+				        public void run() {
+				        	Platform.runLater(new Runnable() {
+				        		public void run() {
+						        	counter++;
+						        	curPos.x += 0/timerRate;
+									curPos.y -= 8/timerRate;
+									carImage.setRotate(carImage.getRotate() + 90/timerRate);
+									carImage.setX(curPos.x);
+									carImage.setY(curPos.y);
+									if(counter >= timerRate){
+										rotationTimer1.cancel();
+										counter=0;
+										rotationTimer2.schedule(
+												new TimerTask() {
+											        @Override
+											        public void run() {
+											        	Platform.runLater(new Runnable() {
+											        		public void run() {
+													        	counter++;
+													        	curPos.x += 20/timerRate;
+																curPos.y -= 15/timerRate;
+																carImage.setRotate(carImage.getRotate() - 90/timerRate);
+																carImage.setX(curPos.x);
+																carImage.setY(curPos.y);
+																if(counter >= timerRate){
+																	rotationTimer2.cancel();
+																	counter=0;
+																	rotationTimer3.schedule(
+																			new TimerTask() {
+																		        @Override
+																		        public void run() {
+																		        	Platform.runLater(new Runnable() {
+																		        		public void run() {
+																				        	counter++;
+																				        	curPos.x -= 20/timerRate;
+																							curPos.y -= 25/timerRate;
+																							carImage.setRotate(carImage.getRotate() - 90/timerRate);
+																							carImage.setX(curPos.x);
+																							carImage.setY(curPos.y);
+																							if(counter >= timerRate){
+																								rotationTimer3.cancel();
+																								counter=0;
+																								rotationTimer4.schedule(
+																										new TimerTask() {
+																									        @Override
+																									        public void run() {
+																									        	Platform.runLater(new Runnable() {
+																									        		public void run() {
+																											        	counter++;
+																											        	curPos.x -= 0/timerRate;
+																														curPos.y -= 9/timerRate;
+																														carImage.setRotate(carImage.getRotate() + 90/timerRate);
+																														carImage.setX(curPos.x);
+																														carImage.setY(curPos.y);
+																														if(counter >= timerRate){
+																															rotationTimer4.cancel();
+																															counter=0;
+
+																														}
+																									        		}
+																									        	});
+																									        }
+																										}, 0, 4*timerRate);
+																							}
+																		        		}
+																		        	});
+																		        }
+																			}, 0, 8*timerRate);
+																}
+											        		}
+											        	});
+											        }
+												}, 0, 8*timerRate);
+									}
+				        		}
+				        	});
+				        }
+					}, 0, 4*timerRate);
+		}
+		else{
+			rotationTimer1.schedule(
+					new TimerTask() {
+				        @Override
+				        public void run() {
+				        	Platform.runLater(new Runnable() {
+				        		public void run() {
+						        	counter++;
+						        	curPos.x += 0/timerRate;
+									curPos.y -= 8/timerRate;
+									carImage.setRotate(carImage.getRotate() + 90/timerRate);
+									carImage.setX(curPos.x);
+									carImage.setY(curPos.y);
+									if(counter >= timerRate){
+										rotationTimer1.cancel();
+										counter=0;
+										rotationTimer2.schedule(
+												new TimerTask() {
+											        @Override
+											        public void run() {
+											        	Platform.runLater(new Runnable() {
+											        		public void run() {
+													        	counter++;
+													        	curPos.x += 20/timerRate;
+																curPos.y -= 15/timerRate;
+																carImage.setRotate(carImage.getRotate() - 90/timerRate);
+																carImage.setX(curPos.x);
+																carImage.setY(curPos.y);
+																if(counter >= timerRate){
+																	rotationTimer2.cancel();
+																	counter=0;
+																	rotationTimer3.schedule(
+																			new TimerTask() {
+																		        @Override
+																		        public void run() {
+																		        	Platform.runLater(new Runnable() {
+																		        		public void run() {
+																				        	counter++;
+																				        	curPos.x -= 20/timerRate;
+																							curPos.y -= 25/timerRate;
+																							carImage.setRotate(carImage.getRotate() - 90/timerRate);
+																							carImage.setX(curPos.x);
+																							carImage.setY(curPos.y);
+																							if(counter >= timerRate){
+																								rotationTimer3.cancel();
+																								counter=0;
+																								rotationTimer4.schedule(
+																										new TimerTask() {
+																									        @Override
+																									        public void run() {
+																									        	Platform.runLater(new Runnable() {
+																									        		public void run() {
+																											        	counter++;
+																											        	curPos.x -= 20/timerRate;
+																														curPos.y += 18/timerRate;
+																														carImage.setRotate(carImage.getRotate() - 90/timerRate);
+																														carImage.setX(curPos.x);
+																														carImage.setY(curPos.y);
+																														if(counter >= timerRate){
+																															rotationTimer4.cancel();
+																															counter=0;
+																															rotationTimer5.schedule(
+																																	new TimerTask() {
+																																        @Override
+																																        public void run() {
+																																        	Platform.runLater(new Runnable() {
+																																        		public void run() {
+																																		        	counter++;
+																																		        	curPos.x -= 10/timerRate;
+																																					curPos.y += 7/timerRate;
+																																					carImage.setRotate(carImage.getRotate()+ 90/timerRate);
+																																					carImage.setX(curPos.x);
+																																					carImage.setY(curPos.y);
+																																					if(counter >= timerRate){
+																																						rotationTimer5.cancel();
+																																						counter=0;
+
+																																					}
+																																        		}
+																																        	});
+																																        }
+																																	}, 0, 4*timerRate);
+
+																														}
+																									        		}
+																									        	});
+																									        }
+																										}, 0, 8*timerRate);
+																							}
+																		        		}
+																		        	});
+																		        }
+																			}, 0, 8*timerRate);
+																}
+											        		}
+											        	});
+											        }
+												}, 0, 8*timerRate);
+									}
+				        		}
+				        	});
+				        }
+					}, 0, 4*timerRate);
+		}
+
+
+
+
+		return false;
 
 	}
 	public int getNextDirection(){
