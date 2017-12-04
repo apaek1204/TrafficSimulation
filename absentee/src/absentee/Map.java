@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -25,7 +27,7 @@ public class Map {
 		this.startPoint = new EntryPoint(new Point(100,0));
 		this.startRoad = new Road(100,new Point(100,0), new Point(100,100),3);
 		this.startPoint.addRoad(this.startRoad);
-		this.startInt = new Intersection(new Stoplight(0,0),new Point(100,100));
+		this.startInt = new Intersection(new Stoplight(0,1),new Point(100,100));
 		this.startRoad.addIntersection(this.startInt);
 		Road a = new Road(100,new Point(0,100), new Point(100,100),1);
 		Road b = new Road(240,new Point(100,100), new Point(340,100),1);
@@ -39,7 +41,7 @@ public class Map {
 		Road j = new Road(100,new Point(340,100), new Point(340,0),2);
 		Road j1 = new Road(240,new Point(340,100), new Point(580,100),1);
 		Road j2 = new Road(240,new Point(340,320), new Point(340,100),2);
-		Road k = new Road(240,new Point(580,340), new Point(380,340),0);
+		Road k = new Road(240,new Point(580,340), new Point(360,340),0);
 		Road l = new Road(240,new Point(340,580), new Point(340,360),2);
 		Road m = new Road(240,new Point(340,580), new Point(580,580),1);
 		Road n = new Road(170,new Point(340,750), new Point(340,580),2);
@@ -52,21 +54,21 @@ public class Map {
 		Road u = new Road(170,new Point(580,580), new Point(580,750),3);
 
 		this.oneround = new Roundabout(new Point (340,340));
-		this.startRoads.add(a);
+//		this.startRoads.add(a);
 		this.startRoads.add(this.startRoad);
-		this.startRoads.add(g);
+//		this.startRoads.add(g);
 		this.startRoads.add(n);
-		this.startRoads.add(r);
+//		this.startRoads.add(r);
 		this.startRoads.add(p);
 		
-		Intersection temp = new Intersection(new Stoplight(0,0), new Point(100,340));
-		Intersection temp2 = new Intersection(new Stoplight(0,0), new Point(100,580));
-		Intersection temp3 = new Intersection(new Stoplight(0,0), new Point(340,100));
+		Intersection temp = new Intersection(new Stoplight(0,1), new Point(100,340));
+		Intersection temp2 = new Intersection(new Stoplight(0,1), new Point(100,580));
+		Intersection temp3 = new Intersection(new Stoplight(0,1), new Point(340,100));
 //		Intersection temp4 = new Intersection(new Stoplight(0,0), new Point(340,340));
-		Intersection temp5 = new Intersection(new Stoplight(0,0), new Point(340,580));
-		Intersection temp6 = new Intersection(new Stoplight(0,0), new Point(580,100));
-		Intersection temp7 = new Intersection(new Stoplight(0,0), new Point(580,340));
-		Intersection temp8 = new Intersection(new Stoplight(0,0), new Point(580,580));
+		Intersection temp5 = new Intersection(new Stoplight(0,1), new Point(340,580));
+		Intersection temp6 = new Intersection(new Stoplight(0,1), new Point(580,100));
+		Intersection temp7 = new Intersection(new Stoplight(0,1), new Point(580,340));
+		Intersection temp8 = new Intersection(new Stoplight(0,1), new Point(580,580));
 		
 		j2.addIntersection(temp3);
 		b.addIntersection(temp3);
@@ -190,6 +192,9 @@ public class Map {
 	public void drawGreenInt(ObservableList<Node> root) {
 		for(int x= 5; x< 30; x+=12) {
 			for(int y = 5; y<30; y+=12) {
+				if(x==17 && y ==17) {
+					continue;
+				}
 				Rectangle rect = new Rectangle(x*20,y*20,20,20);
 				rect.setStroke(Color.GREEN);
 				rect.setFill(Color.GREEN);
@@ -201,6 +206,9 @@ public class Map {
 	public void drawRedInt(ObservableList<Node> root) {
 		for(int x= 5; x< 30; x+=12) {
 			for(int y = 5; y<30; y+=12) {
+				if(x==17 && y ==17) {
+					continue;
+				}
 				Rectangle rect = new Rectangle(x*20,y*20,20,20);
 				rect.setStroke(Color.RED);
 				rect.setFill(Color.RED);
@@ -211,6 +219,9 @@ public class Map {
 	public void drawYellowInt(ObservableList<Node> root) {
 		for(int x= 5; x< 30; x+=12) {
 			for(int y = 5; y<30; y+=12) {
+				if(x==17 && y ==17) {
+					continue;
+				}
 				Rectangle rect = new Rectangle(x*20,y*20,20,20);
 				rect.setStroke(Color.YELLOW);
 				rect.setFill(Color.YELLOW);
@@ -252,10 +263,13 @@ public class Map {
 		}
 		for(int x= 5; x< 30; x+=12) {
 			for(int y = 5; y<30; y+=12) {
-				Rectangle rect = new Rectangle(x*scale,y*scale,scale,scale);
-				rect.setStroke(Color.RED);
-				rect.setFill(Color.RED);
-				root.add(rect);
+				if(x==17 && y ==17) {
+					continue;
+				}
+					Rectangle rect = new Rectangle(x*scale,y*scale,scale,scale);
+					rect.setStroke(Color.RED);
+					rect.setFill(Color.RED);
+					root.add(rect);
 			}
 		}	
 		drawSegmentHoriz(0,5,5,root,scale);
@@ -289,6 +303,66 @@ public class Map {
 		circ = new Circle(350,350,10,Color.GREEN);
 		circ.setStroke(Color.GREEN);
 		circ.setFill(Color.GREEN);
-		root.add(circ);		
+		root.add(circ);	
+		Image tempImage = new Image("file:src/images/1.png",146,169, true, true);
+		ImageView tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(140);
+		tempView.setY(140);
+		root.add(tempView);
+		
+		tempImage = new Image("file:src/images/2.png",167,200, true, true);
+		tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(360);
+		tempView.setY(140);
+		tempView.setFitHeight(100);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
+		
+		tempImage = new Image("file:src/images/3.png",369,290, true, true);
+		tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(360);
+		tempView.setY(250);
+		tempView.setFitHeight(80);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
+		
+		tempImage = new Image("file:src/images/5.png",273,192, true, true);
+		tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(370);
+		tempView.setY(460);
+		tempView.setFitHeight(100);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
+		
+		tempImage = new Image("file:src/images/6.png",160,140, true, true);
+		tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(130);
+		tempView.setY(460);
+		tempView.setFitHeight(100);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
+		
+		tempImage = new Image("file:src/images/7.png",417,158, true, true);
+		tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(370);
+		tempView.setY(10);
+		tempView.setFitHeight(80);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
+		
+		tempImage = new Image("file:src/images/9.png",145,144, true, true);
+		tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(20);
+		tempView.setY(20);
+		tempView.setFitHeight(80);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
 	}
 }
