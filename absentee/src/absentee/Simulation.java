@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,6 +36,8 @@ public class Simulation extends Application{
 	Timer carTimer = new Timer();
 	TimerTask carTask;
 	ArrayList<Point> startPoints = new ArrayList<Point>();
+	Landmarks arr[] = Landmarks.values();
+	ArrayList<Point> landmarks = new ArrayList<Point>();
 
 	//ReschedulableTimer rTimer = new ReschedulableTimer();
 
@@ -50,6 +53,7 @@ public class Simulation extends Application{
 	int oldTime = carTime;
 	int animationTime = 100;
 	int changeOnce = 1;
+	Roundabout oneRound;
 	//JSlider slider = new JSlider(2000, 15000, carTime);
 
 
@@ -77,6 +81,14 @@ public class Simulation extends Application{
 		roadList = level_map.getRoads();
 		this.startingPoint = level_map.getEntryPoint();
 		this.oneIntersection = level_map.getIntersection();
+		this.oneRound = level_map.getRound();
+		for (Landmarks tmpL : arr)
+        {
+        	//System.out.println(tmpL.getPoint());
+        	landmarks.add(tmpL.getPoint());
+        }
+
+
 		//start = startingPoint.getPoint();
 
 		/*
@@ -206,6 +218,7 @@ public class Simulation extends Application{
 			//if(roadList.get(i).getIntsection())
 				//System.out.println("Road " + i + " has an intersection.");
 			roadList.get(i).Exit();
+			this.oneRound.Exit();
 		}
 	}
 
@@ -233,6 +246,7 @@ public class Simulation extends Application{
 	//Create a new car
 	public void makeCar(ObservableList<Node> rootNodeList)
 	{
+
 		//System.out.println("Adding a car");
 		Point size = new Point(20,35);
 
@@ -240,10 +254,54 @@ public class Simulation extends Application{
 		start = new Point2D.Double(100, 0);
 		//No destination stuff here
 		ArrayList<Point> des = new ArrayList<Point>();
+		/*
 		des.add(new Point(340,100));
 		des.add(new Point(340,340));
+		*/
+		Random randomGenerator = new Random();
+		int numChosen = randomGenerator.nextInt(3) + 1;
+		for(int i = 0; i < numChosen; i++)
+		{
+			int tmpNumber = randomGenerator.nextInt(10);
+			//while(!des.contains(landmarks.get(tmpNumber)))
+			//{
+			//tmpNumber = randomGenerator.nextInt(10);
+				des.add(landmarks.get(tmpNumber));
+			//}
+		}
 
-		Car tmpCar = factory.createBasicCar(10, 20, start,des, level_map.getRoads().get(3),size);
+
+		for(Point tmp : des)
+		{
+			System.out.println(tmp);
+		}
+		ArrayList<Road> startRoads = level_map.getStartRoads();
+		int value = randomGenerator.nextInt(startRoads.size());
+		Road temproad = startRoads.get(value);
+//		if(temproad.direction == 0 || temproad.direction == 1) {
+//			size = new Point(35,20);
+//		}
+//		switch(value) {
+//			case 0:
+//				start = new Point2D.Double(0,100);
+//				break;
+//			case 1:
+//				start = new Point2D.Double(100, 0);
+//				break;
+//			case 2:
+//				start = new Point2D.Double(0, 580);
+//				break;
+//			case 3:
+//				start = new Point2D.Double(340, 750);
+//				break;
+//			case 4:
+//				start = new Point2D.Double(750, 340);
+//				break;
+//			case 5:
+//				start = new Point2D.Double(580, 0);
+//				break;
+//		}
+		Car tmpCar = factory.createBasicCar(10, 20, start,des, roadList.get(3),size);
 		carList.add(tmpCar);
 		//this.startingPoint.Enter(tmpCar);
 

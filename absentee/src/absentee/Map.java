@@ -18,6 +18,7 @@ public class Map {
 	private EntryPoint startPoint;
 	private Road startRoad;
 	private Road nextRoad;
+	private Roundabout oneround;
 	private Intersection startInt;
 	private ArrayList<Intersection> intList = new ArrayList<Intersection>();
 	private Map() {
@@ -37,9 +38,9 @@ public class Map {
 		Road i = new Road(170,new Point(100,580), new Point(100,750),3);
 		Road j = new Road(100,new Point(340,100), new Point(340,0),2);
 		Road j1 = new Road(240,new Point(340,100), new Point(580,100),1);
-		Road j2 = new Road(240,new Point(340,340), new Point(340,100),2);
-		Road k = new Road(240,new Point(580,340), new Point(340,340),0);
-		Road l = new Road(240,new Point(340,580), new Point(340,340),2);
+		Road j2 = new Road(240,new Point(340,320), new Point(340,100),2);
+		Road k = new Road(240,new Point(580,340), new Point(380,340),0);
+		Road l = new Road(240,new Point(340,580), new Point(340,360),2);
 		Road m = new Road(240,new Point(340,580), new Point(580,580),1);
 		Road n = new Road(170,new Point(340,750), new Point(340,580),2);
 		Road o = new Road(240,new Point(580,100), new Point(580,340),3);
@@ -49,7 +50,8 @@ public class Map {
 		Road s = new Road(170,new Point(580,580), new Point(750,580),1);
 		Road t = new Road(240,new Point(580,340), new Point(580,580),3);
 		Road u = new Road(170,new Point(580,580), new Point(580,750),3);
-		
+
+		this.oneround = new Roundabout(new Point (340,340));
 		this.startRoads.add(a);
 		this.startRoads.add(this.startRoad);
 		this.startRoads.add(g);
@@ -60,7 +62,7 @@ public class Map {
 		Intersection temp = new Intersection(new Stoplight(0,0), new Point(100,340));
 		Intersection temp2 = new Intersection(new Stoplight(0,0), new Point(100,580));
 		Intersection temp3 = new Intersection(new Stoplight(0,0), new Point(340,100));
-		Intersection temp4 = new Intersection(new Stoplight(0,0), new Point(340,340));
+//		Intersection temp4 = new Intersection(new Stoplight(0,0), new Point(340,340));
 		Intersection temp5 = new Intersection(new Stoplight(0,0), new Point(340,580));
 		Intersection temp6 = new Intersection(new Stoplight(0,0), new Point(580,100));
 		Intersection temp7 = new Intersection(new Stoplight(0,0), new Point(580,340));
@@ -73,12 +75,12 @@ public class Map {
 		temp3.addRoad(j);
 		temp3.addRoad(j2);
 
-		l.addIntersection(temp4);
-		k.addIntersection(temp4);
-		temp4.addRoad(f);
-		temp4.addRoad(k);
-		temp4.addRoad(j2);
-		temp4.addRoad(l);
+		l.addRoundabout(this.oneround);
+		k.addRoundabout(this.oneround);
+		this.oneround.addRoad(f);
+		this.oneround.addRoad(k);
+		this.oneround.addRoad(j2);
+		this.oneround.addRoad(l);
 		
 		n.addIntersection(temp5);
 		h.addIntersection(temp5);
@@ -131,7 +133,7 @@ public class Map {
 		this.intList.add(temp);
 
 		this.intList.add(temp3);
-		this.intList.add(temp4);
+//		this.intList.add(temp4);
 		this.intList.add(temp5);
 		this.intList.add(temp6);
 		this.intList.add(temp7);
@@ -162,12 +164,14 @@ public class Map {
 		this.roadList.add(j2);
 	}
 
-	public ArrayList<Road> getRoads(){
-		return this.roadList;
-	}
-
 	public ArrayList<Road> getStartRoads(){
 		return this.startRoads;
+	}
+	public Roundabout getRound() {
+		return this.oneround;
+	}
+	public ArrayList<Road> getRoads(){
+		return this.roadList;
 	}
 	
 	public EntryPoint getEntryPoint() {

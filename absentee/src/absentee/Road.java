@@ -99,9 +99,25 @@ public class Road {
 	public void Exit(){
 		if(canExit()) {
 			Car nextCar = carsList.get(0);
-			if(nextCar == null || intersection == null)
+			if(intersection == null && roundabout == null && carsList.size() > 0) {
+				carsList.get(0).carImage.setX(1000);
+				carsList.get(0).curPos = new Point2D.Double(1000,0);
+				carsList.get(0).curVelocity = 0;
+				carsList.get(0).maxVelocity = 0;
+				if(carsList.size() > 1) {
+					carsList.get(0).deleteObserver(carsList.get(1));
+				}
+				carsList.remove(0);
+				if(carsList.isEmpty()){
+					lastCar = null;
+				}
+			}
+			if(nextCar == null)
 					return;
 			//System.out.println(intersection.canEnter(nextCar));
+			if(roundabout != null && intersection == null) {
+				System.out.println("roundabout is not null");
+			}
 			if(intersection != null) {
 				if(intersection.canEnter(nextCar)) {
 					//System.out.println("Trying to pop car");
@@ -114,7 +130,7 @@ public class Road {
 			}
 			if(roundabout != null) {
 				if(roundabout.canEnter(nextCar)) {
-					//System.out.println("Trying to pop car");
+					System.out.println("Trying to pop car");
 					roundabout.Enter(nextCar);
 					carsList.remove(0);
 					if(carsList.isEmpty()){
