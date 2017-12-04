@@ -19,7 +19,7 @@ public class Intersection {
 	}
 	public Boolean canEnter(Car car) {
 		//0 left, 1 right, 2 up, 3 down
-		int nextDir = car.getNextDirection();
+		int nextDir = car.road.direction;
 		if(currentCar != null) {
 			return false;
 		}
@@ -53,7 +53,7 @@ public class Intersection {
 		int nextDir = currentCar.getNextDirection(tempList);
 		currentCar.setRoad(roads.get(nextDir));
 		Road nextRoad = roads.get(nextDir);
-		currentCar.directionList.remove(0);
+//		currentCar.directionList.remove(0);
 		/*if(nextRoad.canEnter(1currentCar.size)) {
 			currentCar.curVelocity = currentCar.maxVelocity;
 			nextRoad.Enter(currentCar);

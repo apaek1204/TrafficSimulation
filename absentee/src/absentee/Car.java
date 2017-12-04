@@ -612,10 +612,10 @@ public abstract class Car extends Observable implements Observer{
 		return false;
 
 	}
-	public int getNextDirection(){
-
-		return directionList.get(0);
-	}
+//	public int getNextDirection(){
+//
+//		return directionList.get(0);
+//	}
 	public int getNextDirection(ArrayList<Road> nextRoads){
 		if(destination.size() > 0){
 			double deltaX = destination.get(0).x - curPos.x;
