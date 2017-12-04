@@ -31,8 +31,22 @@ public class Roundabout {
 		//System.out.println("Intersect Car: " + this.currentCar);
 		if(currentCar == null)
 			return;
-		int nextDir = currentCar.getNextDirection();
+		ArrayList <Road> tempList = new ArrayList<Road>();
+		for(int i=0; i<roads.size(); i++){
+			if(roads.get(i).roadClosed){
+				tempList.add(null);
+			}
+			else if(roads.get(i).direction == i){
+				tempList.add(roads.get(i));
+			}
+			else{
+				tempList.add(null);
+			}
+
+		}
+		int nextDir = currentCar.getNextDirection(tempList);
 		//currentCar.setDirection(nextDir);
+		currentCar.enterRoundabout(currentCar.road.direction, nextDir);
 		Road nextRoad = roads.get(nextDir);
 		/*if(nextRoad.canEnter(1currentCar.size)) {
 			currentCar.curVelocity = currentCar.maxVelocity;

@@ -23,10 +23,11 @@ public abstract class Car extends Observable implements Observer{
 	public Point size;
 	public Road road;
 	private int timerRate=5;
+	public String carType;
 	public ArrayList<Integer> directionList= new ArrayList<Integer>();
 
 	//public int direction = 0;	//0 = left, 1 = right, 2 = up, 3 = down
-	public Car(double maxVel, double breakDis, Point2D.Double cur, ArrayList<Point> des,Road r, Point s){
+	public Car(double maxVel, double breakDis, Point2D.Double cur, ArrayList<Point> des,Road r, Point s, String cT){
 		maxVelocity = maxVel;
 		curVelocity = maxVel;
 		curPos = cur;
@@ -34,10 +35,11 @@ public abstract class Car extends Observable implements Observer{
 		destination = des;
 		road = r;
 		size = s;
-		directionList.add(3);
-		directionList.add(3);
-		directionList.add(1);
-		directionList.add(2);
+		carType = cT;
+//		directionList.add(3);
+//		directionList.add(3);
+//		directionList.add(1);
+//		directionList.add(2);
 	}
 	boolean enter = false;
 	public Point2D.Double move(){
