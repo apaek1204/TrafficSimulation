@@ -47,32 +47,24 @@ public abstract class Car extends Observable implements Observer{
 		int length;
 		switch(road.direction){
 			//0 = left, 1 = right, 2 = up, 3 = down
-			case 0: 
+			case 0:
 				    length = Math.abs(road.getEnd().x - road.getStart().x);
-					if(road.getIntsection() && road.getLight() == 2 && Math.abs(curPos.x - road.getEnd().x) <= length / 2) {
-						curVelocity = maxVelocity / 2;
-					}
+
 					curPos.x -= curVelocity;
 					break;
-			case 1: 
+			case 1:
 					length = Math.abs(road.getEnd().x - road.getStart().x);
-					if(road.getIntsection() && road.getLight() == 2 && Math.abs(curPos.x - road.getEnd().x) <= length / 2) {
-						curVelocity = maxVelocity / 2;
-					}
+
 					curPos.x += curVelocity;
 					break;
-			case 2: 
+			case 2:
 					length = Math.abs(road.getEnd().y - road.getStart().y);
-					if(road.getIntsection() && road.getLight() == 2 && Math.abs(curPos.y - road.getEnd().y) <= length / 2) {
-						curVelocity = maxVelocity / 2;
-					}
+
 					curPos.y -= curVelocity;
 					break;
-			case 3: 
+			case 3:
 					length = Math.abs(road.getEnd().y - road.getStart().y);
-					if(road.getIntsection() && road.getLight() == 2 && Math.abs(curPos.y - road.getEnd().y) <= length / 2) {
-						curVelocity = maxVelocity / 2;
-					}
+
 					curPos.y += curVelocity;
 					break;
 

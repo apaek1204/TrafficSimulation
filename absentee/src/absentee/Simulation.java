@@ -225,10 +225,11 @@ public class Simulation extends Application{
 	//Set the image of a new car when it is made
 	public void setCarImages(Point size, ObservableList<Node> rootNodeList){
 		Image carImage = new Image("file:src/images/basicCar.png",size.x,size.y, true, true);
-		Image busImage = new Image("file:src/images/bus.png",size.x,size.y, true, true);
+		//Image busImage = new Image("file:src/images/bus.png",size.x,size.y, true, true);
 		int i = carList.size() - 1;
-		if(carList.get(i).carType == "BasicCar") carList.get(i).carImage = new ImageView(carImage);
-		else carList.get(i).carImage = new ImageView(busImage);
+		carList.get(i).carImage = new ImageView(carImage);
+		//if(carList.get(i).carType == "BasicCar") carList.get(i).carImage = new ImageView(carImage);
+		//else carList.get(i).carImage = new ImageView(busImage);
 		carList.get(i).carImage.setX(carList.get(i).curPos.x);
 		carList.get(i).carImage.setY(carList.get(i).curPos.y);
 		rootNodeList.add(carList.get(i).carImage);
