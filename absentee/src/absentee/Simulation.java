@@ -53,6 +53,7 @@ public class Simulation extends Application{
 	int oldTime = carTime;
 	int animationTime = 100;
 	int changeOnce = 1;
+	Roundabout oneRound;
 	//JSlider slider = new JSlider(2000, 15000, carTime);
 
 
@@ -80,7 +81,7 @@ public class Simulation extends Application{
 		roadList = level_map.getRoads();
 		this.startingPoint = level_map.getEntryPoint();
 		this.oneIntersection = level_map.getIntersection();
-
+		this.oneRound = level_map.getRound();
 		for (Landmarks tmpL : arr)
         {
         	//System.out.println(tmpL.getPoint());
@@ -214,6 +215,7 @@ public class Simulation extends Application{
 			//if(roadList.get(i).getIntsection())
 				//System.out.println("Road " + i + " has an intersection.");
 			roadList.get(i).Exit();
+			this.oneRound.Exit();
 		}
 	}
 
@@ -270,9 +272,33 @@ public class Simulation extends Application{
 		{
 			System.out.println(tmp);
 		}
-
-
-		Car tmpCar = factory.createBasicCar(10, 20, start,des, level_map.getRoads().get(3),size);
+		ArrayList<Road> startRoads = level_map.getStartRoads();
+		int value = randomGenerator.nextInt(startRoads.size());
+		Road temproad = startRoads.get(value);
+//		if(temproad.direction == 0 || temproad.direction == 1) {
+//			size = new Point(35,20);
+//		}
+//		switch(value) {
+//			case 0:
+//				start = new Point2D.Double(0,100);
+//				break;
+//			case 1:
+//				start = new Point2D.Double(100, 0);
+//				break;
+//			case 2:
+//				start = new Point2D.Double(0, 580);
+//				break;
+//			case 3:
+//				start = new Point2D.Double(340, 750);
+//				break;
+//			case 4:
+//				start = new Point2D.Double(750, 340);
+//				break;
+//			case 5:
+//				start = new Point2D.Double(580, 0);
+//				break;
+//		}
+		Car tmpCar = factory.createBasicCar(10, 20, start,des, roadList.get(3),size);
 		carList.add(tmpCar);
 		//this.startingPoint.Enter(tmpCar);
 

@@ -38,9 +38,9 @@ public class Map {
 		Road i = new Road(170,new Point(100,580), new Point(100,750),3);
 		Road j = new Road(100,new Point(340,100), new Point(340,0),2);
 		Road j1 = new Road(240,new Point(340,100), new Point(580,100),1);
-		Road j2 = new Road(240,new Point(340,340), new Point(340,100),2);
-		Road k = new Road(240,new Point(580,340), new Point(360,340),0);
-		Road l = new Road(240,new Point(340,580), new Point(340,340),2);
+		Road j2 = new Road(240,new Point(340,320), new Point(340,100),2);
+		Road k = new Road(240,new Point(580,340), new Point(380,340),0);
+		Road l = new Road(240,new Point(340,580), new Point(340,360),2);
 		Road m = new Road(240,new Point(340,580), new Point(580,580),1);
 		Road n = new Road(170,new Point(340,750), new Point(340,580),2);
 		Road o = new Road(240,new Point(580,100), new Point(580,340),3);
@@ -164,15 +164,14 @@ public class Map {
 		this.roadList.add(j2);
 	}
 
+	public ArrayList<Road> getStartRoads(){
+		return this.startRoads;
+	}
 	public Roundabout getRound() {
 		return this.oneround;
 	}
 	public ArrayList<Road> getRoads(){
 		return this.roadList;
-	}
-
-	public ArrayList<Road> getStartRoads(){
-		return this.startRoads;
 	}
 	
 	public EntryPoint getEntryPoint() {
