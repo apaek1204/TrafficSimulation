@@ -226,11 +226,48 @@ public class Simulation extends Application{
 	public void setCarImages(Point size, ObservableList<Node> rootNodeList){
 		Image carImage = new Image("file:src/images/basicCar.png",size.x,size.y, true, true);
 		Image busImage = new Image("file:src/images/bus.png",size.x,size.y, true, true);
+		Image busImageleft = new Image("file:src/images/busleft.png",size.x,size.y, true, true);
+		Image busImageright = new Image("file:src/images/busright.png",size.x,size.y, true, true);		
+		Image carImageleft = new Image("file:src/images/basicCarleft.png",size.x,size.y, true, true);
+		Image carImageright = new Image("file:src/images/basicCarright.png",size.x,size.y, true, true);
+
 		int i = carList.size() - 1;
+		switch(carList.get(i).road.direction) {
+			case 0:
+				if(carList.get(i).carType == "BasicCar") carList.get(i).carImage = new ImageView(carImageleft);
+				else carList.get(i).carImage = new ImageView(busImageleft);
+				break;
+			case 1:
+				if(carList.get(i).carType == "BasicCar") carList.get(i).carImage = new ImageView(carImageright);
+				else carList.get(i).carImage = new ImageView(busImageright);
+				break;
+			case 2:
+				if(carList.get(i).carType == "BasicCar") carList.get(i).carImage = new ImageView(carImage);
+				else carList.get(i).carImage = new ImageView(busImage);
+				break;				
+			case 3:
+				if(carList.get(i).carType == "BasicCar") carList.get(i).carImage = new ImageView(carImage);
+				else carList.get(i).carImage = new ImageView(busImage);
+				break;
+			default:
+				break;
+		}
 		if(carList.get(i).carType == "BasicCar") carList.get(i).carImage = new ImageView(carImage);
 		else carList.get(i).carImage = new ImageView(busImage);
+
+		switch(carList.get(i).road.direction) {
+		case 2:
+			carList.get(i).carImage.setRotate(180);
+			break;
+		case 3:
+			carList.get(i).carImage.setRotate(0);
+			break;
+		default:
+			break;
+	}
 		carList.get(i).carImage.setX(carList.get(i).curPos.x);
 		carList.get(i).carImage.setY(carList.get(i).curPos.y);
+
 		rootNodeList.add(carList.get(i).carImage);
 
 		/*
@@ -278,34 +315,26 @@ public class Simulation extends Application{
 		ArrayList<Road> startRoads = level_map.getStartRoads();
 		int value = randomGenerator.nextInt(startRoads.size());
 		Road temproad = startRoads.get(value);
-//		if(temproad.direction == 0 || temproad.direction == 1) {
-//			size = new Point(35,20);
-//		}
-//		switch(value) {
-//			case 0:
-//				start = new Point2D.Double(0,100);
-//				break;
-//			case 1:
-//				start = new Point2D.Double(100, 0);
-//				break;
-//			case 2:
-//				start = new Point2D.Double(0, 580);
-//				break;
-//			case 3:
-//				start = new Point2D.Double(340, 750);
-//				break;
-//			case 4:
-//				start = new Point2D.Double(750, 340);
-//				break;
-//			case 5:
-//				start = new Point2D.Double(580, 0);
-//				break;
-//		}
-		Car tmpCar = factory.createBasicCar(10, 20, start,des, roadList.get(3),size);
+		if(temproad.direction == 0 || temproad.direction == 1) {
+			size = new Point(35,20);
+		}
+
+		switch(value) {
+			case 0:
+				start = new Point2D.Double(100, 0);
+				break;
+			case 1:
+				start = new Point2D.Double(340, 750);
+				break;
+			case 2:
+				start = new Point2D.Double(580, 0);
+				break;
+		}
+		Car tmpCar = factory.createBasicCar(10, 20, start,des, temproad,size);
 		carList.add(tmpCar);
 		//this.startingPoint.Enter(tmpCar);
 
-		roadList.get(3).Enter(tmpCar);
+		temproad.Enter(tmpCar);
 		setCarImages(size, rootNodeList);
 	}
 
