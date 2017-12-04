@@ -57,6 +57,10 @@ public class Road {
 		lastCar = car;
 		car.deleteObservers();
 	}
+	public int getLight() {
+		return intersection.stoplight.lights[direction];
+	}
+
 	public boolean canEnter(Point carSize){
 		int totalSize = 0;
 		if(carsList.size() > 0)

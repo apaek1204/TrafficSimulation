@@ -180,8 +180,11 @@ public class Simulation extends Application{
 		if(this.oneIntersection.get(0).stoplight.lights[3] == 1) {
 			this.level_map.drawGreenInt(root.getChildren());
 		}
-		else {
+		else if(this.oneIntersection.get(0).stoplight.lights[3] == 0) {
 			this.level_map.drawRedInt(root.getChildren());
+		}
+		else {
+			this.level_map.drawYellowInt(root.getChildren());
 		}
 		//this.oneIntersection.stoplight.changeLight(0, 1);
 	}

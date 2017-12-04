@@ -204,6 +204,17 @@ public class Map {
 			}
 		}
 	}
+	public void drawYellowInt(ObservableList<Node> root) {
+		for(int x= 5; x< 30; x+=12) {
+			for(int y = 5; y<30; y+=12) {
+				Rectangle rect = new Rectangle(x*20,y*20,20,20);
+				rect.setStroke(Color.YELLOW);
+				rect.setFill(Color.YELLOW);
+				root.add(rect);
+			}
+		}
+	}
+
 
 	protected static void demoMethod()
 	{

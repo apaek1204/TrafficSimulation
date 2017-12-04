@@ -32,7 +32,6 @@ public class Intersection {
 		currentCar = car;
 		car.curVelocity=car.maxVelocity;
 	}
-
 	public void Exit() {
 		//System.out.println("Intersect Car: " + this.currentCar);
 		if(currentCar == null)

@@ -44,15 +44,36 @@ public abstract class Car extends Observable implements Observer{
 	boolean enter = false;
 	public Point2D.Double move(){
 		//every time move is called, add the current velocity to the car's position
+		int length;
 		switch(road.direction){
 			//0 = left, 1 = right, 2 = up, 3 = down
-			case 0: curPos.x -= curVelocity;
+			case 0: 
+				    length = Math.abs(road.getEnd().x - road.getStart().x);
+					if(road.getIntsection() && road.getLight() == 2 && Math.abs(curPos.x - road.getEnd().x) <= length / 2) {
+						curVelocity = maxVelocity / 2;
+					}
+					curPos.x -= curVelocity;
 					break;
-			case 1: curPos.x += curVelocity;
+			case 1: 
+					length = Math.abs(road.getEnd().x - road.getStart().x);
+					if(road.getIntsection() && road.getLight() == 2 && Math.abs(curPos.x - road.getEnd().x) <= length / 2) {
+						curVelocity = maxVelocity / 2;
+					}
+					curPos.x += curVelocity;
 					break;
-			case 2: curPos.y -= curVelocity;
+			case 2: 
+					length = Math.abs(road.getEnd().y - road.getStart().y);
+					if(road.getIntsection() && road.getLight() == 2 && Math.abs(curPos.y - road.getEnd().y) <= length / 2) {
+						curVelocity = maxVelocity / 2;
+					}
+					curPos.y -= curVelocity;
 					break;
-			case 3: curPos.y += curVelocity;
+			case 3: 
+					length = Math.abs(road.getEnd().y - road.getStart().y);
+					if(road.getIntsection() && road.getLight() == 2 && Math.abs(curPos.y - road.getEnd().y) <= length / 2) {
+						curVelocity = maxVelocity / 2;
+					}
+					curPos.y += curVelocity;
 					break;
 
 			default: break;

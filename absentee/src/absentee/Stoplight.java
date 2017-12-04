@@ -21,6 +21,9 @@ public class Stoplight{
 		lights[3] = first;*/
 		for( int i = 0; i < 4; i++) {
 			if(lights[i] == 1) {
+				lights[i] = 2;
+			}
+			else if(lights[i] == 2) {
 				lights[i] = 0;
 			}
 			else {
