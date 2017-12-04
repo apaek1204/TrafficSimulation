@@ -1,24 +1,26 @@
 package absentee;
 
+import java.awt.Point;
+
 public enum Landmarks {
-	School (1,1),
-    Hospital (1,1),
-    Stadium (1,1),
-    Bookstore (1,1),
-    Park (1,1),
-    Zoo (1,1),
-    Bank (1,1),
-    Market (1,1),
-    Restaurant(1,1),
-    Post_Office(1,1);
+	School (340,100),
+    Hospital (100,340),
+    Stadium (100,340),
+    Bookstore (100,580),
+    Park (320,340),
+    Zoo (360,340),
+    Bank (340,560),
+    Market (340,580),
+    Restaurant(560,340),
+    Post_Office(460,560);
 
 
-    private final double X;   // in kilograms
-    private final double Y; // in meters
-    Landmarks(double tmpX, double tmpY) {
+    private final int X;   // in kilograms
+    private final int Y; // in meters
+    Landmarks(int tmpX, int tmpY) {
         this.X = tmpX;
         this.Y = tmpY;
     }
-    private double getX() { return X; }
-    private double getY() { return Y; }
+    public Point getPoint() { return new Point(X,Y); }
+    //private double getY() { return Y; }
 }
