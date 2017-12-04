@@ -8,6 +8,7 @@ public class Intersection {
 	ArrayList<Road> roads;
 	Stoplight stoplight;
 	Point pos;
+	int nextDir;
 	public Intersection(Stoplight s, Point p) {
 		roads = new ArrayList<Road>();
 		stoplight = s;
@@ -31,11 +32,6 @@ public class Intersection {
 	public void Enter(Car car) {
 		currentCar = car;
 		car.curVelocity=car.maxVelocity;
-	}
-	public void Exit() {
-		//System.out.println("Intersect Car: " + this.currentCar);
-		if(currentCar == null)
-			return;
 		ArrayList <Road> tempList = new ArrayList<Road>();
 		for(int i=0; i<roads.size(); i++){
 			if(roads.get(i).roadClosed){
@@ -49,7 +45,13 @@ public class Intersection {
 			}
 
 		}
-		int nextDir = currentCar.getNextDirection(tempList);
+		nextDir = currentCar.getNextDirection(tempList);
+	}
+	public void Exit() {
+		//System.out.println("Intersect Car: " + this.currentCar);
+		if(currentCar == null)
+			return;
+
 		currentCar.setRoad(roads.get(nextDir));
 		Road nextRoad = roads.get(nextDir);
 //		currentCar.directionList.remove(0);

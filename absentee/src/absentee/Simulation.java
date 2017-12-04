@@ -272,10 +272,6 @@ public class Simulation extends Application{
 		}
 
 
-		for(Point tmp : des)
-		{
-			System.out.println(tmp);
-		}
 		ArrayList<Road> startRoads = level_map.getStartRoads();
 		int value = randomGenerator.nextInt(startRoads.size());
 		Road temproad = startRoads.get(value);

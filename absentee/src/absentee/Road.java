@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Road {
 	//private Queue<Car> cars = new LinkedList<Car>();
-	private ArrayList<Car> carsList = new ArrayList<Car>();
+	public ArrayList<Car> carsList = new ArrayList<Car>();
 	Car lastCar=null;
 	private int streetLength;
 	private Point endPoint;
@@ -116,7 +116,7 @@ public class Road {
 					return;
 			//System.out.println(intersection.canEnter(nextCar));
 			if(roundabout != null && intersection == null) {
-				System.out.println("roundabout is not null");
+				//System.out.println("roundabout is not null");
 			}
 			if(intersection != null) {
 				if(intersection.canEnter(nextCar)) {
@@ -130,7 +130,7 @@ public class Road {
 			}
 			if(roundabout != null) {
 				if(roundabout.canEnter(nextCar)) {
-					System.out.println("Trying to pop car");
+					//System.out.println("Trying to pop car");
 					roundabout.Enter(nextCar);
 					carsList.remove(0);
 					if(carsList.isEmpty()){
