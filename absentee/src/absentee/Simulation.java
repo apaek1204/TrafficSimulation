@@ -84,7 +84,6 @@ public class Simulation extends Application{
 		this.oneRound = level_map.getRound();
 		for (Landmarks tmpL : arr)
         {
-        	//System.out.println(tmpL.getPoint());
         	landmarks.add(tmpL.getPoint());
         }
 
@@ -95,6 +94,7 @@ public class Simulation extends Application{
 		{
 			case 0:
 				closeRoads.get(0).closeRoad();
+
 				System.out.println("Close: " + closeRoads.get(0).getStart() + "," + closeRoads.get(0).getEnd());
 				break;
 			case 1:
@@ -107,6 +107,7 @@ public class Simulation extends Application{
 				break;
 			case 3:
 				closeRoads.get(3).closeRoad();
+				landmarks.remove(6);
 				System.out.println("Close: " + closeRoads.get(3).getStart() + "," + closeRoads.get(3).getEnd());
 				break;
 			case 4:
@@ -275,7 +276,7 @@ public class Simulation extends Application{
 			//while(!des.contains(landmarks.get(tmpNumber)))
 			//{
 			//tmpNumber = randomGenerator.nextInt(10);
-				des.add(landmarks.get(tmpNumber));
+			des.add(landmarks.get(tmpNumber));
 			//}
 		}
 
