@@ -361,6 +361,8 @@ public abstract class Car extends Observable implements Observer{
 				        	});
 				        }
 					}, 0, 4*timerRate);
+			carImage.setRotate(-90);
+
 		}
 		else if(enterDir == 0 && exitDir == 2){
 			rotationTimer1.schedule(
@@ -424,6 +426,8 @@ public abstract class Car extends Observable implements Observer{
 				        	});
 				        }
 					}, 0, 4*timerRate);
+			carImage.setRotate(180);
+
 		}
 		else if(enterDir == 2 && exitDir == 2){
 			rotationTimer1.schedule(
@@ -507,6 +511,8 @@ public abstract class Car extends Observable implements Observer{
 				        	});
 				        }
 					}, 0, 4*timerRate);
+			carImage.setRotate(180);
+
 		}
 		else{
 			rotationTimer1.schedule(
@@ -611,6 +617,8 @@ public abstract class Car extends Observable implements Observer{
 				        	});
 				        }
 					}, 0, 4*timerRate);
+			carImage.setRotate(-90);
+
 		}
 
 
