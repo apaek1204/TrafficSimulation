@@ -109,7 +109,7 @@ public class Simulation extends Application{
 
 		setupStartPoints();
 
-		stage.setTitle("Driving in Europe");
+		stage.setTitle("Celadon City/Tokyo Drift/Detroit");
 		stage.setScene(scene);
 		stage.show();
 
@@ -275,34 +275,25 @@ public class Simulation extends Application{
 		ArrayList<Road> startRoads = level_map.getStartRoads();
 		int value = randomGenerator.nextInt(startRoads.size());
 		Road temproad = startRoads.get(value);
-//		if(temproad.direction == 0 || temproad.direction == 1) {
-//			size = new Point(35,20);
-//		}
-//		switch(value) {
-//			case 0:
-//				start = new Point2D.Double(0,100);
-//				break;
-//			case 1:
-//				start = new Point2D.Double(100, 0);
-//				break;
-//			case 2:
-//				start = new Point2D.Double(0, 580);
-//				break;
-//			case 3:
-//				start = new Point2D.Double(340, 750);
-//				break;
-//			case 4:
-//				start = new Point2D.Double(750, 340);
-//				break;
-//			case 5:
-//				start = new Point2D.Double(580, 0);
-//				break;
-//		}
-		Car tmpCar = factory.createBasicCar(10, 20, start,des, roadList.get(3),size);
+		if(temproad.direction == 0 || temproad.direction == 1) {
+			size = new Point(35,20);
+		}
+		switch(value) {
+			case 0:
+				start = new Point2D.Double(100, 0);
+				break;
+			case 1:
+				start = new Point2D.Double(340, 750);
+				break;
+			case 2:
+				start = new Point2D.Double(580, 0);
+				break;
+		}
+		Car tmpCar = factory.createBasicCar(10, 20, start,des, temproad,size);
 		carList.add(tmpCar);
 		//this.startingPoint.Enter(tmpCar);
 
-		roadList.get(3).Enter(tmpCar);
+		temproad.Enter(tmpCar);
 		setCarImages(size, rootNodeList);
 	}
 
