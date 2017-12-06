@@ -361,7 +361,7 @@ public abstract class Car extends Observable implements Observer{
 				        	});
 				        }
 					}, 0, 4*timerRate);
-			carImage.setRotate(-90);
+			carImage.setRotate(90);
 
 		}
 		else if(enterDir == 0 && exitDir == 2){

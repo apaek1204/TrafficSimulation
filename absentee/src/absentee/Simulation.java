@@ -223,26 +223,7 @@ public class Simulation extends Application{
 	}
 
 	//Set the image of a new car when it is made
-	public void setCarImages(Point size, ObservableList<Node> rootNodeList){
-		Image carImage = new Image("file:src/images/basicCar.png",size.x,size.y, true, true);
-		//Image busImage = new Image("file:src/images/bus.png",size.x,size.y, true, true);
-		int i = carList.size() - 1;
-		carList.get(i).carImage = new ImageView(carImage);
-		//if(carList.get(i).carType == "BasicCar") carList.get(i).carImage = new ImageView(carImage);
-		//else carList.get(i).carImage = new ImageView(busImage);
-		carList.get(i).carImage.setX(carList.get(i).curPos.x);
-		carList.get(i).carImage.setY(carList.get(i).curPos.y);
-		rootNodeList.add(carList.get(i).carImage);
 
-		/*
-		for(int i=0; i<carList.size(); i++){
-			carList.get(i).carImage = new ImageView(carImage);
-			carList.get(i).carImage.setX(carList.get(i).curPos.x);
-			carList.get(i).carImage.setY(carList.get(i).curPos.y);
-			rootNodeList.add(carList.get(i).carImage);
-		}
-		*/
-	}
 
 	//Create a new car
 	public void makeCar(ObservableList<Node> rootNodeList)
@@ -278,6 +259,7 @@ public class Simulation extends Application{
 		if(temproad.direction == 0 || temproad.direction == 1) {
 			size = new Point(35,20);
 		}
+		Image carImage = new Image("file:src/images/basicCar.png",size.x,size.y, true, true);
 		switch(value) {
 			case 0:
 				start = new Point2D.Double(100, 0);
@@ -290,11 +272,25 @@ public class Simulation extends Application{
 				break;
 		}
 		Car tmpCar = factory.createBasicCar(10, 20, start,des, temproad,size);
+		tmpCar.carImage = new ImageView(carImage);
+		switch(value) {
+		case 0:
+			tmpCar.carImage.setRotate(0);
+			break;
+		case 1:
+			tmpCar.carImage.setRotate(180);
+			break;
+		case 2:
+			tmpCar.carImage.setRotate(0);
+			break;
+	}
+		tmpCar.carImage.setX(tmpCar.curPos.x);
+		tmpCar.carImage.setY(tmpCar.curPos.y);
+		rootNodeList.add(tmpCar.carImage);
 		carList.add(tmpCar);
 		//this.startingPoint.Enter(tmpCar);
 
 		temproad.Enter(tmpCar);
-		setCarImages(size, rootNodeList);
 	}
 
 	//Move each car that is made
