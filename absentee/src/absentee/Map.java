@@ -16,6 +16,7 @@ public class Map {
 	final int dimensions = 50;
 	private ArrayList<Road> roadList = new ArrayList<Road>();
 	private ArrayList<Road> startRoads = new ArrayList<Road>();
+	private ArrayList<Road> closeList = new ArrayList<Road>();
 	private static Map mapSingleton = new Map(); //Make map a singleton
 	private EntryPoint startPoint;
 	private Road startRoad;
@@ -64,7 +65,7 @@ public class Map {
 		this.startRoads.add(n);
 //		this.startRoads.add(r);
 		this.startRoads.add(p);
-		
+
 		Intersection temp = new Intersection(new Stoplight(0,1), new Point(100,340));
 		Intersection temp2 = new Intersection(new Stoplight(0,1), new Point(100,580));
 		Intersection temp3 = new Intersection(new Stoplight(0,1), new Point(340,100));
@@ -75,20 +76,20 @@ public class Map {
 		Intersection temp8 = new Intersection(new Stoplight(0,1), new Point(580,580));
 		Intersection temp9 = new Intersection(new Stoplight(0,1), new Point(340,220));
 		Intersection temp10 = new Intersection(new Stoplight(0,1), new Point(100,220));
-		
+
 		j2.addIntersection(temp9);
 		temp9.addRoad(nr);
 		temp9.addRoad(dummy);
 		temp9.addRoad(j2b);
 		temp9.addRoad(j2);
-		
+
 		c.addIntersection(temp10);
 		nr.addIntersection(temp10);
 		temp10.addRoad(dummy);
 		temp10.addRoad(nr);
 		temp10.addRoad(c);
 		temp10.addRoad(c2);
-		
+
 		j2b.addIntersection(temp3);
 		b.addIntersection(temp3);
 		temp3.addRoad(b);
@@ -102,7 +103,7 @@ public class Map {
 		this.oneround.addRoad(k);
 		this.oneround.addRoad(j2);
 		this.oneround.addRoad(l);
-		
+
 		n.addIntersection(temp5);
 		h.addIntersection(temp5);
 		temp5.addRoad(h);
@@ -116,21 +117,21 @@ public class Map {
 		temp6.addRoad(q);
 		temp6.addRoad(p);
 		temp6.addRoad(o);
-		
+
 		o.addIntersection(temp7);
 		r.addIntersection(temp7);
 		temp7.addRoad(k);
 		temp7.addRoad(r);
 		temp7.addRoad(o);
 		temp7.addRoad(t);
-		
+
 		t.addIntersection(temp8);
 		m.addIntersection(temp8);
 		temp8.addRoad(m);
 		temp8.addRoad(s);
 		temp8.addRoad(t);
 		temp8.addRoad(u);
-		
+
 		c2.addIntersection(temp);
 		f.addIntersection(temp);
 		temp.addRoad(d);
@@ -189,7 +190,12 @@ public class Map {
 		this.roadList.add(j2b);
 		this.roadList.add(c2);
 
-		
+		// Add roads to closeList
+		this.closeList.add(b);
+		this.closeList.add(c);
+		this.closeList.add(e);
+		this.closeList.add(m);
+		this.closeList.add(t);
 	}
 
 	public ArrayList<Road> getStartRoads(){
@@ -201,7 +207,7 @@ public class Map {
 	public ArrayList<Road> getRoads(){
 		return this.roadList;
 	}
-	
+
 	public EntryPoint getEntryPoint() {
 		return this.startPoint;
 	}
@@ -214,7 +220,12 @@ public class Map {
 	{
 		return this.intList;
 	}
-	
+
+	public ArrayList<Road> getClosedRoads()
+	{
+		return this.closeList;
+	}
+
 	public void drawGreenInt(ObservableList<Node> root) {
 		for(int x= 5; x< 30; x+=12) {
 			for(int y = 5; y<30; y+=12) {
@@ -237,7 +248,7 @@ public class Map {
 		rect.setFill(Color.GREEN);
 		root.add(rect);
 	}
-	
+
 	public void drawRedInt(ObservableList<Node> root) {
 		for(int x= 5; x< 30; x+=12) {
 			for(int y = 5; y<30; y+=12) {
@@ -324,7 +335,7 @@ public class Map {
 					rect.setFill(Color.RED);
 					root.add(rect);
 			}
-		}	
+		}
 		drawSegmentHoriz(0,5,5,root,scale);
 		drawSegmentHoriz(30,38,5,root,scale);
 		drawSegmentHoriz(0,5,17,root,scale);
@@ -357,14 +368,14 @@ public class Map {
 		circ = new Circle(350,350,10,Color.GREEN);
 		circ.setStroke(Color.GREEN);
 		circ.setFill(Color.GREEN);
-		root.add(circ);	
+		root.add(circ);
 		Image tempImage = new Image("file:src/images/1.png",146,169, true, true);
 		ImageView tempView = new ImageView();
 		tempView.setImage(tempImage);
 		tempView.setX(140);
 		tempView.setY(370);
 		root.add(tempView);
-		
+
 		tempImage = new Image("file:src/images/2.png",167,200, true, true);
 		tempView = new ImageView();
 		tempView.setImage(tempImage);
@@ -373,7 +384,7 @@ public class Map {
 		tempView.setFitHeight(100);
 		tempView.setPreserveRatio(true);
 		root.add(tempView);
-		
+
 		tempImage = new Image("file:src/images/3.png",369,290, true, true);
 		tempView = new ImageView();
 		tempView.setImage(tempImage);
@@ -382,7 +393,7 @@ public class Map {
 		tempView.setFitHeight(80);
 		tempView.setPreserveRatio(true);
 		root.add(tempView);
-		
+
 		tempImage = new Image("file:src/images/5.png",273,192, true, true);
 		tempView = new ImageView();
 		tempView.setImage(tempImage);
@@ -391,7 +402,7 @@ public class Map {
 		tempView.setFitHeight(100);
 		tempView.setPreserveRatio(true);
 		root.add(tempView);
-		
+
 		tempImage = new Image("file:src/images/6.png",160,140, true, true);
 		tempView = new ImageView();
 		tempView.setImage(tempImage);
@@ -400,7 +411,7 @@ public class Map {
 		tempView.setFitHeight(100);
 		tempView.setPreserveRatio(true);
 		root.add(tempView);
-		
+
 		tempImage = new Image("file:src/images/7.png",417,158, true, true);
 		tempView = new ImageView();
 		tempView.setImage(tempImage);
@@ -409,7 +420,7 @@ public class Map {
 		tempView.setFitHeight(80);
 		tempView.setPreserveRatio(true);
 		root.add(tempView);
-		
+
 		tempImage = new Image("file:src/images/9.png",145,144, true, true);
 		tempView = new ImageView();
 		tempView.setImage(tempImage);

@@ -88,14 +88,31 @@ public class Simulation extends Application{
         	landmarks.add(tmpL.getPoint());
         }
 
-		ArrayList<Road> closeRoads = level_map.getRoads();
+		ArrayList<Road> closeRoads = level_map.getClosedRoads();
 		Random closeRGenerator = new Random();
 		int numChosen = closeRGenerator.nextInt(5);
 		switch(numChosen)
 		{
 			case 0:
-
-
+				closeRoads.get(0).closeRoad();
+				System.out.println("Close: " + closeRoads.get(0).getStart() + "," + closeRoads.get(0).getEnd());
+				break;
+			case 1:
+				closeRoads.get(1).closeRoad();
+				System.out.println("Close: " + closeRoads.get(1).getStart() + "," + closeRoads.get(1).getEnd());
+				break;
+			case 2:
+				closeRoads.get(2).closeRoad();
+				System.out.println("Close: " + closeRoads.get(2).getStart() + "," + closeRoads.get(2).getEnd());
+				break;
+			case 3:
+				closeRoads.get(3).closeRoad();
+				System.out.println("Close: " + closeRoads.get(3).getStart() + "," + closeRoads.get(3).getEnd());
+				break;
+			case 4:
+				closeRoads.get(4).closeRoad();
+				System.out.println("Close: " + closeRoads.get(4).getStart() + "," + closeRoads.get(4).getEnd());
+				break;
 		}
 
 
