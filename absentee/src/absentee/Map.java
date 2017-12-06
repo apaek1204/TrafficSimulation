@@ -227,6 +227,15 @@ public class Map {
 				root.add(rect);
 			}
 		}
+		Rectangle rect = new Rectangle(5*20,11*20,20,20);
+		rect.setStroke(Color.GREEN);
+		rect.setFill(Color.GREEN);
+		root.add(rect);
+
+		rect = new Rectangle(17*20,11*20,20,20);
+		rect.setStroke(Color.GREEN);
+		rect.setFill(Color.GREEN);
+		root.add(rect);
 	}
 	
 	public void drawRedInt(ObservableList<Node> root) {
@@ -241,6 +250,15 @@ public class Map {
 				root.add(rect);
 			}
 		}
+		Rectangle rect = new Rectangle(5*20,11*20,20,20);
+		rect.setStroke(Color.RED);
+		rect.setFill(Color.RED);
+		root.add(rect);
+
+		rect = new Rectangle(17*20,11*20,20,20);
+		rect.setStroke(Color.RED);
+		rect.setFill(Color.RED);
+		root.add(rect);
 	}
 	public void drawYellowInt(ObservableList<Node> root) {
 		for(int x= 5; x< 30; x+=12) {
@@ -254,6 +272,15 @@ public class Map {
 				root.add(rect);
 			}
 		}
+		Rectangle rect = new Rectangle(5*20,11*20,20,20);
+		rect.setStroke(Color.YELLOW);
+		rect.setFill(Color.YELLOW);
+		root.add(rect);
+
+		rect = new Rectangle(17*20,11*20,20,20);
+		rect.setStroke(Color.YELLOW);
+		rect.setFill(Color.YELLOW);
+		root.add(rect);
 	}
 
 
