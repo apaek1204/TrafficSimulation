@@ -88,6 +88,16 @@ public class Simulation extends Application{
         	landmarks.add(tmpL.getPoint());
         }
 
+		ArrayList<Road> closeRoads = level_map.getRoads();
+		Random closeRGenerator = new Random();
+		int numChosen = closeRGenerator.nextInt(5);
+		switch(numChosen)
+		{
+			case 0:
+
+
+		}
+
 
 		//start = startingPoint.getPoint();
 
