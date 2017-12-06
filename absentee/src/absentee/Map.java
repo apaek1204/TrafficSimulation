@@ -31,7 +31,7 @@ public class Map {
 		this.startRoad.addIntersection(this.startInt);
 		Road a = new Road(100,new Point(0,100), new Point(100,100),1);
 		Road b = new Road(240,new Point(100,100), new Point(340,100),1);
-		Road c = new Road(240,new Point(100,100), new Point(100,340),3);
+		Road c = new Road(120,new Point(100,100), new Point(100,220),3);
 		Road d = new Road(100,new Point(100,340), new Point(0,340),0);
 		Road e = new Road(240,new Point(100,340), new Point(100,580),3);
 		Road f = new Road(240,new Point(340,340), new Point(100,340),0);
@@ -40,7 +40,7 @@ public class Map {
 		Road i = new Road(170,new Point(100,580), new Point(100,750),3);
 		Road j = new Road(100,new Point(340,100), new Point(340,0),2);
 		Road j1 = new Road(240,new Point(340,100), new Point(580,100),1);
-		Road j2 = new Road(240,new Point(340,320), new Point(340,100),2);
+		Road j2 = new Road(100,new Point(340,320), new Point(340,220),2);
 		Road k = new Road(240,new Point(580,340), new Point(360,340),0);
 		Road l = new Road(240,new Point(340,580), new Point(340,360),2);
 		Road m = new Road(240,new Point(340,580), new Point(580,580),1);
@@ -52,6 +52,10 @@ public class Map {
 		Road s = new Road(170,new Point(580,580), new Point(750,580),1);
 		Road t = new Road(240,new Point(580,340), new Point(580,580),3);
 		Road u = new Road(170,new Point(580,580), new Point(580,750),3);
+		Road c2 = new Road(120,new Point(100,220), new Point(100,340),3);
+		Road j2b = new Road(120,new Point(340,220), new Point(340,100),2);
+		Road nr = new Road(240,new Point(340,220), new Point(100,220),0);
+		Road dummy = new Road(0,new Point(340,220), new Point(340,220),0);
 
 		this.oneround = new Roundabout(new Point (340,340));
 //		this.startRoads.add(a);
@@ -69,8 +73,23 @@ public class Map {
 		Intersection temp6 = new Intersection(new Stoplight(0,1), new Point(580,100));
 		Intersection temp7 = new Intersection(new Stoplight(0,1), new Point(580,340));
 		Intersection temp8 = new Intersection(new Stoplight(0,1), new Point(580,580));
+		Intersection temp9 = new Intersection(new Stoplight(0,1), new Point(340,220));
+		Intersection temp10 = new Intersection(new Stoplight(0,1), new Point(100,220));
 		
-		j2.addIntersection(temp3);
+		j2.addIntersection(temp9);
+		temp9.addRoad(nr);
+		temp9.addRoad(dummy);
+		temp9.addRoad(j2b);
+		temp9.addRoad(j2);
+		
+		c.addIntersection(temp10);
+		nr.addIntersection(temp10);
+		temp10.addRoad(dummy);
+		temp10.addRoad(nr);
+		temp10.addRoad(c);
+		temp10.addRoad(c2);
+		
+		j2b.addIntersection(temp3);
 		b.addIntersection(temp3);
 		temp3.addRoad(b);
 		temp3.addRoad(j1);
@@ -112,7 +131,7 @@ public class Map {
 		temp8.addRoad(t);
 		temp8.addRoad(u);
 		
-		c.addIntersection(temp);
+		c2.addIntersection(temp);
 		f.addIntersection(temp);
 		temp.addRoad(d);
 		temp.addRoad(f);
@@ -140,6 +159,8 @@ public class Map {
 		this.intList.add(temp6);
 		this.intList.add(temp7);
 		this.intList.add(temp8);
+		this.intList.add(temp9);
+		this.intList.add(temp10);
 		this.roadList.add(a);
 		this.roadList.add(b);
 		this.roadList.add(c);
@@ -164,6 +185,11 @@ public class Map {
 		this.roadList.add(u);
 		this.roadList.add(j1);
 		this.roadList.add(j2);
+		this.roadList.add(nr);
+		this.roadList.add(j2b);
+		this.roadList.add(c2);
+
+		
 	}
 
 	public ArrayList<Road> getStartRoads(){
@@ -286,6 +312,7 @@ public class Map {
 		drawSegmentVert(30,38,29,root,scale);
 		drawSegmentHoriz(6,17,5,root,scale);
 		drawSegmentHoriz(18,29,5,root,scale);
+		drawSegmentHoriz(6,17,11,root,scale);
 		drawSegmentHoriz(6,17,17,root,scale);
 		drawSegmentHoriz(18,29,17,root,scale);
 		drawSegmentHoriz(6,17,29,root,scale);
@@ -308,7 +335,7 @@ public class Map {
 		ImageView tempView = new ImageView();
 		tempView.setImage(tempImage);
 		tempView.setX(140);
-		tempView.setY(140);
+		tempView.setY(370);
 		root.add(tempView);
 		
 		tempImage = new Image("file:src/images/2.png",167,200, true, true);
@@ -342,7 +369,7 @@ public class Map {
 		tempView = new ImageView();
 		tempView.setImage(tempImage);
 		tempView.setX(130);
-		tempView.setY(460);
+		tempView.setY(620);
 		tempView.setFitHeight(100);
 		tempView.setPreserveRatio(true);
 		root.add(tempView);
