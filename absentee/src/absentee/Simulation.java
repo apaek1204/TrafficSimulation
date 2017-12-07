@@ -20,6 +20,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -90,28 +92,60 @@ public class Simulation extends Application{
 
 		ArrayList<Road> closeRoads = level_map.getClosedRoads();
 		Random closeRGenerator = new Random();
-		int numChosen = closeRGenerator.nextInt(5);
+		int numChosen = closeRGenerator.nextInt(4);
+		Image tempImage;
+		ImageView tempView;
 		switch(numChosen)
 		{
 			case 0:
+				tempImage = new Image("file:src/images/snorlax.jpg",145,144, true, true);
+				tempView = new ImageView();
+				tempView.setImage(tempImage);
+				tempView.setX(closeRoads.get(0).getStart().x+100);
+				tempView.setY(closeRoads.get(0).getStart().y-20);
+				tempView.setFitHeight(60);
+				tempView.setPreserveRatio(true);
+				root.getChildren().add(tempView);
 				closeRoads.get(0).closeRoad();
 				System.out.println("Close: " + closeRoads.get(0).getStart() + "," + closeRoads.get(0).getEnd());
 				break;
 			case 1:
+				tempImage = new Image("file:src/images/snorlax.jpg",145,144, true, true);
+				tempView = new ImageView();
+				tempView.setImage(tempImage);
+				tempView.setX(closeRoads.get(1).getStart().x-20);
+				tempView.setY(closeRoads.get(1).getStart().y+40);
+				tempView.setFitHeight(60);
+				tempView.setPreserveRatio(true);
+				root.getChildren().add(tempView);
 				closeRoads.get(1).closeRoad();
 				System.out.println("Close: " + closeRoads.get(1).getStart() + "," + closeRoads.get(1).getEnd());
 				break;
 			case 2:
+				tempImage = new Image("file:src/images/snorlax.jpg",145,144, true, true);
+				tempView = new ImageView();
+				tempView.setImage(tempImage);
+				tempView.setX(closeRoads.get(2).getStart().x+100);
+				tempView.setY(closeRoads.get(2).getStart().y-20);
+				tempView.setFitHeight(60);
+				tempView.setPreserveRatio(true);
+				root.getChildren().add(tempView);
+				System.out.println("2");
 				closeRoads.get(2).closeRoad();
 				System.out.println("Close: " + closeRoads.get(2).getStart() + "," + closeRoads.get(2).getEnd());
 				break;
 			case 3:
+
+				tempImage = new Image("file:src/images/snorlax.jpg",145,144, true, true);
+				tempView = new ImageView();
+				tempView.setImage(tempImage);
+				tempView.setX(closeRoads.get(3).getStart().x-20);
+				tempView.setY(closeRoads.get(3).getStart().y+100);
+				tempView.setFitHeight(60);
+				tempView.setPreserveRatio(true);
+				root.getChildren().add(tempView);
 				closeRoads.get(3).closeRoad();
 				System.out.println("Close: " + closeRoads.get(3).getStart() + "," + closeRoads.get(3).getEnd());
-				break;
-			case 4:
-				closeRoads.get(4).closeRoad();
-				System.out.println("Close: " + closeRoads.get(4).getStart() + "," + closeRoads.get(4).getEnd());
 				break;
 		}
 

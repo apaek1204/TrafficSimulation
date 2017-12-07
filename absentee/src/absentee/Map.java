@@ -193,7 +193,6 @@ public class Map {
 		// Add roads to closeList
 		this.closeList.add(b);
 		this.closeList.add(c);
-		this.closeList.add(e);
 		this.closeList.add(m);
 		this.closeList.add(t);
 	}
