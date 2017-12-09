@@ -15,9 +15,11 @@ public class Intersection {
 		currentCar = null;
 		pos = p;
 	}
+	//Connect road to intersection
 	public void addRoad(Road r) {
 		this.roads.add(r);
 	}
+	//If intersection does not have a car in it and current stoplight is green, allow car to enter
 	public Boolean canEnter(Car car) {
 		//0 left, 1 right, 2 up, 3 down
 		int nextDir = car.road.direction;
@@ -29,6 +31,7 @@ public class Intersection {
 
 		return true;
 	}
+	//enter a car into intersection
 	public void Enter(Car car) {
 		currentCar = car;
 		car.curVelocity=car.maxVelocity;
@@ -47,19 +50,13 @@ public class Intersection {
 		}
 		nextDir = currentCar.getNextDirection(tempList);
 	}
+	//make a car exit intersection
 	public void Exit() {
-		//System.out.println("Intersect Car: " + this.currentCar);
 		if(currentCar == null)
 			return;
 
 		currentCar.setRoad(roads.get(nextDir));
 		Road nextRoad = roads.get(nextDir);
-//		currentCar.directionList.remove(0);
-		/*if(nextRoad.canEnter(1currentCar.size)) {
-			currentCar.curVelocity = currentCar.maxVelocity;
-			nextRoad.Enter(currentCar);
-			currentCar = null;
-		}*/
 		if(currentCar != null){
 			nextRoad.Enter(currentCar);
 			currentCar = null;

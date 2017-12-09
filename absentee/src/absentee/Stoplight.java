@@ -11,14 +11,9 @@ public class Stoplight{
 		lights[2] = ud;
 		lights[3] = ud;
 	}
+	//swap the lights of the stoplight
 	public void swap()
 	{
-/*		int first = lights[0];
-		int second = lights[2];
-		lights[0] = second;
-		lights[1] = second;
-		lights[2] = first;
-		lights[3] = first;*/
 		for( int i = 0; i < 4; i++) {
 			if(lights[i] == 1) {
 				lights[i] = 2;
@@ -31,6 +26,7 @@ public class Stoplight{
 			}
 		}
 	}
+	//change the stoplight
 	public void changeLight(int lr, int ud) {
 		lights[0] = lr;
 		lights[1] = lr;
