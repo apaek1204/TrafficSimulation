@@ -50,6 +50,7 @@ public class Road {
 		return false;
 	}
 	public void Enter(Car car){
+		//enter the intersection. If theres a car already in the intersection add the new car as an observer of old car
 		if(lastCar != null){
 			lastCar.addObserver(car);
 		}
@@ -62,6 +63,7 @@ public class Road {
 	}
 
 	public boolean canEnter(Point carSize){
+		//check if the road is physically full (sum of sizes of cars >= size of road
 		int totalSize = 0;
 		if(carsList.size() > 0)
 		{
@@ -97,6 +99,7 @@ public class Road {
 	}
 
 	public void Exit(){
+		//check if its possible to exit, then it adds to the connected intersection
 		if(canExit()) {
 			Car nextCar = carsList.get(0);
 			if(intersection == null && roundabout == null && carsList.size() > 0) {

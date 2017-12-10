@@ -62,8 +62,10 @@ public abstract class Car extends Observable implements Observer{
 
 			default: break;
 		}
+		//observer stuff
 		setChanged();
 		notifyObservers();
+		//pop destinations if possible
 		if(destination.size() > 0){
 			if(curPos.x <= destination.get(0).x && curPos.x + size.x >= destination.get(0).x && curPos.y <= destination.get(0).y && curPos.y + size.y >= destination.get(0).y){
 			popDestination();
@@ -74,6 +76,7 @@ public abstract class Car extends Observable implements Observer{
 	int counter = 0;
 
 	public void setRoad(Road r){
+		//set the next road. rotate the car using a timer
 		//changes car image based on new direction
 		Timer rotationTimer = new Timer();
 		switch(r.direction){
@@ -273,6 +276,7 @@ public abstract class Car extends Observable implements Observer{
 		}
 	}
 	public boolean enterRoundabout(int enterDir, int exitDir){
+		//Timers nested inside other timers to rotate the car in different directions to make it seem smoother
 		//enter = direction its entering from, exit = direction its exiting to
 		Timer rotationTimer1 = new Timer();
 		Timer rotationTimer2 = new Timer();
@@ -627,11 +631,8 @@ public abstract class Car extends Observable implements Observer{
 		return false;
 
 	}
-//	public int getNextDirection(){
-//
-//		return directionList.get(0);
-//	}
 	public int getNextDirection(ArrayList<Road> nextRoads){
+		//test to see if deltaX or deltaY is bigger, then choose to move towards the destination in that direction
 		if(destination.size() > 0){
 			double deltaX = destination.get(0).x - curPos.x;
 			double deltaY = destination.get(0).y - curPos.y;
