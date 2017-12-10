@@ -12,7 +12,7 @@ public class TestLight {
 		s.swap();
 		s.swap();
 		s.swap();
-		assert(s.lights[3] == 1);
+		assert(s.lights[3] == 0);
 		//fail("Not yet implemented");
 	}
 
