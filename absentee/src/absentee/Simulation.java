@@ -94,7 +94,6 @@ public class Simulation extends Application{
 		int numChosen = closeRGenerator.nextInt(4);
 		Image tempImage;
 		ImageView tempView;
-		numChosen = 2;
 		switch(numChosen)
 		{
 			case 0:
@@ -319,9 +318,10 @@ public class Simulation extends Application{
 		int value = randomGenerator.nextInt(startRoads.size());
 		Road temproad = startRoads.get(value);
 		if(temproad.direction == 0 || temproad.direction == 1) {
-			size = new Point(35,20);
+			//size = new Point(35,20);
 		}
-		Image carImage = new Image("file:src/images/basicCar.png",size.x,size.y, true, true);
+		Image carImage;
+
 		switch(value) {
 			case 0:
 				start = new Point2D.Double(100, 0);
@@ -333,7 +333,18 @@ public class Simulation extends Application{
 				start = new Point2D.Double(580, 0);
 				break;
 		}
-		Car tmpCar = factory.createBasicCar(10, 20, start,des, temproad,size);
+		int chooseCar = randomGenerator.nextInt(3);
+		Car tmpCar;
+		if(chooseCar==2){
+			carImage = new Image("file:src/images/sportsCar1.png",size.x,size.y, true, true);
+			tmpCar = factory.createBasicCar(10, 15, start,des, temproad,size);
+
+		}
+		else{
+			carImage = new Image("file:src/images/basicCar.png",size.x,size.y, true, true);
+			tmpCar = factory.createBasicCar(10, 20, start,des, temproad,size);
+
+		}
 		tmpCar.carImage = new ImageView(carImage);
 		switch(value) {
 		case 0:
