@@ -36,6 +36,10 @@ public abstract class Car extends Observable implements Observer{
 		road = r;
 		size = s;
 		carType = cT;
+//		directionList.add(3);
+//		directionList.add(3);
+//		directionList.add(1);
+//		directionList.add(2);
 	}
 	boolean enter = false;
 	public Point2D.Double move(){

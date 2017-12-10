@@ -117,10 +117,13 @@ public class Road {
 			}
 			if(nextCar == null)
 					return;
+			//System.out.println(intersection.canEnter(nextCar));
 			if(roundabout != null && intersection == null) {
+				//System.out.println("roundabout is not null");
 			}
 			if(intersection != null) {
 				if(intersection.canEnter(nextCar)) {
+					//System.out.println("Trying to pop car");
 					intersection.Enter(nextCar);
 					carsList.remove(0);
 					if(carsList.isEmpty()){
@@ -130,6 +133,7 @@ public class Road {
 			}
 			if(roundabout != null) {
 				if(roundabout.canEnter(nextCar)) {
+					//System.out.println("Trying to pop car");
 					roundabout.Enter(nextCar);
 					carsList.remove(0);
 					if(carsList.isEmpty()){
