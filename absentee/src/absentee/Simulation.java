@@ -94,6 +94,7 @@ public class Simulation extends Application{
 		int numChosen = closeRGenerator.nextInt(4);
 		Image tempImage;
 		ImageView tempView;
+		numChosen = 2;
 		switch(numChosen)
 		{
 			case 0:
@@ -145,7 +146,6 @@ public class Simulation extends Application{
 				tempView.setPreserveRatio(true);
 				root.getChildren().add(tempView);
 				closeRoads.get(3).closeRoad();
-				landmarks.remove(6);
 				System.out.println("Close: " + closeRoads.get(3).getStart() + "," + closeRoads.get(3).getEnd());
 				break;
 		}

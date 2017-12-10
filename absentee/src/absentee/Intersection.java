@@ -39,6 +39,8 @@ public class Intersection {
 		for(int i=0; i<roads.size(); i++){
 			if(roads.get(i).roadClosed){
 				tempList.add(null);
+				//System.out.println("road closed");
+				//System.out.println(roads.get(i).getStart() + ", " + roads.get(i).getEnd());
 			}
 			else if(roads.get(i).direction == i){
 				tempList.add(roads.get(i));

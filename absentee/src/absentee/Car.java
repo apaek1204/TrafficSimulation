@@ -25,7 +25,7 @@ public abstract class Car extends Observable implements Observer{
 	private int timerRate=5;
 	public String carType;
 	public ArrayList<Integer> directionList= new ArrayList<Integer>();
-
+	public int stuck = 0;
 	//public int direction = 0;	//0 = left, 1 = right, 2 = up, 3 = down
 	public Car(double maxVel, double breakDis, Point2D.Double cur, ArrayList<Point> des,Road r, Point s, String cT){
 		maxVelocity = maxVel;
@@ -667,6 +667,7 @@ public abstract class Car extends Observable implements Observer{
 		return road.direction;
 	}
 	public void popDestination(){
+		stuck = 0;
 		if(destination.get(0) != null){
 			destination.remove(0);
 		}

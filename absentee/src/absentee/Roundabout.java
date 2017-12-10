@@ -25,10 +25,15 @@ public class Roundabout {
 		}
 		return true;
 	}
-	
+
 	//make a car enter roundabout
 	public void Enter(Car car) {
-
+		if(car.stuck > 2){
+			car.popDestination();
+		}
+		else{
+			car.stuck++;
+		}
 		currentCar = car;
 		car.curVelocity=car.maxVelocity;
 		ArrayList <Road> tempList = new ArrayList<Road>();
@@ -67,16 +72,8 @@ public class Roundabout {
 
 		currentCar.enterRoundabout(currentCar.road.direction, nextDir);
 		Road nextRoad = roads.get(nextDir);
-		if(currentCar.road.direction == 2 && nextDir == 0){
-			System.out.println("nextDir: " + nextDir);
-			System.out.println("nextRoadDir: " + nextRoad.direction);
-			System.out.println("nextRoadStart: " + nextRoad.getStart() + " nextRoadEnd: "+ nextRoad.getEnd());
-			System.out.println("curvel: " + currentCar.curVelocity);
-			System.out.println("curPos: " + currentCar.curPos);
-		}
 		if(currentCar != null){
 			nextRoad.Enter(currentCar);
-			System.out.println("nextRoadSize: " + nextRoad.carsList.size());
 			currentCar = null;
 		}
 	}
