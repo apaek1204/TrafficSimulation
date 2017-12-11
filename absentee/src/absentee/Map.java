@@ -225,74 +225,146 @@ public class Map {
 		return this.closeList;
 	}
 
-	public void drawGreenInt(ObservableList<Node> root) {
+	public void drawYRInt(ObservableList<Node> root) {
+		System.out.println("YR DRAWING");
 		for(int x= 5; x< 30; x+=12) {
 			for(int y = 5; y<30; y+=12) {
 				if(x==17 && y ==17) {
 					continue;
 				}
-				Rectangle rect = new Rectangle(x*20,y*20,20,20);
-				rect.setStroke(Color.GREEN);
-				rect.setFill(Color.GREEN);
-				root.add(rect);
+				Image tempImage = new Image("file:src/images/yr.png",137,137, true, true);
+				ImageView tempView = new ImageView();
+				tempView.setImage(tempImage);
+				tempView.setX(x*20);
+				tempView.setY(y*20);
+				tempView.setFitHeight(20);
+				tempView.setPreserveRatio(true);
+				root.add(tempView);
 			}
 		}
-		Rectangle rect = new Rectangle(5*20,11*20,20,20);
-		rect.setStroke(Color.GREEN);
-		rect.setFill(Color.GREEN);
-		root.add(rect);
-
-		rect = new Rectangle(17*20,11*20,20,20);
-		rect.setStroke(Color.GREEN);
-		rect.setFill(Color.GREEN);
-		root.add(rect);
+		Image tempImage = new Image("file:src/images/yr.png",137,137, true, true);
+		ImageView tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(100);
+		tempView.setY(220);
+		tempView.setFitHeight(20);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
+		
+		tempImage = new Image("file:src/images/yr.png",137,137, true, true);
+		tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(340);
+		tempView.setY(220);
+		tempView.setFitHeight(20);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
 	}
+	public void drawGRInt(ObservableList<Node> root) {
 
-	public void drawRedInt(ObservableList<Node> root) {
 		for(int x= 5; x< 30; x+=12) {
 			for(int y = 5; y<30; y+=12) {
 				if(x==17 && y ==17) {
 					continue;
 				}
-				Rectangle rect = new Rectangle(x*20,y*20,20,20);
-				rect.setStroke(Color.RED);
-				rect.setFill(Color.RED);
-				root.add(rect);
+				Image tempImage = new Image("file:src/images/gr.png",137,137, true, true);
+				ImageView tempView = new ImageView();
+				tempView.setImage(tempImage);
+				tempView.setX(x*20);
+				tempView.setY(y*20);
+				tempView.setFitHeight(20);
+				tempView.setPreserveRatio(true);
+				root.add(tempView);
 			}
 		}
-		Rectangle rect = new Rectangle(5*20,11*20,20,20);
-		rect.setStroke(Color.RED);
-		rect.setFill(Color.RED);
-		root.add(rect);
-
-		rect = new Rectangle(17*20,11*20,20,20);
-		rect.setStroke(Color.RED);
-		rect.setFill(Color.RED);
-		root.add(rect);
+		Image tempImage = new Image("file:src/images/gr.png",137,137, true, true);
+		ImageView tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(100);
+		tempView.setY(220);
+		tempView.setFitHeight(20);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
+		
+		tempImage = new Image("file:src/images/gr.png",137,137, true, true);
+		tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(340);
+		tempView.setY(220);
+		tempView.setFitHeight(20);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
 	}
-	public void drawYellowInt(ObservableList<Node> root) {
+	public void drawRYInt(ObservableList<Node> root) {
+
 		for(int x= 5; x< 30; x+=12) {
 			for(int y = 5; y<30; y+=12) {
 				if(x==17 && y ==17) {
 					continue;
 				}
-				Rectangle rect = new Rectangle(x*20,y*20,20,20);
-				rect.setStroke(Color.YELLOW);
-				rect.setFill(Color.YELLOW);
-				root.add(rect);
+				Image tempImage = new Image("file:src/images/ry.png",137,137, true, true);
+				ImageView tempView = new ImageView();
+				tempView.setImage(tempImage);
+				tempView.setX(x*20);
+				tempView.setY(y*20);
+				tempView.setFitHeight(20);
+				tempView.setPreserveRatio(true);
+				root.add(tempView);
 			}
 		}
-		Rectangle rect = new Rectangle(5*20,11*20,20,20);
-		rect.setStroke(Color.YELLOW);
-		rect.setFill(Color.YELLOW);
-		root.add(rect);
-
-		rect = new Rectangle(17*20,11*20,20,20);
-		rect.setStroke(Color.YELLOW);
-		rect.setFill(Color.YELLOW);
-		root.add(rect);
+		Image tempImage = new Image("file:src/images/ry.png",137,137, true, true);
+		ImageView tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(100);
+		tempView.setY(220);
+		tempView.setFitHeight(20);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
+		
+		tempImage = new Image("file:src/images/ry.png",137,137, true, true);
+		tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(340);
+		tempView.setY(220);
+		tempView.setFitHeight(20);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
 	}
+	public void drawRGInt(ObservableList<Node> root) {
 
+		for(int x= 5; x< 30; x+=12) {
+			for(int y = 5; y<30; y+=12) {
+				if(x==17 && y ==17) {
+					continue;
+				}
+				Image tempImage = new Image("file:src/images/rg.png",137,137, true, true);
+				ImageView tempView = new ImageView();
+				tempView.setImage(tempImage);
+				tempView.setX(x*20);
+				tempView.setY(y*20);
+				tempView.setFitHeight(20);
+				tempView.setPreserveRatio(true);
+				root.add(tempView);
+			}
+		}
+		Image tempImage = new Image("file:src/images/rg.png",137,137, true, true);
+		ImageView tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(100);
+		tempView.setY(220);
+		tempView.setFitHeight(20);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
+		
+		tempImage = new Image("file:src/images/rg.png",137,137, true, true);
+		tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(340);
+		tempView.setY(220);
+		tempView.setFitHeight(20);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
+	}
 
 	protected static void demoMethod()
 	{

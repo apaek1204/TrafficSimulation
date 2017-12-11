@@ -41,6 +41,7 @@ public class Simulation extends Application{
 	Landmarks arr[] = Landmarks.values();
 	ArrayList<Point> landmarks = new ArrayList<Point>();
 
+	//ReschedulableTimer rTimer = new ReschedulableTimer();
 
 	EntryPoint startingPoint;
 	int scale = 20;
@@ -55,6 +56,7 @@ public class Simulation extends Application{
 	int animationTime = 100;
 	int changeOnce = 1;
 	Roundabout oneRound;
+	//JSlider slider = new JSlider(2000, 15000, carTime);
 
 
 	public static void main(String[] args) {
@@ -82,7 +84,6 @@ public class Simulation extends Application{
 		this.startingPoint = level_map.getEntryPoint();
 		this.oneIntersection = level_map.getIntersection();
 		this.oneRound = level_map.getRound();
-		//Make landmarks for the cars
 		for (Landmarks tmpL : arr)
         {
         	landmarks.add(tmpL.getPoint());
@@ -105,6 +106,8 @@ public class Simulation extends Application{
 				tempView.setPreserveRatio(true);
 				root.getChildren().add(tempView);
 				closeRoads.get(0).closeRoad();
+
+				System.out.println("Close: " + closeRoads.get(0).getStart() + "," + closeRoads.get(0).getEnd());
 				break;
 			case 1:
 				tempImage = new Image("file:src/images/snorlax.jpg",145,144, true, true);
@@ -116,6 +119,7 @@ public class Simulation extends Application{
 				tempView.setPreserveRatio(true);
 				root.getChildren().add(tempView);
 				closeRoads.get(1).closeRoad();
+				System.out.println("Close: " + closeRoads.get(1).getStart() + "," + closeRoads.get(1).getEnd());
 				break;
 			case 2:
 				tempImage = new Image("file:src/images/snorlax.jpg",145,144, true, true);
@@ -126,7 +130,9 @@ public class Simulation extends Application{
 				tempView.setFitHeight(60);
 				tempView.setPreserveRatio(true);
 				root.getChildren().add(tempView);
+				System.out.println("2");
 				closeRoads.get(2).closeRoad();
+				System.out.println("Close: " + closeRoads.get(2).getStart() + "," + closeRoads.get(2).getEnd());
 				break;
 			case 3:
 
@@ -139,10 +145,23 @@ public class Simulation extends Application{
 				tempView.setPreserveRatio(true);
 				root.getChildren().add(tempView);
 				closeRoads.get(3).closeRoad();
+				System.out.println("Close: " + closeRoads.get(3).getStart() + "," + closeRoads.get(3).getEnd());
 				break;
 		}
 
 
+		//start = startingPoint.getPoint();
+
+		/*
+		slider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+                    System.out.println(new_val.doubleValue());
+                    opacityValue.setText(String.format("%.2f", new_val));
+            }
+        });
+        */
+		//slider.setShowTickLabels(true);
 		slider.setShowTickMarks(true);
 		slider.setMajorTickUnit(1000f);
         slider.setBlockIncrement(100f);
@@ -155,7 +174,16 @@ public class Simulation extends Application{
 		stage.setScene(scene);
 		stage.show();
 
+		/* Old TImer for reference
+		new AnimationTimer(){
+			@Override
+			public void handle(long now) {
+				//runGame(root.getChildren());
+			}
+		}.start();
+		*/
 
+		// Here is another timer that is an extension of Animation Timer and slows it down.  (See class AnimationTimerExtension.java)
 		new AnimationTimerExtension(100){ //Handles overall running of the simulation
 			@Override
 			public void handle() {
@@ -165,23 +193,47 @@ public class Simulation extends Application{
 			}
 		}.start();
 
-		new AnimationTimerExtension(3000){ //Handles lights in the simulation
+		new AnimationTimerExtension(3000){ //Handles overall running of the simulation
 			@Override
 			public void handle() {
 				changeLights(root.getChildren());
 			}
 		}.start();
 
-		carTimer.schedule(carTask = new TimerTask() {//Handles creation of cars
+		carTimer.schedule(carTask = new TimerTask() {
 		    public void run() {
 		         Platform.runLater(new Runnable() {
 		            public void run() {
 		                makeCar(root.getChildren());
+		            	//label.update();
+		                //javafxcomponent.doSomething();
 		            }
 		        });
 		    }
 		}, carTime, carTime);
 
+		/*
+		carTimer.schedule(
+			new TimerTask() {
+
+	        @Override
+	        public void run() {
+	            makeCar(root.getChildren());
+	        }
+		}, carTime, carTime);
+		*/
+
+		/*
+		new AnimationTimerExtension(carTime){//Handles creation of a new car at set intervals
+			@Override
+			public void handle() {
+				//if(carList.size()<1)
+				makeCar(root.getChildren());
+			}
+		}.start();
+		*/
+
+		//start timer /** Old Code **/
 		timer.schedule(
 	    new TimerTask() {
 
@@ -194,18 +246,43 @@ public class Simulation extends Application{
 
 	public void changeLights(ObservableList<Node> rootNodeList)
 	{
+		//System.out.println("Change Light");
 		for(int i = 0; i < oneIntersection.size();i++) {
 			this.oneIntersection.get(i).stoplight.swap();
 		}
-		if(this.oneIntersection.get(0).stoplight.lights[3] == 1) {
-			this.level_map.drawGreenInt(root.getChildren());
+		if(this.oneIntersection.get(0).stoplight.lights[1] == 0) {
+			if(this.oneIntersection.get(0).stoplight.lights[3] == 1) {
+				System.out.println("GR");
+				this.level_map.drawGRInt(root.getChildren());				
+			}
 		}
-		else if(this.oneIntersection.get(0).stoplight.lights[3] == 0) {
-			this.level_map.drawRedInt(root.getChildren());
+		if(this.oneIntersection.get(0).stoplight.lights[3] == 2) {		
+			if(this.oneIntersection.get(0).stoplight.lights[1] == 0) {
+				System.out.println("YR");
+				this.level_map.drawYRInt(root.getChildren());				
+			}
 		}
-		else {
-			this.level_map.drawYellowInt(root.getChildren());
+		else if(this.oneIntersection.get(0).stoplight.lights[1] == 1) {		
+			if(this.oneIntersection.get(0).stoplight.lights[3] == 0) {
+				System.out.println("RG");
+				this.level_map.drawRGInt(root.getChildren());				
+			}
 		}
+		else if(this.oneIntersection.get(0).stoplight.lights[1] == 2) {		
+			if(this.oneIntersection.get(0).stoplight.lights[3] == 0) {
+				System.out.println("RY");
+				this.level_map.drawRYInt(root.getChildren());				
+			}
+		}	
+//		else {
+//			System.out.println("YR");
+//			this.level_map.drawYRInt(root.getChildren());
+//		}
+		System.out.println("l " + this.oneIntersection.get(0).stoplight.lights[0]);
+		System.out.println("r " + this.oneIntersection.get(0).stoplight.lights[1]);			
+		System.out.println("u " + this.oneIntersection.get(0).stoplight.lights[2]);
+		System.out.println("d " + this.oneIntersection.get(0).stoplight.lights[3]);
+		//this.oneIntersection.stoplight.changeLight(0, 1);
 	}
 
 	public void exitEntryPoints(ObservableList<Node> rootNodeList)
@@ -218,33 +295,54 @@ public class Simulation extends Application{
 		for(int i = 0; i < oneIntersection.size();i++) {
 			this.oneIntersection.get(i).Exit();
 		}
+		//this.oneIntersection.Exit();
 		for(int i = 0; i < roadList.size(); i++)
 		{
+			//System.out.println("We are here");
+			//if(roadList.get(i).getIntsection())
+				//System.out.println("Road " + i + " has an intersection.");
 			roadList.get(i).Exit();
 			this.oneRound.Exit();
 		}
 	}
+
+	//Set the image of a new car when it is made
 
 
 	//Create a new car
 	public void makeCar(ObservableList<Node> rootNodeList)
 	{
 
+		//System.out.println("Adding a car");
 		Point size = new Point(20,35);
+
+		//System.out.println("Start: " + start);
 		start = new Point2D.Double(100, 0);
+		//No destination stuff here
 		ArrayList<Point> des = new ArrayList<Point>();
+		/*
+		des.add(new Point(340,100));
+		des.add(new Point(340,340));
+		*/
 		Random randomGenerator = new Random();
 		int numChosen = randomGenerator.nextInt(3) + 1;
 		for(int i = 0; i < numChosen; i++)
 		{
 			int tmpNumber = randomGenerator.nextInt(10);
+			//while(!des.contains(landmarks.get(tmpNumber)))
+			//{
+			//tmpNumber = randomGenerator.nextInt(10);
 			des.add(landmarks.get(tmpNumber));
+			//}
 		}
 
 
 		ArrayList<Road> startRoads = level_map.getStartRoads();
 		int value = randomGenerator.nextInt(startRoads.size());
 		Road temproad = startRoads.get(value);
+		if(temproad.direction == 0 || temproad.direction == 1) {
+			//size = new Point(35,20);
+		}
 		Image carImage;
 
 		switch(value) {
@@ -286,6 +384,8 @@ public class Simulation extends Application{
 		tmpCar.carImage.setY(tmpCar.curPos.y);
 		rootNodeList.add(tmpCar.carImage);
 		carList.add(tmpCar);
+		//this.startingPoint.Enter(tmpCar);
+
 		temproad.Enter(tmpCar);
 	}
 
@@ -306,14 +406,30 @@ public class Simulation extends Application{
 			         Platform.runLater(new Runnable() {
 			            public void run() {
 			                makeCar(root.getChildren());
+			            	//label.update();
+			                //javafxcomponent.doSomething();
 			            }
 			        });
 			    }
 			}, carTime, carTime);
 			changeOnce = 1;
 		}
+
+		//System.out.println((int)slider.getValue());
+		for(int i = 0; i < roadList.size(); i++)
+		{
+			//System.out.println("Road: " + i);
+			if(roadList.get(i).getCarSize() > 0)
+			{
+				//System.out.println("Road: " + i);
+				//System.out.println("Size: " + roadList.get(i).getCarSize());
+			}
+		}
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).move();
+			//System.out.println("Car xPosition: " + carList.get(i).curPos.x);
+			//System.out.println("Car yPosition: " + carList.get(i).curPos.y);
+			//System.out.println("Car Direction: " + carList.get(i).direction);
 			carList.get(i).carImage.setX(carList.get(i).curPos.x);
 			carList.get(i).carImage.setY(carList.get(i).curPos.y);
 		}
