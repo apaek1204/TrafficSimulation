@@ -500,5 +500,23 @@ public class Map {
 		tempView.setFitHeight(80);
 		tempView.setPreserveRatio(true);
 		root.add(tempView);
+		
+		tempImage = new Image("file:src/images/n7.png",101,80, true, true);
+		tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(620);
+		tempView.setY(170);
+		tempView.setFitHeight(80);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
+		
+		tempImage = new Image("file:src/images/n8.png",89,77, true, true);
+		tempView = new ImageView();
+		tempView.setImage(tempImage);
+		tempView.setX(620);
+		tempView.setY(390);
+		tempView.setFitHeight(80);
+		tempView.setPreserveRatio(true);
+		root.add(tempView);
 	}
 }
