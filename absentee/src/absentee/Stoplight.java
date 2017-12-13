@@ -1,9 +1,25 @@
+/**
+ * This is the class for stoplight
+ *
+ * @author      Qu Yaoxian, Nick Smith, Andrew Paek, Douglas Schmieder
+ *
+ *
+ * This work complies with the JMU Honor Code.
+ */
+
 package absentee;
 
 
 public class Stoplight{
 	//0 red, 1 green, 2 yellow
 	int[] lights;
+	
+    /**
+     * Constructor for Stoplight
+     *
+     * @param lr    integer indicating the lights for left and right, 0 red, 1 green, 2 yellow
+     * @param ud    integer indicating lights for up and down, 0 red, 1 green, 2 yellow
+     */
 	public Stoplight(int lr, int ud) {
 		lights = new int[4];
 		lights[0] = lr;
@@ -12,6 +28,10 @@ public class Stoplight{
 		lights[3] = ud;
 	}
 	//swap the lights of the stoplight
+	
+    /**
+     * swap method swaps the lights of the stoplight
+     */
 	public void swap()
 	{
 		int ud = lights[3];
@@ -59,6 +79,11 @@ public class Stoplight{
 //		}
 	}
 	//change the stoplight
+    /**
+     * changeLight method change the lights of the stoplight
+     * @param lr    integer indicating the lights for left and right, 0 red, 1 green, 2 yellow
+     * @param ud    integer indicating lights for up and down, 0 red, 1 green, 2 yellow
+     */
 	public void changeLight(int lr, int ud) {
 		lights[0] = lr;
 		lights[1] = lr;

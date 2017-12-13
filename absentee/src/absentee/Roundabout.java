@@ -1,3 +1,11 @@
+/**
+ * This is the class for roundabout
+ *
+ * @author      Qu Yaoxian, Nick Smith, Andrew Paek, Douglas Schmieder
+ *
+ *
+ * This work complies with the JMU Honor Code.
+ */
 package absentee;
 
 import java.awt.Point;
@@ -8,16 +16,36 @@ public class Roundabout {
 	ArrayList<Road> roads;
 	Point pos;
 	int nextDir;
+	
+	/**
+     * constructor for the roundabout class
+     *
+     * @param p    a Point object that represents the position of the roundabout
+     */
 	public Roundabout(Point p) {
 		roads = new ArrayList<Road>();
 		currentCar = null;
 		pos = p;
 	}
+	
 	//Connect a road to roundabout
+	
+	/**
+     * addRoad method Connect road to roundabout
+     *
+     * @param r    a Road object 
+     */
 	public void addRoad(Road r) {
 		this.roads.add(r);
 	}
 	//If there is no car in roundabout, let the next car enter
+	
+	/**
+     * canEnter allows car to enter if roundabout does not have a car in it
+     *
+     * @param car    a Car object
+     * @return       a boolean indicating whether the car can enter or not
+     */
 	public Boolean canEnter(Car car) {
 		//0 left, 1 right, 2 up, 3 down
 		if(currentCar != null) {
@@ -27,6 +55,12 @@ public class Roundabout {
 	}
 
 	//make a car enter roundabout
+	
+	/**
+     * Enter method enters a car into roundabout
+     *
+     * @param car		a car object
+     */
 	public void Enter(Car car) {
 		if(car.stuck > 2){
 			car.popDestination();
@@ -65,6 +99,11 @@ public class Roundabout {
 		nextDir = currentCar.getNextDirection(tempList);
 	}
 	//make the car currently in roundabout exit roundabout
+	
+	/**
+     * Exit method makes a car exit roundabout
+     * 	
+     */
 	public void Exit() {
 		//handle three way
 		if(currentCar == null)

@@ -89,7 +89,7 @@ public class Intersection {
 	
 	/**
      * Exit method makes a car exit inersection
-     *
+     * 	
      */
 	public void Exit() {
 		if(currentCar == null)
