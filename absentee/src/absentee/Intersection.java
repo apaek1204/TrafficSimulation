@@ -1,3 +1,12 @@
+/**
+ * This is the class for intersection
+ *
+ * @author      Qu Yaoxian, Nick Smith, Andrew Paek, Douglas Schmieder
+ *
+ *
+ * This work complies with the JMU Honor Code.
+ */
+
 package absentee;
 
 import java.awt.Point;
@@ -9,17 +18,36 @@ public class Intersection {
 	Stoplight stoplight;
 	Point pos;
 	int nextDir;
+	
+	/**
+     * constructor for the Intersection class
+     *
+     * @param s    a Stoplight object
+     * @param p    a Point object that represents the position of the intersection
+     */
 	public Intersection(Stoplight s, Point p) {
 		roads = new ArrayList<Road>();
 		stoplight = s;
 		currentCar = null;
 		pos = p;
 	}
-	//Connect road to intersection
+	
+	/**
+     * addRoad method Connect road to intersection
+     *
+     * @param r    a Road object 
+     */
 	public void addRoad(Road r) {
 		this.roads.add(r);
 	}
-	//If intersection does not have a car in it and current stoplight is green, allow car to enter
+	
+	
+	/**
+     * canEnter allows car to enter if intersection does not have a car in it and current stoplight is green
+     *
+     * @param car    a Car object
+     * @return       a boolean indicating whether the car can enter or not
+     */
 	public Boolean canEnter(Car car) {
 		//0 left, 1 right, 2 up, 3 down
 		int nextDir = car.road.direction;
@@ -32,6 +60,12 @@ public class Intersection {
 		return true;
 	}
 	//enter a car into intersection
+	
+	/**
+     * Enter method enters a car into intersection
+     *
+     * @param car		a car object
+     */
 	public void Enter(Car car) {
 		currentCar = car;
 		car.curVelocity=car.maxVelocity;
@@ -52,7 +86,11 @@ public class Intersection {
 		}
 		nextDir = currentCar.getNextDirection(tempList);
 	}
-	//make a car exit intersection
+	
+	/**
+     * Exit method makes a car exit inersection
+     *
+     */
 	public void Exit() {
 		if(currentCar == null)
 			return;
